@@ -1,0 +1,14 @@
+{
+  "name": "wp-export",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "inspect": "node inspect.js",
+    "export": "node export.js",
+    "import": "node import.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "mysql2": "^3.15.3"
+  }
+}

@@ -1,15 +1,14 @@
-import generativeAI from "./courses/generativeAI";
-import fullStack from "./courses/fullStack";
-import dataScience from "./courses/dataScience";
-import cloudComputing from "./courses/cloudComputing";
-import cyberSecurity from "./courses/cyberSecurity";
+import wpCourses from "./wpCourses";
 
-const courseData = {
-  "generative-ai": generativeAI,
-  "full-stack-development": fullStack,
-  "data-science": dataScience,
-  "cloud-computing": cloudComputing,
-  "cyber-security": cyberSecurity,
+const courseData = Object.fromEntries(wpCourses.map((course) => [course.slug, course]));
+
+export const courseList = wpCourses;
+
+export const courseAliases = {
+  "generative-ai": "introduction-to-generative-ai",
+  "cyber-security": "cyber-security-and-ethical-hacking",
+  "data-science": "machine-learning",
+  "cloud-computing": "machine-learning",
 };
 
 export default courseData;

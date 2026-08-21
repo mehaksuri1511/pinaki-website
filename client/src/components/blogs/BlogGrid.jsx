@@ -1,4 +1,4 @@
-import blogs from "../../data/blogData";
+import blogs from "../../data/allBlogs";
 import BlogCard from "./BlogCard";
 
 const BlogGrid = () => {

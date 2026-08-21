@@ -1,5 +1,14 @@
 import { Link } from "react-router-dom";
 
+function decodeHtml(text) {
+  return String(text || "")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
 const BlogCard = ({ blog }) => {
   return (
     <div
@@ -18,7 +27,7 @@ const BlogCard = ({ blog }) => {
 
       <img
         src={blog.image}
-        alt={blog.title}
+        alt={decodeHtml(blog.title)}
         className="h-60 w-full object-cover"
       />
 
@@ -31,11 +40,11 @@ const BlogCard = ({ blog }) => {
         </span>
 
         <h3 className="mt-4 text-2xl font-bold text-slate-900">
-          {blog.title}
+          {decodeHtml(blog.title)}
         </h3>
 
         <p className="mt-4 text-slate-600 leading-7">
-          {blog.description}
+          {decodeHtml(blog.description)}
         </p>
 
         <div className="mt-4 text-sm text-slate-500">

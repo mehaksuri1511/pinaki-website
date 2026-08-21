@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import ScrollToTop from "../components/common/ScrollToTop";
 import MainLayout from "../components/layout/MainLayout";
 import Landing from "../pages/Landing";
 import DevelopmentHome from "../pages/DevelopmentHome";
@@ -17,6 +18,7 @@ import TestPapersPage from "../pages/TestPapersPage";
 function AppRoutes() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
 
         {/* Landing Page */}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { X } from "lucide-react";
+import { courseList } from "../../data/courseData";
 
 const EnrollmentModal = ({
   isOpen,
@@ -139,26 +140,11 @@ const EnrollmentModal = ({
             <option value="">
               Select Course
             </option>
-
-            <option value="Generative AI">
-              Generative AI
-            </option>
-
-            <option value="Full Stack Development">
-              Full Stack Development
-            </option>
-
-            <option value="Data Science">
-              Data Science
-            </option>
-
-            <option value="Cloud Computing">
-              Cloud Computing
-            </option>
-
-            <option value="Cyber Security">
-              Cyber Security
-            </option>
+            {courseList.map((course) => (
+              <option key={course.slug} value={course.title}>
+                {course.title}
+              </option>
+            ))}
           </select>
 
           <button

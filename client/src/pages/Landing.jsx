@@ -1,95 +1,8 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import logo from "../assets/images/pinaki_logo.png";
 import PinakiAI from "../components/common/PinakiAI";
-
-const RobotCharacter = () => {
-  const [pointer, setPointer] = useState({ x: 0, y: 0 });
-  const [winkSide, setWinkSide] = useState(null);
-
-  useEffect(() => {
-    const updatePointer = (event) => {
-      setPointer({
-        x: (event.clientX / window.innerWidth - 0.5) * 2,
-        y: (event.clientY / window.innerHeight - 0.5) * 2,
-      });
-    };
-
-    window.addEventListener("pointermove", updatePointer, { passive: true });
-    return () => window.removeEventListener("pointermove", updatePointer);
-  }, []);
-
-  useEffect(() => {
-    let nextSide = "left";
-    let blinkTimeout;
-
-    const blink = () => {
-      setWinkSide(nextSide);
-      blinkTimeout = window.setTimeout(() => setWinkSide(null), 240);
-      nextSide = nextSide === "left" ? "right" : "left";
-    };
-
-    const blinkInterval = window.setInterval(blink, 2600);
-    return () => {
-      window.clearInterval(blinkInterval);
-      window.clearTimeout(blinkTimeout);
-    };
-  }, []);
-
-  const eyeStyle = {
-    transform: `translate(${pointer.x * 11}px, ${pointer.y * 9}px)`,
-  };
-
-  return (
-    <div className="landing-robot-wrap">
-      <div
-        className="landing-robot"
-        style={{ transform: `translate(${pointer.x * 5}px, ${pointer.y * 3}px)` }}
-      >
-        <div className="landing-robot-antenna" />
-        <div
-          className="landing-robot-head"
-          style={{
-            transform: `translateX(-50%) translate(${pointer.x * 4}px, ${pointer.y * 4}px) rotate(${pointer.x * 6}deg)`,
-          }}
-        >
-          <div className="landing-robot-ear landing-robot-ear-left" />
-          <div className="landing-robot-ear landing-robot-ear-right" />
-          <div
-            className={`landing-robot-eye landing-robot-eye-left ${winkSide === "left" ? "is-winking" : ""}`}
-          >
-            <span style={eyeStyle} />
-          </div>
-          <div
-            className={`landing-robot-eye landing-robot-eye-right ${winkSide === "right" ? "is-winking" : ""}`}
-          >
-            <span style={eyeStyle} />
-          </div>
-          <div className="landing-robot-blush landing-robot-blush-left" />
-          <div className="landing-robot-blush landing-robot-blush-right" />
-          <div className="landing-robot-smile" />
-        </div>
-        <div className="landing-robot-neck" />
-        <div className="landing-robot-body">
-          <div className="landing-robot-panel">
-            <span />
-            <span />
-            <span />
-          </div>
-        </div>
-        <div className="landing-robot-arm landing-robot-arm-left" />
-        <div className="landing-robot-arm landing-robot-arm-right landing-robot-wave" />
-        <div className="landing-robot-foot landing-robot-foot-left" />
-        <div className="landing-robot-foot landing-robot-foot-right" />
-      </div>
-      <div className="landing-robot-shadow" />
-    </div>
-  );
-};
 
 const CardMascot = ({ variant }) => (
   <div className={`card-mascot card-mascot-${variant}`} aria-hidden="true">
@@ -131,146 +44,123 @@ const Landing = () => {
 
       {/* Background Glow */}
       <div className="absolute inset-0">
-
-        <div className="absolute left-1/4 top-1/3 h-72 w-72 rounded-full bg-emerald-500/10 blur-[120px]" />
-
-        <div className="absolute right-1/4 bottom-1/3 h-72 w-72 rounded-full bg-blue-500/10 blur-[120px]" />
-
+        <div className="absolute left-1/4 top-1/4 h-[420px] w-[420px] rounded-full bg-emerald-500/10 blur-[140px]" />
+        <div className="absolute right-1/4 bottom-1/4 h-[420px] w-[420px] rounded-full bg-blue-500/10 blur-[140px]" />
+        <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-500/5 blur-[160px]" />
       </div>
 
       <div className="relative z-10">
 
         {/* Hero Section */}
+        <section className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 py-20 text-center lg:px-10">
 
-        <section className="mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 py-16 lg:px-10">
-
-          {/* Logo + Company Name */}
-
-          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]">
-
-            <RobotCharacter />
-
-            <div className="flex flex-col items-center lg:items-start">
-
-            <div className="landing-brand-mark flex items-center gap-6">
-
-              <img
-                src={logo}
-                alt="Pinaki IT"
-                className="h-32 w-auto md:h-40"
-              />
-
-              <div className="landing-brand-copy">
-
-                <h1 className="landing-brand-title text-5xl font-black leading-tight md:text-7xl">
-                  <span className="landing-brand-line landing-brand-line-welcome text-white">Welcome to</span>
-                  <span className="landing-brand-line landing-brand-line-name">
-                    <span className="text-white">Pinaki</span>{" "}
-                    <span className="text-emerald-400">IT !!</span>
-                  </span>
-                </h1>
-
-                <p className="landing-brand-subtitle mt-2 text-lg uppercase tracking-[0.3em] text-slate-400 md:text-2xl">
-                  Consultant Pvt. Ltd.
-                </p>
-
-              </div>
-
-            </div>
-
-            <p className="landing-brand-description mt-10 max-w-4xl text-center text-lg leading-8 text-slate-400 md:text-xl lg:text-left">
-              Empowering Education, Building Intelligent Software,
-              and Delivering AI-Driven Solutions for the Future.
-            </p>
-
+          <div className="mb-8 flex flex-col items-center gap-5 sm:flex-row">
+            <img src={logo} alt="Pinaki IT" className="h-[4.5rem] w-auto md:h-20" />
+            <span className="inline-flex items-center gap-3 rounded-md bg-emerald-400 px-5 py-2.5 font-mono text-lg font-black uppercase tracking-[0.22em] text-[#050816] md:px-6 md:py-3 md:text-xl">
+              Pinaki IT
+              <span className="h-1.5 w-1.5 rounded-full bg-[#050816]" />
+              Consultant Pvt. Ltd.
+            </span>
           </div>
 
-          </div>
+          <h1 className="max-w-5xl text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+            Education &amp; Technology,
+            <br />
+            <span className="bg-gradient-to-r from-emerald-400 via-emerald-300 to-blue-400 bg-clip-text text-transparent">
+              built with AI
+            </span>
+          </h1>
 
-         
-
-         
+          <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-400 md:text-xl">
+            Empowering education, building intelligent software, and delivering
+            AI-driven solutions for the future.
+          </p>
 
           {/* Portal Cards */}
-
-          <div className="mt-14 grid w-full gap-8 md:grid-cols-2">
+          <div className="mt-16 grid w-full gap-8 text-left md:grid-cols-2">
 
             {/* Education */}
-
             <Link
               to="/education"
               className="
                 group
-                min-h-[320px]
-                rounded-[40px]
+                relative
+                overflow-hidden
+                min-h-[300px]
+                rounded-[32px]
                 border
-                border-emerald-500/20
-                bg-white/5
+                border-white/10
+                bg-white/[0.03]
                 p-10
                 backdrop-blur-xl
                 transition-all
                 duration-500
-                hover:-translate-y-2
-                hover:border-emerald-500
-                hover:shadow-[0_0_60px_rgba(16,185,129,0.25)]
+                hover:-translate-y-1
+                hover:border-emerald-500/50
+                hover:bg-white/[0.05]
+                hover:shadow-[0_0_60px_rgba(16,185,129,0.15)]
               "
             >
+              <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-emerald-500/10 opacity-0 blur-[60px] transition-opacity duration-500 group-hover:opacity-100" />
 
               <CardMascot variant="lavender" />
 
-              <h3 className="mt-8 text-4xl font-black">
+              <h3 className="mt-8 text-3xl font-black md:text-4xl">
                 Education
               </h3>
 
-              <p className="mt-5 leading-8 text-slate-400">
+              <p className="mt-4 leading-7 text-slate-400">
                 Professional Certifications, AI Programs,
                 Placement Preparation, Industry-Oriented
                 Training and Career Development.
               </p>
 
-              <div className="mt-8 flex items-center gap-2 font-semibold text-emerald-400">
+              <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-emerald-400">
                 Enter Education Portal
-                <ArrowRight size={18} />
+                <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
               </div>
 
             </Link>
 
             {/* Development */}
-
             <Link
               to="/development"
               className="
                 group
-                min-h-[320px]
-                rounded-[40px]
+                relative
+                overflow-hidden
+                min-h-[300px]
+                rounded-[32px]
                 border
-                border-blue-500/20
-                bg-white/5
+                border-white/10
+                bg-white/[0.03]
                 p-10
                 backdrop-blur-xl
                 transition-all
                 duration-500
-                hover:-translate-y-2
-                hover:border-blue-500
-                hover:shadow-[0_0_60px_rgba(59,130,246,0.25)]
+                hover:-translate-y-1
+                hover:border-blue-500/50
+                hover:bg-white/[0.05]
+                hover:shadow-[0_0_60px_rgba(59,130,246,0.15)]
               "
             >
+              <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-blue-500/10 opacity-0 blur-[60px] transition-opacity duration-500 group-hover:opacity-100" />
 
               <CardMascot variant="sky" />
 
-              <h3 className="mt-8 text-4xl font-black">
+              <h3 className="mt-8 text-3xl font-black md:text-4xl">
                 Development
               </h3>
 
-              <p className="mt-5 leading-8 text-slate-400">
+              <p className="mt-4 leading-7 text-slate-400">
                 Custom Software Development,
                 AI Solutions, Cloud Services,
                 Automation Systems and Enterprise Applications.
               </p>
 
-              <div className="mt-8 flex items-center gap-2 font-semibold text-blue-400">
+              <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-blue-400">
                 Explore Development Services
-                <ArrowRight size={18} />
+                <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
               </div>
 
             </Link>
@@ -278,17 +168,14 @@ const Landing = () => {
           </div>
 
         </section>
- {/* Heading */}
- <PinakiAI />
 
-          <div className="mt-20 text-center">
+        <PinakiAI />
 
-            
-            <p className="mt-4 text-lg text-slate-400">
-              Learn Future Skills or Build Future Technology
-            </p>
-
-          </div>
+        <div className="mt-20 pb-20 text-center">
+          <p className="mt-4 text-lg text-slate-400">
+            Learn Future Skills or Build Future Technology
+          </p>
+        </div>
       </div>
 
     </div>

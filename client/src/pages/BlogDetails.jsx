@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import blogs from "../data/blogData";
+import blogs from "../data/allBlogs";
 
 const BlogDetails = () => {
   const { slug } = useParams();
@@ -40,7 +40,7 @@ const BlogDetails = () => {
             </span>
 
             <h1 className="mt-6 max-w-5xl text-5xl md:text-7xl lg:text-8xl font-black leading-[1.05]">
-              {blog.title}
+              {blog.title.replace(/&amp;/g, "&")}
             </h1>
 
             <p className="mt-6 max-w-3xl text-xl leading-9 text-slate-200">
@@ -62,6 +62,16 @@ const BlogDetails = () => {
       <section className="py-20">
 
         <div className="max-w-7xl mx-auto px-8 lg:px-16">
+
+          {blog.htmlContent ? (
+            <div
+              className="wp-content max-w-4xl text-lg leading-8 text-slate-700 [&_h2]:mt-12 [&_h2]:text-3xl [&_h2]:font-black [&_h2]:text-slate-900 [&_p]:mt-6 [&_ul]:mt-6 [&_li]:mt-2 [&_img]:my-8 [&_img]:rounded-2xl [&_a]:text-emerald-700 [&_a]:underline"
+              dangerouslySetInnerHTML={{ __html: blog.htmlContent }}
+            />
+          ) : null}
+
+          {blog.htmlContent ? null : (
+            <>
 
           {/* Quote */}
 
@@ -177,6 +187,9 @@ const BlogDetails = () => {
 
             </div>
           ))}
+
+            </>
+          )}
 
         </div>
 
