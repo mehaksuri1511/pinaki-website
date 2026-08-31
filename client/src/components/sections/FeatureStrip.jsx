@@ -2,7 +2,7 @@ import { features } from "../../data/features";
 
 const FeatureStrip = () => {
   return (
-    <section className="relative -mt-16 z-20 px-6">
+    <section className="relative py-12 px-6">
 
       <div className="max-w-7xl mx-auto">
 

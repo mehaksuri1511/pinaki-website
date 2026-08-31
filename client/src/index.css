@@ -701,10 +701,14 @@ html {
 /* ================================================= */
 
 body {
-
   overflow-x: hidden;
   background: white;
+  color: #0f172a;
+}
 
+.dark body {
+  background: #020617;
+  color: white;
 }
 
 @keyframes landing-brand-type-welcome {
@@ -856,4 +860,59 @@ body {
 @keyframes reading-book {
   0%, 100% { transform: translateX(-50%) rotate(-3deg) translateY(0); }
   50% { transform: translateX(-50%) rotate(2deg) translateY(-3px); }
+}
+/* ========================= */
+/* GLOBAL DARK THEME */
+/* ========================= */
+
+html.dark {
+  background: #020617;
+}
+
+html.dark body {
+  background: #020617;
+  color: white;
+}
+
+/* Default section backgrounds */
+html.dark section {
+  background-color: #020617;
+}
+
+/* Cards */
+html.dark .glass,
+html.dark .hover-card {
+  background: #0f172a;
+  border-color: #1e293b;
+  color: white;
+}
+
+/* Headings */
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6 {
+  color: white;
+}
+
+/* Paragraphs */
+html.dark p {
+  color: #cbd5e1;
+}
+
+/* Navbar */
+html.dark nav {
+  background: #020617;
+  border-color: #1e293b;
+}
+
+/* Inputs */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background: #0f172a;
+  color: white;
+  border-color: #334155;
 }
