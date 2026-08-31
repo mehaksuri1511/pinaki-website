@@ -3,7 +3,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 
 const ThemeToggle = () => {
   const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("theme") === "dark"
+    () => localStorage.getItem("theme") === "dark"
   );
 
   useEffect(() => {
@@ -18,10 +18,43 @@ const ThemeToggle = () => {
 
   return (
     <button
-      onClick={() => setDarkMode(!darkMode)}
-      className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-black text-white shadow-xl transition hover:scale-110"
+      type="button"
+      onClick={() => setDarkMode((prev) => !prev)}
+      aria-label="Toggle theme"
+      title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      className="
+        flex
+        h-10
+        w-10
+        items-center
+        justify-center
+        rounded-full
+
+        border
+        border-slate-200
+        bg-slate-50
+        text-slate-700
+
+        shadow-sm
+
+        transition-all
+        duration-300
+
+        hover:scale-105
+        hover:bg-emerald-50
+        hover:text-emerald-600
+
+        dark:border-slate-700
+        dark:bg-slate-800
+        dark:text-yellow-300
+        dark:hover:bg-slate-700
+      "
     >
-      {darkMode ? <FaSun size={22} /> : <FaMoon size={22} />}
+      {darkMode ? (
+        <FaSun size={17} />
+      ) : (
+        <FaMoon size={17} />
+      )}
     </button>
   );
 };

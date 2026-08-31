@@ -15,56 +15,120 @@ const logos = [
   mmtf,
   en,
   apj,
-  royalandfield
+  royalandfield,
 ];
 
 const LogoSlider = () => {
   return (
     <section className="mt-28">
 
-      {/* Heading */}
-
+      {/* ================= HEADING ================= */}
       <div className="text-center">
 
-        <h3 className="text-4xl font-bold text-slate-900">
+        <h3
+          className="
+            text-4xl
+            font-bold
+            text-slate-900
+            dark:text-white
+          "
+        >
           Our Trusted Partners
         </h3>
 
-        <p className="mt-4 text-lg text-slate-600">
+        <p
+          className="
+            mt-4
+            text-lg
+            text-slate-600
+            dark:text-slate-400
+          "
+        >
           Proud collaborations with businesses and educational institutions.
         </p>
 
       </div>
 
-      {/* Logo Slider */}
-
+      {/* ================= LOGO SLIDER ================= */}
       <div className="relative mt-14 overflow-hidden">
 
-        {/* Left Gradient */}
+        {/* LEFT GRADIENT */}
+        <div
+          className="
+            pointer-events-none
+            absolute
+            left-0
+            top-0
+            z-20
+            h-full
+            w-40
+            bg-gradient-to-r
+            from-emerald-50
+            to-transparent
+            dark:from-slate-950
+          "
+        />
 
-        <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-40 bg-gradient-to-r from-emerald-50 to-transparent"></div>
+        {/* RIGHT GRADIENT */}
+        <div
+          className="
+            pointer-events-none
+            absolute
+            right-0
+            top-0
+            z-20
+            h-full
+            w-40
+            bg-gradient-to-l
+            from-emerald-50
+            to-transparent
+            dark:from-slate-950
+          "
+        />
 
-        {/* Right Gradient */}
-
-        <div className="pointer-events-none absolute right-0 top-0 z-20 h-full w-40 bg-gradient-to-l from-emerald-50 to-transparent"></div>
-
+        {/* SLIDER */}
         <div className="logo-slider">
 
           {[...logos, ...logos].map((logo, index) => (
-
             <div
               key={index}
-              className="mx-6 flex h-36 w-36 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:border-emerald-500 hover:shadow-2xl"
-            >
+              className="
+                mx-6
+                flex
+                h-36
+                w-36
+                shrink-0
+                items-center
+                justify-center
+                rounded-full
+                border
+                border-slate-200
+                bg-white
+                shadow-lg
 
+                dark:border-slate-700
+                dark:bg-slate-900
+                dark:shadow-black/30
+
+                transition-all
+                duration-300
+
+                hover:-translate-y-2
+                hover:scale-105
+                hover:border-emerald-500
+                hover:shadow-2xl
+              "
+            >
               <img
                 src={logo}
-                alt="Partner"
-                className="h-20 w-20 object-contain"
+                alt="Trusted partner"
+                className="
+                  h-20
+                  w-20
+                  object-contain
+                "
               />
-
             </div>
-
           ))}
 
         </div>

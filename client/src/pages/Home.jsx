@@ -5,6 +5,7 @@ import FeatureStrip from "../components/sections/FeatureStrip";
 import TrustedBy from "../components/sections/TrustedBy";
 import Gallery from "../components/sections/Gallery";
 import Testimonials from "../components/sections/Testimonials";
+import GoogleReviews from "../components/sections/GoogleReviews";
 
 
 const Home = () => {
@@ -14,6 +15,7 @@ const Home = () => {
       <FeatureStrip />
       <TrustedBy />
       <Gallery />
+      <GoogleReviews />
       <Testimonials />
 
     </>

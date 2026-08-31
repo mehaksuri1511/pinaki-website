@@ -1,5 +1,4 @@
 import AppRoutes from "./routes/AppRoutes";
-import ThemeToggle from "./components/common/ThemeToggle";
 import FloatingButtons from "./components/common/FloatingButtons";
 
 function App() {
@@ -7,7 +6,6 @@ function App() {
     <>
       <AppRoutes />
       <FloatingButtons />
-      <ThemeToggle />
     </>
   );
 }
