@@ -797,7 +797,7 @@ const Footer = () => {
                       dark:text-slate-400
                     "
                   >
-                    hello@pinakiit.com
+                     info@pinakiithub.com
                   </p>
                 </div>
               </div>
