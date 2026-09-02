@@ -5,23 +5,15 @@ import FounderSection from "../components/about/FounderSection";
 import Timeline from "../components/about/Timeline";
 import WhyChoose from "../components/about/WhyChoose";
 
-
-
 const About = () => {
   return (
     <main className="overflow-x-hidden">
-
       <AboutHero />
-
       <OurStory />
-
       <MissionVision />
-
       <FounderSection />
-
       <Timeline />
-
-      {/* <WhyChoose /> */}
+      <WhyChoose />
     </main>
   );
 };
