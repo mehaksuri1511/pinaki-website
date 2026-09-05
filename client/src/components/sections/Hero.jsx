@@ -1,6 +1,7 @@
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import CourseQuizBanner from "./CourseQuizBanner";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const Hero = () => {
       {/* ================= BACKGROUND BLUR ================= */}
       <div
         className="
+          pointer-events-none
           absolute
           left-[-120px]
           top-[-120px]
@@ -44,6 +46,7 @@ const Hero = () => {
 
       <div
         className="
+          pointer-events-none
           absolute
           right-[-150px]
           bottom-[-100px]
@@ -62,9 +65,11 @@ const Hero = () => {
             grid
             min-h-screen
             items-center
-            gap-20
+            gap-16
             pb-24
+            pt-20
             lg:grid-cols-2
+            lg:gap-12
           "
         >
           {/* ================= LEFT SIDE ================= */}
@@ -282,13 +287,17 @@ const Hero = () => {
             className="
               relative
               flex
+              min-h-[520px]
+              items-center
               justify-center
+              lg:min-h-[600px]
               lg:justify-end
             "
           >
             {/* Background Glow */}
             <div
               className="
+                pointer-events-none
                 absolute
                 h-[520px]
                 w-[520px]
@@ -299,68 +308,9 @@ const Hero = () => {
               "
             />
 
-            {/* Founder Card */}
-            <div
-              className="
-                relative
-                overflow-hidden
-                rounded-[40px]
-                border
-                border-white/70
-                bg-white/60
-                p-4
-                shadow-[0_40px_80px_rgba(16,185,129,.18)]
-                backdrop-blur-xl
-                transition-all
-                duration-300
-                dark:border-slate-700/70
-                dark:bg-slate-900/70
-                dark:shadow-[0_40px_80px_rgba(0,0,0,.45)]
-              "
-            >
-              {/* Founder Name */}
-              <div
-                className="
-                  absolute
-                  bottom-8
-                  left-8
-                  rounded-[26px]
-                  border
-                  border-white
-                  bg-white/85
-                  px-7
-                  py-5
-                  shadow-2xl
-                  backdrop-blur-xl
-                  transition-colors
-                  duration-300
-                  dark:border-slate-700
-                  dark:bg-slate-800/90
-                  dark:shadow-black/40
-                "
-              >
-                <h2
-                  className="
-                    text-2xl
-                    font-bold
-                    text-slate-900
-                    dark:text-white
-                  "
-                >
-                  Dhruv Govil
-                </h2>
-
-                <p
-                  className="
-                    mt-1
-                    font-medium
-                    text-emerald-600
-                    dark:text-emerald-400
-                  "
-                >
-                  CEO & Founder
-                </p>
-              </div>
+            {/* Course Quiz Banner */}
+            <div className="relative z-10 w-full max-w-[560px]">
+              <CourseQuizBanner />
             </div>
           </motion.div>
         </div>

@@ -14,6 +14,7 @@ import Contact from "../pages/Contact";
 import BooksPage from "../pages/BooksPage";
 import NotesPage from "../pages/NotesPage";
 import TestPapersPage from "../pages/TestPapersPage";
+import CourseQuiz from "../pages/CourseQuiz";
 
 function AppRoutes() {
   return (
@@ -85,6 +86,8 @@ function AppRoutes() {
             path="/resources/tests"
             element={<TestPapersPage />}
           />
+
+          <Route path="/quiz" element={<CourseQuiz />} />
 
         </Route>
 
