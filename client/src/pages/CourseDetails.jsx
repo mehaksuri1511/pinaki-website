@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import {
   ArrowRight,
@@ -16,6 +17,17 @@ import {
 
 import courseData, { courseAliases } from "../data/courseData";
 import EnrollmentModal from "../components/courses/EnrollmentModal";
+
+const reveal = {
+  hidden: {
+    opacity: 0,
+    y: 60,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+};
 
 const CourseDetails = () => {
   const { slug } = useParams();
@@ -121,7 +133,6 @@ const CourseDetails = () => {
       {/* ========================================================= */}
 
       <section className="relative isolate overflow-hidden">
-        {/* Background image */}
         <img
           src={course.image}
           alt={course.title}
@@ -134,14 +145,7 @@ const CourseDetails = () => {
           "
         />
 
-        {/* Image overlays */}
-        <div
-          className="
-            absolute
-            inset-0
-            bg-slate-950/75
-          "
-        />
+        <div className="absolute inset-0 bg-slate-950/75" />
 
         <div
           className="
@@ -165,7 +169,6 @@ const CourseDetails = () => {
           "
         />
 
-        {/* Green glow */}
         <div
           className="
             pointer-events-none
@@ -182,7 +185,16 @@ const CourseDetails = () => {
 
         <div className="relative mx-auto max-w-7xl px-5 pb-20 pt-28 sm:px-6 lg:px-8 lg:pb-24 lg:pt-36">
           {/* Breadcrumb */}
-          <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-slate-300">
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.9,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mb-8 flex flex-wrap items-center gap-2 text-sm text-slate-300"
+          >
             <Link
               to="/courses"
               className="transition-colors hover:text-emerald-400"
@@ -195,11 +207,19 @@ const CourseDetails = () => {
             <span className="max-w-[260px] truncate text-slate-400">
               {course.category}
             </span>
-          </div>
+          </motion.div>
 
           <div className="max-w-4xl">
             {/* Category */}
-            <div
+
+            <motion.div
+              initial={{ opacity: 0, y: 35 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.95,
+                delay: 0.12,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 inline-flex
                 items-center
@@ -220,10 +240,18 @@ const CourseDetails = () => {
             >
               <Sparkles size={14} />
               {course.category}
-            </div>
+            </motion.div>
 
             {/* Title */}
-            <h1
+
+            <motion.h1
+              initial={{ opacity: 0, y: 55 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 1.1,
+                delay: 0.2,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mt-6
                 max-w-5xl
@@ -237,10 +265,18 @@ const CourseDetails = () => {
               "
             >
               {course.title}
-            </h1>
+            </motion.h1>
 
             {/* Overview */}
-            <p
+
+            <motion.p
+              initial={{ opacity: 0, y: 45 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 1,
+                delay: 0.34,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mt-6
                 max-w-3xl
@@ -252,10 +288,20 @@ const CourseDetails = () => {
               "
             >
               {course.overview}
-            </p>
+            </motion.p>
 
             {/* Meta */}
-            <div className="mt-8 flex flex-wrap gap-3">
+
+            <motion.div
+              initial={{ opacity: 0, y: 45 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 1,
+                delay: 0.48,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="mt-8 flex flex-wrap gap-3"
+            >
               {metaItems.map((item) => (
                 <div
                   key={item.label}
@@ -285,10 +331,20 @@ const CourseDetails = () => {
                   </div>
                 </div>
               ))}
-            </div>
+            </motion.div>
 
             {/* CTA */}
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+
+            <motion.div
+              initial={{ opacity: 0, y: 45 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 1,
+                delay: 0.62,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="mt-9 flex flex-wrap items-center gap-4"
+            >
               <button
                 type="button"
                 onClick={() => setIsOpen(true)}
@@ -328,7 +384,7 @@ const CourseDetails = () => {
               <span className="text-sm text-slate-400">
                 Start your learning journey with Pinaki IT
               </span>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -337,8 +393,17 @@ const CourseDetails = () => {
       {/* OVERVIEW */}
       {/* ========================================================= */}
 
-      <section className="relative py-16 sm:py-20 lg:py-24">
-        {/* Ambient glow */}
+      <motion.section
+        variants={reveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        transition={{
+          duration: 1.1,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="relative py-16 sm:py-20 lg:py-24"
+      >
         <div
           className="
             pointer-events-none
@@ -356,8 +421,8 @@ const CourseDetails = () => {
 
         <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
-
             {/* Intro */}
+
             <div>
               <div className="mb-8">
                 <p
@@ -417,6 +482,7 @@ const CourseDetails = () => {
             </div>
 
             {/* Sticky enrollment card */}
+
             <aside className="lg:sticky lg:top-28 lg:self-start">
               <div
                 className="
@@ -541,14 +607,23 @@ const CourseDetails = () => {
             </aside>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ========================================================= */}
       {/* HIGHLIGHTS */}
       {/* ========================================================= */}
 
       {course.highlights?.length ? (
-        <section
+        <motion.section
+          variants={reveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{
+            duration: 1.1,
+            delay: 0.05,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className="
             relative
             overflow-hidden
@@ -622,8 +697,16 @@ const CourseDetails = () => {
 
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {course.highlights.map((item, index) => (
-                <div
+                <motion.div
                   key={item.title}
+                  initial={{ opacity: 0, y: 45 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{
+                    duration: 0.9,
+                    delay: index * 0.1,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   className="
                     group
                     relative
@@ -689,11 +772,11 @@ const CourseDetails = () => {
                       {item.text}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
-        </section>
+        </motion.section>
       ) : null}
 
       {/* ========================================================= */}
@@ -701,7 +784,18 @@ const CourseDetails = () => {
       {/* ========================================================= */}
 
       {course.photos?.length ? (
-        <section className="relative py-16 sm:py-20 lg:py-24">
+        <motion.section
+          variants={reveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{
+            duration: 1.1,
+            delay: 0.05,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="relative py-16 sm:py-20 lg:py-24"
+        >
           <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
             <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
               <div>
@@ -741,8 +835,16 @@ const CourseDetails = () => {
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {course.photos.map((photo, index) => (
-                <figure
+                <motion.figure
                   key={photo.src}
+                  initial={{ opacity: 0, y: 45 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{
+                    duration: 0.9,
+                    delay: index * 0.1,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   className="
                     group
                     relative
@@ -806,11 +908,11 @@ const CourseDetails = () => {
                       {index + 1}
                     </span>
                   </figcaption>
-                </figure>
+                </motion.figure>
               ))}
             </div>
           </div>
-        </section>
+        </motion.section>
       ) : null}
 
       {/* ========================================================= */}
@@ -818,7 +920,16 @@ const CourseDetails = () => {
       {/* ========================================================= */}
 
       {course.modules?.length ? (
-        <section
+        <motion.section
+          variants={reveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{
+            duration: 1.1,
+            delay: 0.05,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className="
             relative
             overflow-hidden
@@ -835,7 +946,6 @@ const CourseDetails = () => {
             dark:to-slate-950
           "
         >
-          {/* Glow */}
           <div
             className="
               pointer-events-none
@@ -886,7 +996,15 @@ const CourseDetails = () => {
               </p>
             </div>
 
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 45 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{
+                duration: 1,
+                delay: 0.12,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mt-10
                 overflow-hidden
@@ -927,7 +1045,6 @@ const CourseDetails = () => {
                       sm:px-7
                     "
                   >
-                    {/* Number */}
                     <span
                       className="
                         flex
@@ -994,9 +1111,9 @@ const CourseDetails = () => {
                   </div>
                 </details>
               ))}
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
       ) : null}
 
       {/* ========================================================= */}
@@ -1004,7 +1121,18 @@ const CourseDetails = () => {
       {/* ========================================================= */}
 
       {course.logos?.length ? (
-        <section className="relative py-16 sm:py-20 lg:py-24">
+        <motion.section
+          variants={reveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{
+            duration: 1.1,
+            delay: 0.05,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="relative py-16 sm:py-20 lg:py-24"
+        >
           <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
             <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.5fr]">
               <div>
@@ -1074,10 +1202,7 @@ const CourseDetails = () => {
                 "
               >
                 <div className="mb-6 flex items-center gap-3">
-                  <Users
-                    size={18}
-                    className="text-emerald-500"
-                  />
+                  <Users size={18} className="text-emerald-500" />
 
                   <p className="text-sm font-bold text-slate-900 dark:text-white">
                     Companies represented across our programs
@@ -1138,14 +1263,25 @@ const CourseDetails = () => {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
       ) : null}
 
       {/* ========================================================= */}
       {/* FINAL CTA */}
       {/* ========================================================= */}
 
-      <section className="px-5 pb-16 sm:px-6 sm:pb-20 lg:px-8 lg:pb-24">
+      <motion.section
+        variants={reveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{
+          duration: 1.15,
+          delay: 0.05,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="px-5 pb-16 sm:px-6 sm:pb-20 lg:px-8 lg:pb-24"
+      >
         <div
           className="
             group
@@ -1172,7 +1308,6 @@ const CourseDetails = () => {
             sm:py-10
           "
         >
-          {/* Glow */}
           <div
             className="
               pointer-events-none
@@ -1297,7 +1432,7 @@ const CourseDetails = () => {
             </button>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ========================================================= */}
       {/* ENROLLMENT MODAL */}

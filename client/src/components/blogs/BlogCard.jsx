@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { ArrowUpRight, CalendarDays, Clock3 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -13,9 +14,26 @@ function decodeHtml(text) {
 const BlogCard = ({ blog }) => {
   const title = decodeHtml(blog.title);
   const description = decodeHtml(blog.description);
+  const category = decodeHtml(blog.category);
 
   return (
-    <article
+    <motion.article
+      initial={{
+        opacity: 0,
+        y: 70,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
+      viewport={{
+        once: true,
+        amount: 0.12,
+      }}
+      transition={{
+        duration: 1.15,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       className="
         group
         relative
@@ -31,6 +49,7 @@ const BlogCard = ({ blog }) => {
         shadow-slate-900/5
         transition-all
         duration-500
+        ease-out
         hover:-translate-y-2
         hover:border-emerald-200
         hover:shadow-[0_24px_60px_rgba(15,23,42,0.10)]
@@ -41,11 +60,33 @@ const BlogCard = ({ blog }) => {
         dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.30)]
       "
     >
+      {/* Ambient glow */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -right-20
+          -top-20
+          z-0
+          h-40
+          w-40
+          rounded-full
+          bg-emerald-400/10
+          blur-3xl
+          opacity-0
+          transition-opacity
+          duration-500
+          group-hover:opacity-100
+          dark:bg-emerald-500/10
+        "
+      />
+
       {/* Image */}
       <Link
         to={`/blogs/${blog.slug}`}
         className="
           relative
+          z-10
           block
           h-56
           overflow-hidden
@@ -75,13 +116,13 @@ const BlogCard = ({ blog }) => {
             absolute
             inset-0
             bg-gradient-to-t
-            from-slate-950/55
-            via-transparent
+            from-slate-950/70
+            via-slate-950/10
             to-transparent
             opacity-70
             transition-opacity
-            duration-300
-            group-hover:opacity-90
+            duration-500
+            group-hover:opacity-95
           "
         />
 
@@ -104,12 +145,15 @@ const BlogCard = ({ blog }) => {
             text-white
             shadow-lg
             backdrop-blur-md
+            transition-all
+            duration-300
+            group-hover:border-emerald-300/40
           "
         >
-          {blog.category}
+          {category}
         </span>
 
-        {/* Arrow */}
+        {/* Open article button */}
         <span
           className="
             absolute
@@ -118,6 +162,7 @@ const BlogCard = ({ blog }) => {
             flex
             h-10
             w-10
+            translate-x-2
             items-center
             justify-center
             rounded-full
@@ -128,17 +173,54 @@ const BlogCard = ({ blog }) => {
             opacity-0
             backdrop-blur-md
             transition-all
-            duration-300
+            duration-400
             group-hover:translate-x-0
             group-hover:opacity-100
           "
         >
-          <ArrowUpRight size={18} />
+          <ArrowUpRight
+            size={18}
+            className="
+              transition-transform
+              duration-300
+              group-hover:translate-x-0.5
+              group-hover:-translate-y-0.5
+            "
+          />
         </span>
+
+        {/* Image label */}
+        <div
+          className="
+            absolute
+            bottom-4
+            left-4
+            right-4
+            flex
+            translate-y-2
+            items-center
+            justify-between
+            opacity-0
+            transition-all
+            duration-500
+            group-hover:translate-y-0
+            group-hover:opacity-100
+          "
+        >
+          <span className="text-xs font-semibold text-white/80">
+            Read insight
+          </span>
+
+          <ArrowUpRight
+            size={16}
+            className="text-emerald-300"
+          />
+        </div>
       </Link>
 
       {/* Content */}
-      <div className="flex flex-1 flex-col p-6 sm:p-7">
+      <div className="relative z-10 flex flex-1 flex-col p-6 sm:p-7">
+
         {/* Metadata */}
         <div
           className="
@@ -153,17 +235,33 @@ const BlogCard = ({ blog }) => {
             dark:text-slate-500
           "
         >
-          <span className="inline-flex items-center gap-1.5">
-            <CalendarDays size={14} />
-            {blog.date}
-          </span>
+          {blog.date && (
+            <span className="inline-flex items-center gap-1.5">
+              <CalendarDays
+                size={14}
+                className="text-emerald-600 dark:text-emerald-400"
+              />
+              {blog.date}
+            </span>
+          )}
 
           {blog.read && (
             <>
-              <span className="h-1 w-1 rounded-full bg-slate-300 dark:bg-slate-700" />
+              <span
+                className="
+                  h-1
+                  w-1
+                  rounded-full
+                  bg-slate-300
+                  dark:bg-slate-700
+                "
+              />
 
               <span className="inline-flex items-center gap-1.5">
-                <Clock3 size={14} />
+                <Clock3
+                  size={14}
+                  className="text-emerald-600 dark:text-emerald-400"
+                />
                 {blog.read}
               </span>
             </>
@@ -214,8 +312,13 @@ const BlogCard = ({ blog }) => {
               mb-5
               h-px
               w-full
-              bg-slate-100
-              dark:bg-slate-800
+              bg-gradient-to-r
+              from-slate-100
+              via-slate-100
+              to-transparent
+              dark:from-slate-800
+              dark:via-slate-800
+              dark:to-transparent
             "
           />
 
@@ -231,7 +334,9 @@ const BlogCard = ({ blog }) => {
               text-emerald-600
               transition-all
               duration-300
+              hover:text-emerald-700
               dark:text-emerald-400
+              dark:hover:text-emerald-300
             "
           >
             Read article
@@ -241,8 +346,8 @@ const BlogCard = ({ blog }) => {
               className="
                 transition-transform
                 duration-300
-                group-hover/link:-translate-y-0.5
                 group-hover/link:translate-x-0.5
+                group-hover/link:-translate-y-0.5
               "
             />
           </Link>
@@ -255,6 +360,7 @@ const BlogCard = ({ blog }) => {
           absolute
           bottom-0
           left-0
+          z-20
           h-[2px]
           w-0
           bg-gradient-to-r
@@ -266,7 +372,7 @@ const BlogCard = ({ blog }) => {
           group-hover:w-full
         "
       />
-    </article>
+    </motion.article>
   );
 };
 

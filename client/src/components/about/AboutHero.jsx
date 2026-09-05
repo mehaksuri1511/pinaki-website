@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, Maximize2, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +9,17 @@ import img3 from "../../assets/images/gallery9.png";
 import img4 from "../../assets/images/gallery13.png";
 
 const images = [img1, img2, img3, img4];
+
+const revealUp = {
+  hidden: {
+    opacity: 0,
+    y: 70,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+};
 
 const AboutHero = () => {
   const [selected, setSelected] = useState(null);
@@ -28,11 +40,37 @@ const AboutHero = () => {
         "
       >
         {/* Ambient glow */}
-        <div className="pointer-events-none absolute -left-32 top-32 h-96 w-96 rounded-full bg-emerald-400/20 blur-[120px] dark:bg-emerald-500/10" />
+        <div
+          className="
+            pointer-events-none
+            absolute
+            -left-32
+            top-32
+            h-96
+            w-96
+            rounded-full
+            bg-emerald-400/20
+            blur-[120px]
+            dark:bg-emerald-500/10
+          "
+        />
 
-        <div className="pointer-events-none absolute -right-32 bottom-10 h-96 w-96 rounded-full bg-teal-400/20 blur-[120px] dark:bg-teal-500/10" />
+        <div
+          className="
+            pointer-events-none
+            absolute
+            -right-32
+            bottom-10
+            h-96
+            w-96
+            rounded-full
+            bg-teal-400/20
+            blur-[120px]
+            dark:bg-teal-500/10
+          "
+        />
 
-        {/* Hero content area */}
+        {/* Hero content */}
         <div
           className="
             mx-auto
@@ -52,14 +90,60 @@ const AboutHero = () => {
         >
           {/* ================= LEFT ================= */}
           <div className="relative z-10 max-w-3xl">
+
             {/* Eyebrow */}
-            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-bold tracking-[0.18em] text-emerald-700 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-400">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.8)]" />
+            <motion.div
+              variants={revealUp}
+              initial="hidden"
+              animate="visible"
+              transition={{
+                duration: 0.9,
+                delay: 0.1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="
+                mb-6
+                inline-flex
+                items-center
+                gap-3
+                rounded-full
+                border
+                border-emerald-200
+                bg-emerald-50
+                px-4
+                py-2
+                text-xs
+                font-bold
+                tracking-[0.18em]
+                text-emerald-700
+                dark:border-emerald-500/20
+                dark:bg-emerald-500/10
+                dark:text-emerald-400
+              "
+            >
+              <span
+                className="
+                  h-2
+                  w-2
+                  rounded-full
+                  bg-emerald-500
+                  shadow-[0_0_12px_rgba(16,185,129,0.8)]
+                "
+              />
+
               ABOUT PINAKI IT
-            </div>
+            </motion.div>
 
             {/* Heading */}
-            <h1
+            <motion.h1
+              variants={revealUp}
+              initial="hidden"
+              animate="visible"
+              transition={{
+                duration: 1.05,
+                delay: 0.2,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 text-5xl
                 font-black
@@ -90,10 +174,18 @@ const AboutHero = () => {
               >
                 Building Careers.
               </span>
-            </h1>
+            </motion.h1>
 
             {/* Description */}
-            <p
+            <motion.p
+              variants={revealUp}
+              initial="hidden"
+              animate="visible"
+              transition={{
+                duration: 1,
+                delay: 0.35,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mt-6
                 max-w-2xl
@@ -109,10 +201,20 @@ const AboutHero = () => {
               learning and real-world technology through practical training,
               live projects, internships, software development and industry
               mentorship.
-            </p>
+            </motion.p>
 
             {/* Buttons */}
-            <div className="mt-7 flex flex-wrap gap-4">
+            <motion.div
+              variants={revealUp}
+              initial="hidden"
+              animate="visible"
+              transition={{
+                duration: 0.95,
+                delay: 0.5,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="mt-7 flex flex-wrap gap-4"
+            >
               <button
                 onClick={() => navigate("/courses")}
                 className="
@@ -141,7 +243,11 @@ const AboutHero = () => {
 
                 <ArrowRight
                   size={18}
-                  className="transition-transform duration-300 group-hover:translate-x-1"
+                  className="
+                    transition-transform
+                    duration-300
+                    group-hover:translate-x-1
+                  "
                 />
               </button>
 
@@ -174,10 +280,18 @@ const AboutHero = () => {
               >
                 Talk to Us
               </button>
-            </div>
+            </motion.div>
 
             {/* Stats */}
-            <div
+            <motion.div
+              variants={revealUp}
+              initial="hidden"
+              animate="visible"
+              transition={{
+                duration: 0.95,
+                delay: 0.65,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mt-8
                 flex
@@ -194,6 +308,7 @@ const AboutHero = () => {
                 <p className="text-xl font-black text-slate-950 dark:text-white">
                   5000+
                 </p>
+
                 <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                   Learners
                 </p>
@@ -203,6 +318,7 @@ const AboutHero = () => {
                 <p className="text-xl font-black text-slate-950 dark:text-white">
                   200+
                 </p>
+
                 <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                   Projects
                 </p>
@@ -212,15 +328,26 @@ const AboutHero = () => {
                 <p className="text-xl font-black text-slate-950 dark:text-white">
                   100+
                 </p>
+
                 <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                   Organizations
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* ================= RIGHT ================= */}
-          <div className="relative mx-auto w-full max-w-[620px] lg:ml-auto">
+          <motion.div
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
+            transition={{
+              duration: 1.2,
+              delay: 0.3,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="relative mx-auto w-full max-w-[620px] lg:ml-auto"
+          >
             {/* Glow */}
             <div
               className="
@@ -240,10 +367,23 @@ const AboutHero = () => {
             {/* Image collage */}
             <div className="relative grid grid-cols-2 gap-3 sm:gap-4">
               {images.map((img, index) => (
-                <button
+                <motion.button
                   key={index}
                   type="button"
                   onClick={() => setSelected(img)}
+                  initial={{
+                    opacity: 0,
+                    y: 55,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  transition={{
+                    duration: 0.9,
+                    delay: 0.5 + index * 0.12,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   className={`
                     group
                     relative
@@ -322,12 +462,25 @@ const AboutHero = () => {
                   >
                     <Maximize2 size={16} />
                   </div>
-                </button>
+                </motion.button>
               ))}
             </div>
 
             {/* Floating badge */}
-            <div
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 30,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.9,
+                delay: 1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 absolute
                 -bottom-4
@@ -359,8 +512,8 @@ const AboutHero = () => {
               >
                 Learn · Build · Grow
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Bottom fade */}

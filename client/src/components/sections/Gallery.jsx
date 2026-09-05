@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 import GalleryCard from "../cards/GalleryCard";
 import { galleryImages } from "../../data/gallery";
 
@@ -12,36 +14,66 @@ const Gallery = () => {
         to-emerald-50
         pt-12
         pb-24
-
         dark:from-slate-950
         dark:via-slate-900
         dark:to-slate-950
-
         transition-colors
         duration-300
       "
     >
       <div className="mx-auto max-w-7xl px-6">
-
         {/* ================= DIVIDER ================= */}
-        <div
+        <motion.div
+          initial={{
+            opacity: 0,
+            scaleX: 0,
+          }}
+          whileInView={{
+            opacity: 1,
+            scaleX: 1,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className="
             mx-auto
             mb-12
             h-px
             max-w-5xl
+            origin-center
             bg-gradient-to-r
             from-transparent
             via-emerald-200
             to-transparent
-
             dark:via-emerald-800
           "
         />
 
         {/* ================= HEADING ================= */}
-        <div className="mb-14 text-center">
-
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 50,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mb-14 text-center"
+        >
           <h2
             className="
               text-4xl
@@ -69,9 +101,7 @@ const Gallery = () => {
               Journey
             </span>
 
-            <span className="ml-2 text-green-500">
-              ✦
-            </span>
+            <span className="ml-2 text-green-500">✦</span>
           </h2>
 
           <p
@@ -83,13 +113,11 @@ const Gallery = () => {
               leading-relaxed
               text-slate-500
               md:text-xl
-
               dark:text-slate-400
             "
           >
             Workshops, hackathons, placements, industry visits and the
             unforgettable moments that define life at{" "}
-
             <span
               className="
                 font-semibold
@@ -101,8 +129,7 @@ const Gallery = () => {
             </span>
             .
           </p>
-
-        </div>
+        </motion.div>
 
         {/* ================= GALLERY ================= */}
         <div
@@ -114,14 +141,31 @@ const Gallery = () => {
             lg:grid-cols-4
           "
         >
-          {galleryImages.map((item) => (
-            <GalleryCard
+          {galleryImages.map((item, index) => (
+            <motion.div
               key={item.id}
-              {...item}
-            />
+              initial={{
+                opacity: 0,
+                y: 60,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.12,
+              }}
+              transition={{
+                duration: 1,
+                delay: index * 0.12,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <GalleryCard {...item} />
+            </motion.div>
           ))}
         </div>
-
       </div>
     </section>
   );

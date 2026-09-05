@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
+
 import { courseList } from "../data/courseData";
 import CourseCard from "../components/courses/CourseCard";
 import EnrollmentModal from "../components/courses/EnrollmentModal";
@@ -32,10 +34,27 @@ const Courses = () => {
         "
       >
         <div className="mx-auto max-w-7xl px-6">
-
           {/* ================= HEADER ================= */}
-          <div className="mx-auto max-w-3xl text-center">
 
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 60,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.2,
+            }}
+            transition={{
+              duration: 1.15,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mx-auto max-w-3xl text-center"
+          >
             <span
               className="
                 inline-flex
@@ -75,6 +94,7 @@ const Courses = () => {
               "
             >
               Professional{" "}
+
               <span
                 className="
                   bg-gradient-to-r
@@ -105,10 +125,10 @@ const Courses = () => {
               Build industry-ready skills through mentor-led learning,
               practical projects, real-world experience and placement support.
             </p>
-
-          </div>
+          </motion.div>
 
           {/* ================= COURSES ================= */}
+
           <div
             className="
               mt-16
@@ -118,19 +138,39 @@ const Courses = () => {
               lg:grid-cols-3
             "
           >
-            {courseList.map((course) => (
-              <CourseCard
+            {courseList.map((course, index) => (
+              <motion.div
                 key={course.slug}
-                course={course}
-                onEnroll={handleEnroll}
-              />
+                initial={{
+                  opacity: 0,
+                  y: 70,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.12,
+                }}
+                transition={{
+                  duration: 1.05,
+                  delay: index * 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <CourseCard
+                  course={course}
+                  onEnroll={handleEnroll}
+                />
+              </motion.div>
             ))}
           </div>
-
         </div>
       </section>
 
       {/* ================= ENROLLMENT MODAL ================= */}
+
       <EnrollmentModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

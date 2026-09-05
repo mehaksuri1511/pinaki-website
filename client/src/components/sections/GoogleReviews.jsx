@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 import {
   ChevronLeft,
@@ -114,12 +115,10 @@ const GoogleReviews = () => {
         py-24
         transition-colors
         duration-300
-
         bg-gradient-to-b
         from-emerald-50
         via-white
         to-slate-50
-
         dark:from-slate-950
         dark:via-[#020617]
         dark:to-slate-950
@@ -160,13 +159,29 @@ const GoogleReviews = () => {
       />
 
       <div className="relative mx-auto max-w-7xl px-6">
-
         {/* =======================================================
             HEADING
         ======================================================= */}
 
-        <div className="mb-16 text-center">
-
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 50,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mb-16 text-center"
+        >
           <p
             className="
               text-sm
@@ -223,8 +238,7 @@ const GoogleReviews = () => {
             Real experiences from students, professionals and
             learners who have been part of the Pinaki IT journey.
           </p>
-
-        </div>
+        </motion.div>
 
         {/* =======================================================
             MAIN CONTENT
@@ -238,12 +252,28 @@ const GoogleReviews = () => {
             lg:grid-cols-[1.05fr_0.95fr]
           "
         >
-
           {/* =====================================================
-              LEFT — EARTH / COMMUNITY VISUAL
+              LEFT — COMMUNITY VISUAL
           ===================================================== */}
 
-          <div
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 65,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.15,
+            }}
+            transition={{
+              duration: 1,
+              delay: 0.1,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className="
               relative
               flex
@@ -253,7 +283,6 @@ const GoogleReviews = () => {
               overflow-visible
             "
           >
-
             {/* Large ambient glow */}
 
             <div
@@ -278,24 +307,19 @@ const GoogleReviews = () => {
                 h-[430px]
                 w-[430px]
                 rounded-full
-
                 border
                 border-emerald-400/30
-
                 bg-gradient-to-br
                 from-emerald-100/30
                 via-transparent
                 to-cyan-100/20
-
                 shadow-[0_0_100px_rgba(16,185,129,0.12)]
-
                 dark:border-emerald-500/20
                 dark:from-emerald-500/[0.04]
                 dark:to-cyan-500/[0.03]
                 dark:shadow-[0_0_120px_rgba(16,185,129,0.08)]
               "
             >
-
               {/* Outer globe ring */}
 
               <div
@@ -446,19 +470,15 @@ const GoogleReviews = () => {
                   items-center
                   justify-center
                   rounded-full
-
                   border
                   border-emerald-400/30
-
                   bg-white/80
                   shadow-[0_0_50px_rgba(16,185,129,0.12)]
                   backdrop-blur-xl
-
                   dark:border-emerald-500/20
                   dark:bg-slate-900/85
                 "
               >
-
                 <Quote
                   size={34}
                   strokeWidth={1.7}
@@ -489,9 +509,7 @@ const GoogleReviews = () => {
                 >
                   Together
                 </span>
-
               </div>
-
             </div>
 
             {/* =================================================
@@ -499,30 +517,43 @@ const GoogleReviews = () => {
             ================================================= */}
 
             {avatarStyles.map((style, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{
+                  opacity: 0,
+                  y: 35,
+                  scale: 0.85,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.15,
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.35 + index * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className={`
                   absolute
                   ${style.position}
                   ${style.size}
                   z-20
-
                   rounded-full
                   border-4
                   ${style.border}
-
                   bg-white
                   p-1
-
                   shadow-[0_15px_40px_rgba(15,23,42,0.18)]
-
                   transition-all
                   duration-500
-
                   hover:z-30
                   hover:scale-110
                   hover:-translate-y-2
-
                   dark:bg-slate-900
                   dark:shadow-[0_15px_40px_rgba(0,0,0,0.45)]
                 `}
@@ -537,7 +568,7 @@ const GoogleReviews = () => {
                     object-cover
                   "
                 />
-              </div>
+              </motion.div>
             ))}
 
             {/* =================================================
@@ -593,15 +624,32 @@ const GoogleReviews = () => {
                 bg-pink-400/70
               "
             />
-
-          </div>
+          </motion.div>
 
           {/* =====================================================
               RIGHT — GOOGLE REVIEWS
           ===================================================== */}
 
-          <div className="relative">
-
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 65,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.15,
+            }}
+            transition={{
+              duration: 1,
+              delay: 0.2,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="relative"
+          >
             <div
               className="
                 rounded-[32px]
@@ -610,33 +658,26 @@ const GoogleReviews = () => {
                 bg-white
                 p-8
                 shadow-[0_25px_70px_rgba(15,23,42,0.10)]
-
                 transition-all
                 duration-300
-
                 dark:border-slate-800
                 dark:bg-slate-900
                 dark:shadow-[0_25px_70px_rgba(0,0,0,0.30)]
               "
             >
-
               {/* =================================================
                   GOOGLE HEADER
               ================================================= */}
 
               <div className="flex items-center justify-between">
-
                 <div>
-
                   <div className="text-3xl font-bold tracking-tight">
-
                     <span className="text-[#4285F4]">G</span>
                     <span className="text-[#EA4335]">o</span>
                     <span className="text-[#FBBC05]">o</span>
                     <span className="text-[#4285F4]">g</span>
                     <span className="text-[#34A853]">l</span>
                     <span className="text-[#EA4335]">e</span>
-
                   </div>
 
                   <div
@@ -650,11 +691,9 @@ const GoogleReviews = () => {
                   >
                     Google Reviews
                   </div>
-
                 </div>
 
                 <div className="text-right">
-
                   <div
                     className="
                       text-3xl
@@ -667,7 +706,6 @@ const GoogleReviews = () => {
                   </div>
 
                   <div className="mt-1 flex justify-end gap-1">
-
                     {[1, 2, 3, 4, 5].map((star) => (
                       <Star
                         key={star}
@@ -676,11 +714,8 @@ const GoogleReviews = () => {
                         className="text-yellow-400"
                       />
                     ))}
-
                   </div>
-
                 </div>
-
               </div>
 
               {/* =================================================
@@ -700,25 +735,33 @@ const GoogleReviews = () => {
                   REVIEW CARD
               ================================================= */}
 
-              <div
+              <motion.div
+                key={current}
+                initial={{
+                  opacity: 0,
+                  y: 25,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.65,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="
                   relative
                   min-h-[280px]
                   rounded-2xl
                   bg-slate-50
                   p-7
-
                   transition-colors
                   duration-300
-
                   dark:bg-slate-950
                 "
               >
-
                 <div className="flex items-start justify-between">
-
                   <div className="flex items-center gap-4">
-
                     <div
                       className="
                         flex
@@ -727,15 +770,12 @@ const GoogleReviews = () => {
                         items-center
                         justify-center
                         rounded-full
-
                         bg-gradient-to-br
                         from-purple-400
                         to-purple-600
-
                         text-xl
                         font-bold
                         text-white
-
                         shadow-lg
                       "
                     >
@@ -743,7 +783,6 @@ const GoogleReviews = () => {
                     </div>
 
                     <div>
-
                       <h3
                         className="
                           font-bold
@@ -763,9 +802,7 @@ const GoogleReviews = () => {
                       >
                         {review.date}
                       </p>
-
                     </div>
-
                   </div>
 
                   {/* Google G */}
@@ -773,13 +810,11 @@ const GoogleReviews = () => {
                   <div className="text-2xl font-bold">
                     <span className="text-[#4285F4]">G</span>
                   </div>
-
                 </div>
 
                 {/* Stars */}
 
                 <div className="mt-5 flex gap-1">
-
                   {[...Array(review.rating)].map((_, index) => (
                     <Star
                       key={index}
@@ -788,7 +823,6 @@ const GoogleReviews = () => {
                       className="text-yellow-400"
                     />
                   ))}
-
                 </div>
 
                 {/* Review */}
@@ -814,23 +848,19 @@ const GoogleReviews = () => {
                     bottom-5
                     right-6
                     text-emerald-200
-
                     dark:text-emerald-900
                   "
                 />
-
-              </div>
+              </motion.div>
 
               {/* =================================================
                   NAVIGATION
               ================================================= */}
 
               <div className="mt-6 flex items-center justify-between">
-
                 {/* Indicators */}
 
                 <div className="flex gap-2">
-
                   {reviews.map((_, index) => (
                     <button
                       key={index}
@@ -841,7 +871,6 @@ const GoogleReviews = () => {
                         rounded-full
                         transition-all
                         duration-300
-
                         ${
                           current === index
                             ? "w-8 bg-emerald-500"
@@ -850,13 +879,11 @@ const GoogleReviews = () => {
                       `}
                     />
                   ))}
-
                 </div>
 
                 {/* Arrows */}
 
                 <div className="flex gap-3">
-
                   <button
                     onClick={previousReview}
                     aria-label="Previous review"
@@ -867,22 +894,16 @@ const GoogleReviews = () => {
                       items-center
                       justify-center
                       rounded-full
-
                       border
                       border-slate-200
-
                       bg-white
                       text-slate-700
-
                       shadow-sm
-
                       transition-all
                       duration-300
-
                       hover:-translate-x-1
                       hover:border-emerald-500
                       hover:text-emerald-600
-
                       dark:border-slate-700
                       dark:bg-slate-800
                       dark:text-white
@@ -901,22 +922,16 @@ const GoogleReviews = () => {
                       items-center
                       justify-center
                       rounded-full
-
                       border
                       border-slate-200
-
                       bg-white
                       text-slate-700
-
                       shadow-sm
-
                       transition-all
                       duration-300
-
                       hover:translate-x-1
                       hover:border-emerald-500
                       hover:text-emerald-600
-
                       dark:border-slate-700
                       dark:bg-slate-800
                       dark:text-white
@@ -924,9 +939,7 @@ const GoogleReviews = () => {
                   >
                     <ChevronRight size={20} />
                   </button>
-
                 </div>
-
               </div>
 
               {/* =================================================
@@ -939,26 +952,19 @@ const GoogleReviews = () => {
                   mt-7
                   w-full
                   rounded-full
-
                   bg-gradient-to-r
                   from-emerald-600
                   via-green-500
                   to-teal-500
-
                   px-6
                   py-4
-
                   font-semibold
                   text-white
-
                   shadow-lg
-
                   transition-all
                   duration-300
-
                   hover:-translate-y-1
                   hover:shadow-emerald-500/30
-
                   dark:from-emerald-500
                   dark:via-green-500
                   dark:to-teal-500
@@ -967,13 +973,9 @@ const GoogleReviews = () => {
               >
                 Read More Google Reviews
               </button>
-
             </div>
-
-          </div>
-
+          </motion.div>
         </div>
-
       </div>
     </section>
   );

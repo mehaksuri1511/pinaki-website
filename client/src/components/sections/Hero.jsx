@@ -1,4 +1,5 @@
 import { ArrowRight, PlayCircle } from "lucide-react";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
@@ -67,9 +68,29 @@ const Hero = () => {
           "
         >
           {/* ================= LEFT SIDE ================= */}
-          <div>
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 70,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 1.1,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
             {/* Small Text */}
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.15,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 inline-flex
                 items-center
@@ -99,10 +120,17 @@ const Hero = () => {
               >
                 LEARN • BUILD • GROW
               </span>
-            </div>
+            </motion.div>
 
             {/* Heading */}
-            <h1
+            <motion.h1
+              initial={{ opacity: 0, y: 45 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 1,
+                delay: 0.25,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mt-8
                 text-5xl
@@ -120,7 +148,6 @@ const Hero = () => {
               <br />
               Future-Ready
               <br />
-
               <span
                 className="
                   bg-gradient-to-r
@@ -133,10 +160,17 @@ const Hero = () => {
               >
                 IT Careers.
               </span>
-            </h1>
+            </motion.h1>
 
             {/* Paragraph */}
-            <p
+            <motion.p
+              initial={{ opacity: 0, y: 35 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.9,
+                delay: 0.4,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 mt-8
                 max-w-xl
@@ -152,11 +186,19 @@ const Hero = () => {
               gain practical skills and accelerate your career
               through professional training, internships,
               software development and placement assistance.
-            </p>
+            </motion.p>
 
             {/* ================= BUTTONS ================= */}
-            <div className="mt-10 flex flex-wrap gap-5">
-
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.9,
+                delay: 0.55,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="mt-10 flex flex-wrap gap-5"
+            >
               {/* Explore Programs */}
               <button
                 type="button"
@@ -219,12 +261,24 @@ const Hero = () => {
                 <PlayCircle size={20} />
                 Meet Our Founder
               </button>
-
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* ================= RIGHT SIDE ================= */}
-          <div
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 90,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 1.2,
+              delay: 0.2,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className="
               relative
               flex
@@ -308,8 +362,7 @@ const Hero = () => {
                 </p>
               </div>
             </div>
-          </div>
-
+          </motion.div>
         </div>
       </div>
     </section>

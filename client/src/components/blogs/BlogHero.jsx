@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Sparkles } from "lucide-react";
 import hero from "../../assets/images/blogHero.jpg";
 
@@ -6,6 +7,17 @@ const BlogsHero = () => {
     document
       .getElementById("featured-blog")
       ?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const revealUp = {
+    hidden: {
+      opacity: 0,
+      y: 70,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
   };
 
   return (
@@ -166,7 +178,15 @@ const BlogsHero = () => {
         <div className="max-w-4xl">
 
           {/* Eyebrow */}
-          <div
+          <motion.div
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
+            transition={{
+              duration: 0.9,
+              delay: 0.1,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className="
               inline-flex
               items-center
@@ -192,10 +212,18 @@ const BlogsHero = () => {
           >
             <Sparkles size={14} />
             Pinaki Insights
-          </div>
+          </motion.div>
 
           {/* Heading */}
-          <h1
+          <motion.h1
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
+            transition={{
+              duration: 1.05,
+              delay: 0.22,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className="
               mt-7
               max-w-4xl
@@ -230,10 +258,18 @@ const BlogsHero = () => {
             >
               Shape Tomorrow.
             </span>
-          </h1>
+          </motion.h1>
 
           {/* Description */}
-          <p
+          <motion.p
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
+            transition={{
+              duration: 1,
+              delay: 0.38,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className="
               mt-7
               max-w-2xl
@@ -251,11 +287,20 @@ const BlogsHero = () => {
             Explore practical insights on Artificial Intelligence, Cloud
             Computing, Full Stack Development, career growth, industry trends
             and the technologies shaping the future.
-          </p>
+          </motion.p>
 
           {/* Actions */}
-          <div className="mt-9 flex flex-wrap items-center gap-4">
-
+          <motion.div
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
+            transition={{
+              duration: 0.95,
+              delay: 0.55,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mt-9 flex flex-wrap items-center gap-4"
+          >
             {/* Primary CTA */}
             <button
               type="button"
@@ -298,7 +343,14 @@ const BlogsHero = () => {
             </button>
 
             {/* Topic pill */}
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.7,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 inline-flex
                 items-center
@@ -332,34 +384,27 @@ const BlogsHero = () => {
               />
 
               Technology • Career • Innovation
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Topic highlights */}
-          <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
-
+          <motion.div
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
+            transition={{
+              duration: 1,
+              delay: 0.72,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4"
+          >
             <div>
-              <p
-                className="
-                  text-2xl
-                  font-black
-                  text-slate-900
-                  dark:text-white
-                "
-              >
+              <p className="text-2xl font-black text-slate-900 dark:text-white">
                 AI
               </p>
 
-              <p
-                className="
-                  mt-1
-                  text-xs
-                  uppercase
-                  tracking-wider
-                  text-slate-500
-                  dark:text-slate-500
-                "
-              >
+              <p className="mt-1 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-500">
                 Intelligence
               </p>
             </div>
@@ -367,27 +412,11 @@ const BlogsHero = () => {
             <div className="h-8 w-px bg-slate-200 dark:bg-white/10" />
 
             <div>
-              <p
-                className="
-                  text-2xl
-                  font-black
-                  text-slate-900
-                  dark:text-white
-                "
-              >
+              <p className="text-2xl font-black text-slate-900 dark:text-white">
                 Cloud
               </p>
 
-              <p
-                className="
-                  mt-1
-                  text-xs
-                  uppercase
-                  tracking-wider
-                  text-slate-500
-                  dark:text-slate-500
-                "
-              >
+              <p className="mt-1 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-500">
                 Technology
               </p>
             </div>
@@ -395,27 +424,11 @@ const BlogsHero = () => {
             <div className="h-8 w-px bg-slate-200 dark:bg-white/10" />
 
             <div>
-              <p
-                className="
-                  text-2xl
-                  font-black
-                  text-slate-900
-                  dark:text-white
-                "
-              >
+              <p className="text-2xl font-black text-slate-900 dark:text-white">
                 Career
               </p>
 
-              <p
-                className="
-                  mt-1
-                  text-xs
-                  uppercase
-                  tracking-wider
-                  text-slate-500
-                  dark:text-slate-500
-                "
-              >
+              <p className="mt-1 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-500">
                 Growth
               </p>
             </div>
@@ -430,7 +443,7 @@ const BlogsHero = () => {
                 dark:text-emerald-400
               "
             />
-          </div>
+          </motion.div>
         </div>
       </div>
 
