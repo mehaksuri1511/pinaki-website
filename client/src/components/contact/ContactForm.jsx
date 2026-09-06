@@ -9,6 +9,7 @@ import {
   Sparkles,
   User,
 } from "lucide-react";
+import SectionWatermark from "../common/SectionWatermark";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -56,7 +57,8 @@ const ContactForm = () => {
 
       setStatus({
         type: "success",
-        message: res.data.message || "Your message has been sent successfully.",
+        message:
+          res.data.message || "Your message has been sent successfully.",
       });
 
       setFormData({
@@ -119,11 +121,26 @@ const ContactForm = () => {
         dark:bg-slate-900
       "
     >
+      <SectionWatermark
+        icons={[
+          "Mail",
+          "MessageCircle",
+          "UserRound",
+          "Sparkles",
+          "BriefcaseBusiness",
+          "Users",
+          "Rocket",
+          "Target",
+          "Award",
+        ]}
+        intensity="strong"
+      />
+
       {/* Glows */}
       <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-emerald-300/15 blur-[120px] dark:bg-emerald-500/10" />
       <div className="pointer-events-none absolute -right-40 bottom-10 h-80 w-80 rounded-full bg-teal-300/15 blur-[120px] dark:bg-teal-500/10" />
 
-      <div className="relative mx-auto max-w-6xl px-6 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-8">
         {/* Heading */}
         <div className="mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300">

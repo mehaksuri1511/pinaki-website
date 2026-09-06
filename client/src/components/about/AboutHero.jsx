@@ -8,6 +8,8 @@ import img2 from "../../assets/images/gallery5.png";
 import img3 from "../../assets/images/gallery9.png";
 import img4 from "../../assets/images/gallery13.png";
 
+import SectionWatermark from "../common/SectionWatermark";
+
 const images = [img1, img2, img3, img4];
 
 const revealUp = {
@@ -39,6 +41,22 @@ const AboutHero = () => {
           max-lg:pt-[88px]
         "
       >
+        {/* ================= WATERMARK ================= */}
+        <SectionWatermark
+          icons={[
+            "Sparkles",
+            "Building2",
+            "GraduationCap",
+            "Users",
+            "Lightbulb",
+            "Rocket",
+            "Award",
+            "Target",
+            "BriefcaseBusiness",
+          ]}
+          intensity="strong"
+        />
+
         {/* Ambient glow */}
         <div
           className="
@@ -73,6 +91,8 @@ const AboutHero = () => {
         {/* Hero content */}
         <div
           className="
+            relative
+            z-10
             mx-auto
             grid
             min-h-[calc(100vh-104px)]
@@ -90,7 +110,6 @@ const AboutHero = () => {
         >
           {/* ================= LEFT ================= */}
           <div className="relative z-10 max-w-3xl">
-
             {/* Eyebrow */}
             <motion.div
               variants={revealUp}
@@ -131,7 +150,7 @@ const AboutHero = () => {
                 "
               />
 
-              ABOUT PINAKI IT
+              ABOUT PINAKI IT CONSULTANT
             </motion.div>
 
             {/* Heading */}
@@ -306,7 +325,7 @@ const AboutHero = () => {
             >
               <div>
                 <p className="text-xl font-black text-slate-950 dark:text-white">
-                  5000+
+                  10000+
                 </p>
 
                 <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
@@ -404,10 +423,10 @@ const AboutHero = () => {
                       index === 0
                         ? "h-[190px] sm:h-[220px] lg:h-[225px]"
                         : index === 1
-                        ? "mt-7 h-[190px] sm:h-[220px] lg:h-[225px]"
-                        : index === 2
-                        ? "-mt-3 h-[190px] sm:h-[220px] lg:h-[225px]"
-                        : "h-[190px] sm:h-[220px] lg:h-[225px]"
+                          ? "mt-7 h-[190px] sm:h-[220px] lg:h-[225px]"
+                          : index === 2
+                            ? "-mt-3 h-[190px] sm:h-[220px] lg:h-[225px]"
+                            : "h-[190px] sm:h-[220px] lg:h-[225px]"
                     }
                   `}
                 >

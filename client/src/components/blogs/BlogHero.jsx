@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Sparkles } from "lucide-react";
 import hero from "../../assets/images/blogHero.jpg";
+import SectionWatermark from "../common/SectionWatermark";
 
 const BlogsHero = () => {
   const scrollToFeatured = () => {
@@ -35,7 +36,7 @@ const BlogsHero = () => {
         dark:bg-slate-950
       "
     >
-      {/* Background image */}
+      {/* ================= BACKGROUND IMAGE ================= */}
       <img
         src={hero}
         alt="Pinaki IT technology insights"
@@ -53,7 +54,7 @@ const BlogsHero = () => {
         "
       />
 
-      {/* Light theme image wash */}
+      {/* ================= LIGHT THEME IMAGE WASH ================= */}
       <div
         className="
           absolute
@@ -66,7 +67,7 @@ const BlogsHero = () => {
         "
       />
 
-      {/* Dark theme image wash */}
+      {/* ================= DARK THEME IMAGE WASH ================= */}
       <div
         className="
           absolute
@@ -80,7 +81,7 @@ const BlogsHero = () => {
         "
       />
 
-      {/* Light theme ambient glow */}
+      {/* ================= LIGHT THEME AMBIENT GLOW ================= */}
       <div
         className="
           pointer-events-none
@@ -111,7 +112,7 @@ const BlogsHero = () => {
         "
       />
 
-      {/* Dark theme ambient glow */}
+      {/* ================= DARK THEME AMBIENT GLOW ================= */}
       <div
         className="
           pointer-events-none
@@ -144,21 +145,43 @@ const BlogsHero = () => {
         "
       />
 
-      {/* Decorative grid */}
+      {/* ================= DECORATIVE GRID ================= */}
       <div
         className="
           pointer-events-none
           absolute
           inset-0
           opacity-[0.035]
-          [background-image:linear-gradient(rgba(15,23,42,0.8)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.8)_1px,transparent_1px)]
-          [background-size:70px_70px]
           dark:opacity-[0.035]
-          dark:[background-image:linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)]
         "
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(15,23,42,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.8) 1px, transparent 1px)",
+          backgroundSize: "70px 70px",
+          maskImage:
+            "linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
+        }}
       />
 
-      {/* Main content */}
+      {/* ================= WATERMARK ICONS ================= */}
+      <SectionWatermark
+        icons={[
+          "Sparkles",
+          "BookOpen",
+          "Code2",
+          "Cpu",
+          "Lightbulb",
+          "Rocket",
+          "GraduationCap",
+          "Target",
+          "Award",
+        ]}
+        intensity="strong"
+      />
+
+      {/* ================= MAIN CONTENT ================= */}
       <div
         className="
           relative
@@ -176,8 +199,7 @@ const BlogsHero = () => {
         "
       >
         <div className="max-w-4xl">
-
-          {/* Eyebrow */}
+          {/* ================= EYEBROW ================= */}
           <motion.div
             variants={revealUp}
             initial="hidden"
@@ -214,7 +236,7 @@ const BlogsHero = () => {
             Pinaki Insights
           </motion.div>
 
-          {/* Heading */}
+          {/* ================= HEADING ================= */}
           <motion.h1
             variants={revealUp}
             initial="hidden"
@@ -260,7 +282,7 @@ const BlogsHero = () => {
             </span>
           </motion.h1>
 
-          {/* Description */}
+          {/* ================= DESCRIPTION ================= */}
           <motion.p
             variants={revealUp}
             initial="hidden"
@@ -289,7 +311,7 @@ const BlogsHero = () => {
             and the technologies shaping the future.
           </motion.p>
 
-          {/* Actions */}
+          {/* ================= ACTIONS ================= */}
           <motion.div
             variants={revealUp}
             initial="hidden"
@@ -387,7 +409,7 @@ const BlogsHero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Topic highlights */}
+          {/* ================= TOPIC HIGHLIGHTS ================= */}
           <motion.div
             variants={revealUp}
             initial="hidden"
@@ -447,7 +469,7 @@ const BlogsHero = () => {
         </div>
       </div>
 
-      {/* Bottom transition */}
+      {/* ================= BOTTOM TRANSITION ================= */}
       <div
         className="
           absolute

@@ -1,12 +1,16 @@
 import { motion } from "framer-motion";
 
 import GalleryCard from "../cards/GalleryCard";
+
 import { galleryImages } from "../../data/gallery";
+
+import SectionWatermark from "../common/SectionWatermark";
 
 const Gallery = () => {
   return (
     <section
       className="
+        relative
         overflow-hidden
         bg-gradient-to-b
         from-slate-50
@@ -21,7 +25,23 @@ const Gallery = () => {
         duration-300
       "
     >
-      <div className="mx-auto max-w-7xl px-6">
+      {/* ================= WATERMARKS ================= */}
+      <SectionWatermark
+        icons={[
+          "Camera",
+          "Sparkles",
+          "Users",
+          "GraduationCap",
+          "Trophy",
+          "Building2",
+          "Rocket",
+          "Award",
+          "Star",
+        ]}
+        intensity="strong"
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         {/* ================= DIVIDER ================= */}
         <motion.div
           initial={{

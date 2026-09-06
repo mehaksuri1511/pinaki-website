@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+
 import {
   GraduationCap,
   BriefcaseBusiness,
@@ -8,12 +9,13 @@ import {
 
 import StatsCard from "../common/StatsCard";
 import LogoSlider from "../common/LogoSlider";
+import SectionWatermark from "../common/SectionWatermark";
 
 const TrustedBy = () => {
   const stats = [
     {
       icon: <GraduationCap size={32} />,
-      value: "5000+",
+      value: "1.5 M+",
       label: "Students Trained",
     },
     {
@@ -37,6 +39,7 @@ const TrustedBy = () => {
     <section
       className="
         relative
+        overflow-hidden
         bg-gradient-to-b
         from-white
         via-emerald-50
@@ -50,11 +53,27 @@ const TrustedBy = () => {
         duration-300
       "
     >
-      <div className="mx-auto max-w-7xl px-6">
+      {/* ================= WATERMARKS ================= */}
+      <SectionWatermark
+        icons={[
+          "Building2",
+          "GraduationCap",
+          "Award",
+          "BriefcaseBusiness",
+          "Trophy",
+          "Users",
+          "Rocket",
+          "Sparkles",
+          "Target",
+        ]}
+        intensity="strong"
+      />
+
+      {/* ================= CONTENT ================= */}
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         {/* ================================================= */}
         {/* HEADING */}
         {/* ================================================= */}
-
         <motion.div
           initial={{
             opacity: 0,
@@ -129,7 +148,6 @@ const TrustedBy = () => {
         {/* ================================================= */}
         {/* STATS */}
         {/* ================================================= */}
-
         <div
           className="
             mt-14
@@ -172,7 +190,6 @@ const TrustedBy = () => {
         {/* ================================================= */}
         {/* LOGO SLIDER */}
         {/* ================================================= */}
-
         <motion.div
           initial={{
             opacity: 0,

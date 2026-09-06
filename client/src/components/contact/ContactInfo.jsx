@@ -7,6 +7,7 @@ import {
   Phone,
   Sparkles,
 } from "lucide-react";
+import SectionWatermark from "../common/SectionWatermark";
 
 const ContactInfo = () => {
   return (
@@ -21,11 +22,26 @@ const ContactInfo = () => {
         dark:bg-slate-950
       "
     >
+      <SectionWatermark
+        icons={[
+          "MapPin",
+          "Mail",
+          "Phone",
+          "Globe",
+          "Navigation",
+          "Building2",
+          "Users",
+          "Rocket",
+          "Target",
+        ]}
+        intensity="strong"
+      />
+
       {/* Glows */}
       <div className="pointer-events-none absolute -left-40 top-1/4 h-80 w-80 rounded-full bg-emerald-300/15 blur-[120px] dark:bg-emerald-500/10" />
       <div className="pointer-events-none absolute -right-40 bottom-0 h-80 w-80 rounded-full bg-teal-300/15 blur-[120px] dark:bg-teal-500/10" />
 
-      <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
         <div className="grid items-start gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           {/* LEFT */}
           <div>
@@ -257,6 +273,7 @@ const ContactInfo = () => {
                         <p className="text-xs font-bold uppercase tracking-wider text-white/60">
                           Find Us
                         </p>
+
                         <p className="text-sm font-semibold">
                           Sector 63, Noida
                         </p>

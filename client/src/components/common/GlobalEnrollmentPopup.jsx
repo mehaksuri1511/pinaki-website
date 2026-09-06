@@ -423,7 +423,7 @@ const GlobalEnrollmentPopup = () => {
                       dark:to-teal-400
                     "
                   >
-                    IT Career.
+                    Professional IT Career.
                   </span>
                 </h2>
 

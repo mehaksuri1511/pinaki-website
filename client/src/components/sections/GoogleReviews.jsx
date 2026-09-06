@@ -8,6 +8,8 @@ import {
   Quote,
 } from "lucide-react";
 
+import SectionWatermark from "../common/SectionWatermark";
+
 const reviews = [
   {
     name: "Aryan Rangari",
@@ -125,6 +127,25 @@ const GoogleReviews = () => {
       "
     >
       {/* =========================================================
+          SECTION WATERMARKS
+      ========================================================= */}
+
+      <SectionWatermark
+        icons={[
+          "Quote",
+          "Star",
+          "Users",
+          "HeartHandshake",
+          "Award",
+          "MessageCircle",
+          "Sparkles",
+          "Trophy",
+          "UserRound",
+        ]}
+        intensity="strong"
+      />
+
+      {/* =========================================================
           BACKGROUND GLOWS
       ========================================================= */}
 
@@ -158,7 +179,7 @@ const GoogleReviews = () => {
         "
       />
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         {/* =======================================================
             HEADING
         ======================================================= */}

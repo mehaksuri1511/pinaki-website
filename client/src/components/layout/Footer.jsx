@@ -448,7 +448,7 @@ const Footer = () => {
                       dark:text-white
                     "
                   >
-                    Pinaki IT
+                    Pinaki IT Consultant 
                   </h3>
 
                   <div
@@ -718,9 +718,9 @@ const Footer = () => {
                       dark:text-slate-400
                     "
                   >
-                    H-114, Office no-FF-01,
-                    <br />
-                    Noida Sector 63, India
+                    D-68, Upper Ground Floor, <br />
+                    Aruna Park, Block-D Nirman Vihar, <br />
+                    New Delhi-110092
                   </p>
                 </div>
 
@@ -758,7 +758,8 @@ const Footer = () => {
                       dark:text-slate-400
                     "
                   >
-                    +91 XXXXX XXXXX
+                    +919540855058<br/>
+                    +918800595295
                   </p>
                 </div>
 

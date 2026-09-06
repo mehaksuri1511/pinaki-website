@@ -9,6 +9,8 @@ import {
 import { FaLinkedinIn } from "react-icons/fa";
 import founder from "../../assets/images/founder.png";
 
+import SectionWatermark from "../common/SectionWatermark";
+
 const FounderSection = () => {
   const [expanded, setExpanded] = useState(false);
 
@@ -24,6 +26,23 @@ const FounderSection = () => {
         dark:bg-slate-950
       "
     >
+      {/* ================= WATERMARK ================= */}
+
+      <SectionWatermark
+        icons={[
+          "UserRound",
+          "Quote",
+          "Lightbulb",
+          "GraduationCap",
+          "HeartHandshake",
+          "Target",
+          "Sparkles",
+          "Award",
+          "Rocket",
+        ]}
+        intensity="strong"
+      />
+
       {/* ================= BACKGROUND GLOWS ================= */}
 
       <div
@@ -56,7 +75,7 @@ const FounderSection = () => {
         "
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
         {/* ================= HEADING ================= */}
 
         <div className="mx-auto max-w-3xl text-center">

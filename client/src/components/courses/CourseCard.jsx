@@ -203,13 +203,18 @@ const CourseCard = ({ course, onEnroll }) => {
             dark:text-slate-400
           "
         >
+          {/* Duration */}
+
           <div className="flex items-center gap-2">
             <Clock3
               size={16}
               className="text-emerald-500"
             />
+
             <span>{course.duration}</span>
           </div>
+
+          {/* Divider */}
 
           <span
             className="
@@ -222,11 +227,14 @@ const CourseCard = ({ course, onEnroll }) => {
             "
           />
 
+          {/* Level */}
+
           <div className="flex items-center gap-2">
             <BarChart3
               size={16}
               className="text-emerald-500"
             />
+
             <span>{course.level}</span>
           </div>
         </div>
@@ -278,7 +286,7 @@ const CourseCard = ({ course, onEnroll }) => {
 
           <button
             type="button"
-            onClick={() => onEnroll(course.title)}
+            onClick={() => onEnroll?.(course.title)}
             className="
               group/enroll
               flex

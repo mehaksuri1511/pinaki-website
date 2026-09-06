@@ -2,7 +2,7 @@ const cyberSecurity = {
   slug: "cyber-security",
   title: "Cyber Security",
   category: "Security",
-  duration: "12 Weeks",
+  duration: "6 Months",
   level: "Intermediate",
 
   overview:

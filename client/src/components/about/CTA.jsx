@@ -1,6 +1,8 @@
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+import SectionWatermark from "../common/SectionWatermark";
+
 const CTA = () => {
   const navigate = useNavigate();
 
@@ -15,6 +17,23 @@ const CTA = () => {
         dark:bg-slate-950
       "
     >
+      {/* ================= WATERMARK ================= */}
+
+      <SectionWatermark
+        icons={[
+          "Sparkles",
+          "Rocket",
+          "Target",
+          "GraduationCap",
+          "Lightbulb",
+          "Award",
+          "Users",
+          "BriefcaseBusiness",
+          "Trophy",
+        ]}
+        intensity="strong"
+      />
+
       {/* ================= BACKGROUND GLOWS ================= */}
 
       <div
@@ -49,7 +68,7 @@ const CTA = () => {
         "
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
         {/* ================= CTA CARD ================= */}
 
         <div
@@ -153,7 +172,6 @@ const CTA = () => {
               "
             >
               <Sparkles size={14} />
-
               START YOUR JOURNEY
             </div>
 

@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import blogs from "../data/allBlogs";
+import SectionWatermark from "../components/common/SectionWatermark";
 
 const decodeHtml = (text) => {
   return String(text || "")
@@ -69,6 +70,22 @@ const BlogDetails = () => {
           dark:bg-slate-950
         "
       >
+        {/* Watermark */}
+        <SectionWatermark
+          icons={[
+            "BookOpen",
+            "Sparkles",
+            "Lightbulb",
+            "Code2",
+            "Cpu",
+            "Rocket",
+            "GraduationCap",
+            "Target",
+            "Award",
+          ]}
+          intensity="strong"
+        />
+
         {/* Background image */}
         <img
           src={blog.image}
@@ -383,11 +400,27 @@ const BlogDetails = () => {
       {/* =========================================================
           ARTICLE CONTENT
       ========================================================= */}
-      <section className="relative px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      <section className="relative overflow-hidden px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+        {/* Watermark */}
+        <SectionWatermark
+          icons={[
+            "BookOpen",
+            "Code2",
+            "Cpu",
+            "Lightbulb",
+            "MessageCircle",
+            "GraduationCap",
+            "Rocket",
+            "Target",
+            "Sparkles",
+          ]}
+          intensity="soft"
+        />
+
         {/* Background glows */}
         <div className="pointer-events-none absolute left-0 top-20 h-80 w-80 rounded-full bg-emerald-300/10 blur-[120px] dark:bg-emerald-500/5" />
 
-        <div className="relative mx-auto max-w-6xl">
+        <div className="relative z-10 mx-auto max-w-6xl">
           {blog.htmlContent ? (
             <article
               className="
@@ -748,10 +781,27 @@ const BlogDetails = () => {
       {/* =========================================================
           BOTTOM CTA
       ========================================================= */}
-      <section className="px-5 pb-16 sm:px-8 sm:pb-20 lg:px-10 lg:pb-24">
+      <section className="relative overflow-hidden px-5 pb-16 sm:px-8 sm:pb-20 lg:px-10 lg:pb-24">
+        {/* Watermark */}
+        <SectionWatermark
+          icons={[
+            "Sparkles",
+            "BookOpen",
+            "Lightbulb",
+            "Rocket",
+            "Code2",
+            "GraduationCap",
+            "Award",
+            "Target",
+            "Users",
+          ]}
+          intensity="soft"
+        />
+
         <div
           className="
             relative
+            z-10
             mx-auto
             max-w-6xl
             overflow-hidden

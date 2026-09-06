@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   CheckCircle2,
   Mail,
   Sparkles,
 } from "lucide-react";
+
+import SectionWatermark from "../common/SectionWatermark";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
@@ -19,6 +22,17 @@ const Newsletter = () => {
     setEmail("");
   };
 
+  const revealUp = {
+    hidden: {
+      opacity: 0,
+      y: 65,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  };
+
   return (
     <section
       className="
@@ -26,12 +40,14 @@ const Newsletter = () => {
         overflow-hidden
         bg-white
         py-16
+        transition-colors
+        duration-500
         sm:py-20
         lg:py-24
         dark:bg-slate-950
       "
     >
-      {/* Ambient glow */}
+      {/* ================= AMBIENT LIGHTS ================= */}
       <div
         className="
           pointer-events-none
@@ -64,8 +80,32 @@ const Newsletter = () => {
         "
       />
 
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-        <div
+      {/* ================= WATERMARK ================= */}
+      <SectionWatermark
+        icons={[
+          "Mail",
+          "Sparkles",
+          "BookOpen",
+          "Lightbulb",
+          "Code2",
+          "Cpu",
+          "Rocket",
+          "GraduationCap",
+          "Target",
+        ]}
+        intensity="strong"
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
+        <motion.div
+          variants={revealUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{
+            duration: 1.1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className="
             relative
             overflow-hidden
@@ -91,7 +131,7 @@ const Newsletter = () => {
             dark:shadow-black/20
           "
         >
-          {/* Decorative glow */}
+          {/* ================= DECORATIVE GLOW ================= */}
           <div
             className="
               pointer-events-none
@@ -122,6 +162,7 @@ const Newsletter = () => {
             "
           />
 
+          {/* ================= CONTENT GRID ================= */}
           <div
             className="
               relative
@@ -132,8 +173,19 @@ const Newsletter = () => {
               lg:gap-16
             "
           >
-            {/* Content */}
-            <div>
+            {/* ================= CONTENT ================= */}
+            <motion.div
+              variants={revealUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.12 }}
+              transition={{
+                duration: 1,
+                delay: 0.1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              {/* Badge */}
               <div
                 className="
                   inline-flex
@@ -175,6 +227,7 @@ const Newsletter = () => {
                 "
               >
                 Get Smarter About
+
                 <span
                   className="
                     block
@@ -209,6 +262,7 @@ const Newsletter = () => {
                 updates directly in your inbox. No unnecessary noise.
               </p>
 
+              {/* Benefits */}
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
                 {[
                   "Technology insights",
@@ -235,10 +289,18 @@ const Newsletter = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Form */}
-            <div
+            {/* ================= FORM CARD ================= */}
+            <motion.div
+              initial={{ opacity: 0, y: 75 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.12 }}
+              transition={{
+                duration: 1.15,
+                delay: 0.2,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="
                 rounded-[26px]
                 border
@@ -255,7 +317,22 @@ const Newsletter = () => {
               "
             >
               {submitted ? (
-                <div className="flex min-h-[220px] flex-col items-center justify-center text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 35 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="
+                    flex
+                    min-h-[220px]
+                    flex-col
+                    items-center
+                    justify-center
+                    text-center
+                  "
+                >
                   <div
                     className="
                       flex
@@ -297,9 +374,10 @@ const Newsletter = () => {
                   >
                     Thanks for subscribing to Pinaki Insights.
                   </p>
-                </div>
+                </motion.div>
               ) : (
                 <>
+                  {/* Form heading */}
                   <div
                     className="
                       flex
@@ -418,9 +496,12 @@ const Newsletter = () => {
                           hover:-translate-y-0.5
                           hover:shadow-xl
                           hover:shadow-emerald-600/25
+                          dark:from-emerald-500
+                          dark:to-teal-500
                         "
                       >
                         Subscribe
+
                         <ArrowRight
                           size={16}
                           className="
@@ -447,9 +528,9 @@ const Newsletter = () => {
                   </p>
                 </>
               )}
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

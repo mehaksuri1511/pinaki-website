@@ -2,7 +2,7 @@ const cloudComputing = {
   slug: "cloud-computing",
   title: "Cloud Computing",
   category: "Cloud Technology",
-  duration: "12 Weeks",
+  duration: "6 Months",
   level: "Beginner to Advanced",
 
   overview:

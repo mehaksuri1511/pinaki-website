@@ -16,6 +16,13 @@ import {
   BarChart3,
   Megaphone,
   Database,
+  Cloud,
+  GitBranch,
+  Container,
+  Bot,
+  Brackets,
+  Coffee,
+  FileCode2,
 } from "lucide-react";
 
 import {
@@ -30,6 +37,15 @@ const courseIcons = {
   "digital-marketing": Megaphone,
   "full-stack": Code2,
   "data-scientist": Database,
+
+  "cloud-computing": Cloud,
+  devops: GitBranch,
+  docker: Container,
+  "agentic-ai": Bot,
+  "data-structures-algorithms": Brackets,
+  "java-programming": Coffee,
+  "python-programming": FileCode2,
+  "cpp-programming": Code2,
 };
 
 const courseReasons = {
@@ -50,6 +66,30 @@ const courseReasons = {
 
   "data-scientist":
     "Your answers show a strong interest in data-driven decision making, statistics and advanced analytics.",
+
+  "cloud-computing":
+    "Your answers suggest an interest in scalable infrastructure, cloud platforms and modern computing environments.",
+
+  devops:
+    "Your answers indicate an interest in automation, deployment, infrastructure and improving software delivery.",
+
+  docker:
+    "Your answers show an interest in containers, application deployment and efficient development environments.",
+
+  "agentic-ai":
+    "Your answers show a strong interest in autonomous AI systems, intelligent agents and AI-powered automation.",
+
+  "data-structures-algorithms":
+    "Your answers indicate an interest in logical problem solving, algorithms, optimization and strong programming fundamentals.",
+
+  "java-programming":
+    "Your answers suggest that you would enjoy building reliable applications while developing strong object-oriented programming skills with Java.",
+
+  "python-programming":
+    "Your answers show an interest in versatile programming, automation, data, AI and practical software development with Python.",
+
+  "cpp-programming":
+    "Your answers indicate an interest in performance, problem solving, systems programming and strong programming fundamentals with C++.",
 };
 
 const CourseQuiz = () => {
@@ -78,10 +118,12 @@ const CourseQuiz = () => {
 
     if (currentQuestion === courseQuizQuestions.length - 1) {
       setShowResult(true);
+
       window.scrollTo({
         top: 0,
         behavior: "smooth",
       });
+
       return;
     }
 
@@ -109,7 +151,7 @@ const CourseQuiz = () => {
    * Calculate course recommendations.
    *
    * Each question has four options.
-   * Every option contains scores for all six courses.
+   * Every option contains scores for all 14 courses.
    *
    * The score is normalized against the maximum
    * possible score for each course so that the
@@ -183,6 +225,7 @@ const CourseQuiz = () => {
         {/* Ambient background */}
         <div className="pointer-events-none fixed inset-0 overflow-hidden">
           <div className="absolute left-[-10%] top-[10%] h-96 w-96 rounded-full bg-emerald-300/20 blur-[130px] dark:bg-emerald-500/10" />
+
           <div className="absolute bottom-[-10%] right-[-5%] h-[28rem] w-[28rem] rounded-full bg-teal-300/20 blur-[140px] dark:bg-teal-500/10" />
         </div>
 
@@ -304,6 +347,7 @@ const CourseQuiz = () => {
                       <p className="text-4xl font-black text-emerald-600 dark:text-emerald-400">
                         {course.percentage}%
                       </p>
+
                       <p className="mt-1 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-500">
                         Match
                       </p>
@@ -361,6 +405,7 @@ const CourseQuiz = () => {
       {/* Ambient background */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div className="absolute left-[-10%] top-[15%] h-96 w-96 rounded-full bg-emerald-300/20 blur-[130px] dark:bg-emerald-500/10" />
+
         <div className="absolute bottom-[-10%] right-[-5%] h-[28rem] w-[28rem] rounded-full bg-teal-300/20 blur-[140px] dark:bg-teal-500/10" />
       </div>
 
@@ -507,11 +552,7 @@ const CourseQuiz = () => {
                                 : "bg-white text-slate-600 shadow-sm dark:bg-slate-800 dark:text-slate-300"
                             }`}
                           >
-                            {isSelected ? (
-                              <Check size={18} />
-                            ) : (
-                              option.id
-                            )}
+                            {isSelected ? <Check size={18} /> : option.id}
                           </span>
 
                           <span

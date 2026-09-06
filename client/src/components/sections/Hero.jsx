@@ -2,6 +2,7 @@ import { ArrowRight, PlayCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import CourseQuizBanner from "./CourseQuizBanner";
+import SectionWatermark from "../common/SectionWatermark";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -28,6 +29,22 @@ const Hero = () => {
         dark:text-white
       "
     >
+      {/* ================= WATERMARKS ================= */}
+      <SectionWatermark
+        icons={[
+          "Sparkles",
+          "Cpu",
+          "Code2",
+          "Rocket",
+          "Lightbulb",
+          "GraduationCap",
+          "Code2",
+          "Cpu",
+          "Sparkles",
+        ]}
+        intensity="strong"
+      />
+
       {/* ================= BACKGROUND BLUR ================= */}
       <div
         className="
@@ -59,7 +76,8 @@ const Hero = () => {
         "
       />
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      {/* ================= CONTENT ================= */}
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div
           className="
             grid
@@ -163,7 +181,7 @@ const Hero = () => {
                   text-transparent
                 "
               >
-                IT Careers.
+                Professional IT Careers.
               </span>
             </motion.h1>
 

@@ -5,6 +5,7 @@ import {
   MessageCircleQuestion,
   Sparkles,
 } from "lucide-react";
+import SectionWatermark from "../common/SectionWatermark";
 
 const faqs = [
   {
@@ -49,11 +50,26 @@ const FAQSection = () => {
         dark:bg-slate-900
       "
     >
+      <SectionWatermark
+        icons={[
+          "HelpCircle",
+          "MessageCircle",
+          "Sparkles",
+          "BookOpen",
+          "Users",
+          "Lightbulb",
+          "Target",
+          "Rocket",
+          "Award",
+        ]}
+        intensity="strong"
+      />
+
       {/* Ambient lights */}
       <div className="pointer-events-none absolute -left-40 top-20 h-72 w-72 rounded-full bg-emerald-300/15 blur-[120px] dark:bg-emerald-500/10" />
       <div className="pointer-events-none absolute -right-40 bottom-0 h-72 w-72 rounded-full bg-teal-300/15 blur-[120px] dark:bg-teal-500/10" />
 
-      <div className="relative mx-auto max-w-5xl px-6 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-5xl px-6 sm:px-8">
         {/* Heading */}
         <div className="mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300">
@@ -201,6 +217,7 @@ const FAQSection = () => {
               <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
                 Still have a question?
               </p>
+
               <p className="text-xs text-slate-500 dark:text-slate-500">
                 Our team is happy to help.
               </p>

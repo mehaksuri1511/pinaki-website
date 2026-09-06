@@ -5,7 +5,7 @@ const wpCourses = [
     "slug": "introduction-to-generative-ai",
     "title": "Introduction to Generative AI",
     "category": "Artificial Intelligence",
-    "duration": "12 Weeks",
+    "duration": "6 Months",
     "level": "Beginner to Advanced",
     "image": "/wp-media/the-future-of-generative-ai-in-software-development-e1738147482454.png",
     "overview": "This course provides a thorough and immersive introduction to the fascinating world of Generative AI , exploring the pri...",
@@ -205,8 +205,8 @@ const wpCourses = [
     "slug": "cyber-security-and-ethical-hacking",
     "title": "Cyber Security and Ethical Hacking",
     "category": "Security",
-    "duration": "12 Weeks",
-    "level": "Intermediate",
+    "duration": "6 Months",
+    "level": "Beginner to Advanced",
     "image": "/wp-media/cyber-security-and-ethical-hacking.jpg",
     "overview": "Transitioning from learning to earning in Cyber Security is a transformative journey marked by acquiring...",
     "intro": [
@@ -403,8 +403,8 @@ const wpCourses = [
     "slug": "machine-learning",
     "title": "Machine Learning & Data Science",
     "category": "Data Science",
-    "duration": "14 Weeks",
-    "level": "Intermediate",
+    "duration": "6 Months",
+    "level": "Beginner to Advanced",
     "image": "/wp-media/what-is-data-science-2.jpg",
     "overview": "This comprehensive course provides an in-depth exploration of Machine Learning (ML), equipping learners with the skills to design...",
     "intro": [
@@ -595,7 +595,7 @@ const wpCourses = [
     "slug": "advanced-digital-marketing",
     "title": "Advanced Digital Marketing",
     "category": "Marketing",
-    "duration": "10 Weeks",
+    "duration": "6 Months",
     "level": "Beginner to Intermediate",
     "image": "/wp-media/ai-with-digital-marketing.jpg",
     "overview": "Course Home / Advanced Digital Marketing We have a designed Flexible Program for You! We get it—life can be unpredictable. That’s why our program is built to fit around your schedule, not th...",
@@ -854,7 +854,7 @@ const wpCourses = [
     "slug": "full-stack-development",
     "title": "Full Stack Development",
     "category": "Web Development",
-    "duration": "16 Weeks",
+    "duration": "6 Months",
     "level": "Beginner to Advanced",
     "image": "/wp-media/software-development-lifecycle-qwozynr2ed8qnezeokyzvpyslnek27aa5fj1onugf4.webp",
     "overview": "Full Stack Web Development Embarking on the journey to become a Full Stack Web Developer is an exciting endeavor filled with endless possibilities. A roadmap to suc...",
@@ -1039,7 +1039,7 @@ const wpCourses = [
     "slug": "data-scientist-global-certification",
     "title": "Data Scientist Global Certification",
     "category": "Certification",
-    "duration": "16 Weeks",
+    "duration": "6 Months",
     "level": "Intermediate to Advanced",
     "image": "/wp-media/data-scientist-scaled.jpg",
     "overview": "Data Scientist Professional Global Certification Home / Data Scientist Professional Global Certification Data Scientist A data scientist is a professional skilled in extracting valuable insights from vast datasets. Pr...",
@@ -1236,7 +1236,1155 @@ const wpCourses = [
         "alt": "Gojek"
       }
     ]
+  },
+
+  // =========================================================
+  // ADDITIONAL COURSES
+  // =========================================================
+
+  {
+    id: 2006,
+    slug: "cloud-computing",
+    title: "Cloud Computing",
+    category: "Cloud & Infrastructure",
+    duration: "6 Months",
+    level: "Beginner to Advanced",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=85",
+
+    overview:
+      "Learn cloud computing fundamentals, cloud architecture, networking, storage, security, deployment and modern cloud infrastructure.",
+
+    intro: [
+      "Learn the fundamentals of cloud computing, virtualization, networking, storage and cloud architecture.",
+      "Understand how modern applications are deployed, scaled and monitored using cloud platforms.",
+      "Gain practical knowledge of AWS, Azure, Google Cloud, cloud security and deployment strategies.",
+    ],
+
+    highlights: [
+      {
+        title: "Cloud Fundamentals",
+        text: "Build a strong foundation in cloud computing and modern infrastructure.",
+      },
+      {
+        title: "Hands-on Learning",
+        text: "Practice deployment, networking, storage and cloud infrastructure concepts.",
+      },
+      {
+        title: "Real-World Projects",
+        text: "Build and deploy practical cloud-based applications.",
+      },
+      {
+        title: "Career Preparation",
+        text: "Prepare for cloud engineering and infrastructure-focused roles.",
+      },
+    ],
+
+    photos: [
+      {
+        src: "/wp-media/untitled-design-1.webp",
+        alt: "Hands-on learning",
+      },
+      {
+        src: "/wp-media/live-classes-by-faculty.webp",
+        alt: "Live classes",
+      },
+      {
+        src: "/wp-media/practical-experience.webp",
+        alt: "Practical experience",
+      },
+      {
+        src: "/wp-media/regular-11-mentorship.webp",
+        alt: "Mentorship",
+      },
+      {
+        src: "/wp-media/career-support.webp",
+        alt: "Career support",
+      },
+      {
+        src: "/wp-media/aspirational-pair-group.webp",
+        alt: "Peer learning",
+      },
+    ],
+
+    modules: [
+      {
+        title: "Module 1: Cloud Computing Fundamentals",
+        points: [
+          "Introduction to cloud computing",
+          "Cloud service models: IaaS, PaaS and SaaS",
+          "Public, private and hybrid cloud",
+          "Virtualization and distributed computing",
+        ],
+      },
+      {
+        title: "Module 2: Cloud Networking",
+        points: [
+          "Networking fundamentals",
+          "Virtual networks and subnets",
+          "DNS and load balancing",
+          "Network security and access control",
+        ],
+      },
+      {
+        title: "Module 3: Cloud Storage & Databases",
+        points: [
+          "Object, block and file storage",
+          "Cloud databases",
+          "Backup and disaster recovery",
+          "Data security and access management",
+        ],
+      },
+      {
+        title: "Module 4: Cloud Compute & Deployment",
+        points: [
+          "Virtual machines",
+          "Containers and application deployment",
+          "Serverless computing",
+          "Application scaling and availability",
+        ],
+      },
+      {
+        title: "Module 5: AWS, Azure & Google Cloud",
+        points: [
+          "Introduction to AWS",
+          "Introduction to Microsoft Azure",
+          "Introduction to Google Cloud",
+          "Comparison of major cloud platforms",
+        ],
+      },
+      {
+        title: "Module 6: Cloud Security & Monitoring",
+        points: [
+          "Identity and access management",
+          "Cloud security fundamentals",
+          "Monitoring and logging",
+          "Cost optimization",
+        ],
+      },
+      {
+        title: "Module 7: Cloud Project",
+        points: [
+          "Design a cloud architecture",
+          "Deploy a cloud application",
+          "Configure monitoring",
+          "Project documentation and presentation",
+        ],
+      },
+    ],
+
+    logos: [
+      {
+        src: "/wp-media/flipkart-logo.jpg",
+        alt: "Flipkart",
+      },
+      {
+        src: "/wp-media/uber-logo.jpg",
+        alt: "Uber",
+      },
+      {
+        src: "/wp-media/nvidia-logo.jpg",
+        alt: "NVIDIA",
+      },
+      {
+        src: "/wp-media/atlassian-logo.jpg",
+        alt: "Atlassian",
+      },
+    ],
+  },
+
+  {
+    id: 2007,
+    slug: "devops",
+    title: "DevOps",
+    category: "DevOps & Automation",
+    duration: "6 Months",
+    level: "Beginner to Advanced",
+    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1600&q=85",
+
+    overview:
+      "Master DevOps practices including Git, CI/CD, Jenkins, Docker, Kubernetes, cloud deployment, automation and monitoring.",
+
+    intro: [
+      "Understand DevOps culture and the modern software development lifecycle.",
+      "Learn Git, GitHub, Jenkins, Docker, Kubernetes and cloud deployment.",
+      "Build automated CI/CD pipelines and production-ready deployment workflows.",
+    ],
+
+    highlights: [
+      {
+        title: "Industry Tools",
+        text: "Learn Git, Jenkins, Docker, Kubernetes and cloud technologies.",
+      },
+      {
+        title: "CI/CD",
+        text: "Build automated testing and deployment pipelines.",
+      },
+      {
+        title: "Hands-on Projects",
+        text: "Apply DevOps practices to real application deployments.",
+      },
+      {
+        title: "Career Support",
+        text: "Prepare for DevOps interviews and technical assessments.",
+      },
+    ],
+
+    photos: [
+      {
+        src: "/wp-media/untitled-design-1.webp",
+        alt: "Hands-on learning",
+      },
+      {
+        src: "/wp-media/live-classes-by-faculty.webp",
+        alt: "Live classes",
+      },
+      {
+        src: "/wp-media/practical-experience.webp",
+        alt: "Practical experience",
+      },
+      {
+        src: "/wp-media/regular-11-mentorship.webp",
+        alt: "Mentorship",
+      },
+      {
+        src: "/wp-media/career-support.webp",
+        alt: "Career support",
+      },
+      {
+        src: "/wp-media/aspirational-pair-group.webp",
+        alt: "Peer learning",
+      },
+    ],
+
+    modules: [
+      {
+        title: "Module 1: DevOps Fundamentals",
+        points: [
+          "DevOps principles and culture",
+          "Software development lifecycle",
+          "Continuous Integration and Continuous Delivery",
+          "DevOps roles and responsibilities",
+        ],
+      },
+      {
+        title: "Module 2: Git & GitHub",
+        points: [
+          "Git fundamentals",
+          "Branching and merging",
+          "Pull requests",
+          "GitHub collaboration workflows",
+        ],
+      },
+      {
+        title: "Module 3: CI/CD with Jenkins",
+        points: [
+          "Jenkins fundamentals",
+          "Pipeline creation",
+          "Automated testing",
+          "Continuous deployment",
+        ],
+      },
+      {
+        title: "Module 4: Docker",
+        points: [
+          "Containerization",
+          "Docker images and containers",
+          "Dockerfiles",
+          "Docker Compose",
+        ],
+      },
+      {
+        title: "Module 5: Kubernetes",
+        points: [
+          "Kubernetes architecture",
+          "Pods and deployments",
+          "Services and networking",
+          "Scaling applications",
+        ],
+      },
+      {
+        title: "Module 6: Cloud & Infrastructure",
+        points: [
+          "Cloud deployment",
+          "Infrastructure automation",
+          "Monitoring and logging",
+          "Security fundamentals",
+        ],
+      },
+      {
+        title: "Module 7: DevOps Capstone",
+        points: [
+          "Build a complete CI/CD pipeline",
+          "Containerize an application",
+          "Deploy to cloud infrastructure",
+          "Monitoring and project documentation",
+        ],
+      },
+    ],
+
+    logos: [
+      {
+        src: "/wp-media/flipkart-logo.jpg",
+        alt: "Flipkart",
+      },
+      {
+        src: "/wp-media/uber-logo.jpg",
+        alt: "Uber",
+      },
+      {
+        src: "/wp-media/nvidia-logo.jpg",
+        alt: "NVIDIA",
+      },
+      {
+        src: "/wp-media/atlassian-logo.jpg",
+        alt: "Atlassian",
+      },
+    ],
+  },
+
+  {
+    id: 2008,
+    slug: "docker",
+    title: "Docker",
+    category: "DevOps & Containers",
+    duration: "3 Months",
+    level: "Beginner to Advanced",
+    image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=1600&q=85",
+
+    overview:
+      "Learn Docker and containerization to package, run, manage and deploy applications consistently across development and production environments.",
+
+    intro: [
+      "Understand Docker and the fundamentals of containerization.",
+      "Learn images, containers, Dockerfiles, volumes, networks and Docker Compose.",
+      "Build and deploy real-world containerized applications.",
+    ],
+
+    highlights: [
+      {
+        title: "Docker Fundamentals",
+        text: "Master images, containers and the Docker CLI.",
+      },
+      {
+        title: "Docker Compose",
+        text: "Build and manage multi-container applications.",
+      },
+      {
+        title: "Deployment",
+        text: "Containerize applications and prepare them for production.",
+      },
+      {
+        title: "Practical Projects",
+        text: "Work on real-world containerization projects.",
+      },
+    ],
+
+    photos: [
+      {
+        src: "/wp-media/untitled-design-1.webp",
+        alt: "Hands-on learning",
+      },
+      {
+        src: "/wp-media/practical-experience.webp",
+        alt: "Practical experience",
+      },
+      {
+        src: "/wp-media/career-support.webp",
+        alt: "Career support",
+      },
+    ],
+
+    modules: [
+      {
+        title: "Module 1: Docker Fundamentals",
+        points: [
+          "Introduction to containers",
+          "Docker architecture",
+          "Docker CLI",
+          "Containers vs virtual machines",
+        ],
+      },
+      {
+        title: "Module 2: Images & Containers",
+        points: [
+          "Docker images",
+          "Creating and running containers",
+          "Container lifecycle",
+          "Docker Hub",
+        ],
+      },
+      {
+        title: "Module 3: Dockerfiles",
+        points: [
+          "Creating Dockerfiles",
+          "Image layers",
+          "Build optimization",
+          "Production image best practices",
+        ],
+      },
+      {
+        title: "Module 4: Storage & Networking",
+        points: [
+          "Docker volumes",
+          "Bind mounts",
+          "Docker networks",
+          "Container communication",
+        ],
+      },
+      {
+        title: "Module 5: Docker Compose",
+        points: [
+          "Compose fundamentals",
+          "Multi-container applications",
+          "Environment configuration",
+          "Application stacks",
+        ],
+      },
+      {
+        title: "Module 6: Docker in DevOps",
+        points: [
+          "Docker with Git",
+          "Docker with CI/CD",
+          "Container security",
+          "Docker and Kubernetes",
+        ],
+      },
+      {
+        title: "Module 7: Docker Project",
+        points: [
+          "Containerize a full-stack application",
+          "Create a multi-container environment",
+          "Deploy the application",
+          "Project documentation",
+        ],
+      },
+    ],
+
+    logos: [
+      {
+        src: "/wp-media/flipkart-logo.jpg",
+        alt: "Flipkart",
+      },
+      {
+        src: "/wp-media/uber-logo.jpg",
+        alt: "Uber",
+      },
+      {
+        src: "/wp-media/nvidia-logo.jpg",
+        alt: "NVIDIA",
+      },
+      {
+        src: "/wp-media/atlassian-logo.jpg",
+        alt: "Atlassian",
+      },
+    ],
+  },
+
+  {
+    id: 2009,
+    slug: "agentic-ai",
+    title: "Agentic AI",
+    category: "Artificial Intelligence",
+    duration: "6 Months",
+    level: "Intermediate to Advanced",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=85",
+
+    overview:
+      "Learn to design intelligent AI agents capable of reasoning, planning, using tools, maintaining context and completing complex multi-step tasks.",
+
+    intro: [
+      "Understand the foundations of Agentic AI and autonomous AI systems.",
+      "Learn LLMs, prompting, reasoning, planning, memory, tool calling and agent workflows.",
+      "Build practical AI agents that interact with APIs, databases and external tools.",
+    ],
+
+    highlights: [
+      {
+        title: "AI Agents",
+        text: "Understand how intelligent agents reason and perform tasks.",
+      },
+      {
+        title: "LLM Integration",
+        text: "Connect language models with applications and external tools.",
+      },
+      {
+        title: "Tool Calling",
+        text: "Build agents capable of using APIs and software tools.",
+      },
+      {
+        title: "Real Projects",
+        text: "Build practical agentic AI applications.",
+      },
+    ],
+
+    photos: [
+      {
+        src: "/wp-media/untitled-design-1.webp",
+        alt: "Hands-on learning",
+      },
+      {
+        src: "/wp-media/live-classes-by-faculty.webp",
+        alt: "Live classes",
+      },
+      {
+        src: "/wp-media/practical-experience.webp",
+        alt: "Practical experience",
+      },
+      {
+        src: "/wp-media/career-support.webp",
+        alt: "Career support",
+      },
+    ],
+
+    modules: [
+      {
+        title: "Module 1: Introduction to Agentic AI",
+        points: [
+          "What is Agentic AI?",
+          "AI agents vs traditional AI applications",
+          "Agent architectures",
+          "Real-world applications",
+        ],
+      },
+      {
+        title: "Module 2: Large Language Models",
+        points: [
+          "LLM fundamentals",
+          "Prompt engineering",
+          "Context windows",
+          "Structured outputs",
+        ],
+      },
+      {
+        title: "Module 3: Reasoning & Planning",
+        points: [
+          "Task decomposition",
+          "Reasoning workflows",
+          "Planning",
+          "Multi-step task execution",
+        ],
+      },
+      {
+        title: "Module 4: Tools & Function Calling",
+        points: [
+          "Tool-using agents",
+          "Function calling",
+          "API integration",
+          "Database integration",
+        ],
+      },
+      {
+        title: "Module 5: Memory & RAG",
+        points: [
+          "Short-term memory",
+          "Long-term memory",
+          "Embeddings",
+          "Retrieval-Augmented Generation",
+        ],
+      },
+      {
+        title: "Module 6: Multi-Agent Systems",
+        points: [
+          "Multi-agent architecture",
+          "Agent collaboration",
+          "Agent orchestration",
+          "Agent evaluation",
+        ],
+      },
+      {
+        title: "Module 7: Agentic AI Capstone",
+        points: [
+          "Build an end-to-end AI agent",
+          "Integrate external tools",
+          "Evaluate agent performance",
+          "Deploy the final project",
+        ],
+      },
+    ],
+
+    logos: [
+      {
+        src: "/wp-media/flipkart-logo.jpg",
+        alt: "Flipkart",
+      },
+      {
+        src: "/wp-media/uber-logo.jpg",
+        alt: "Uber",
+      },
+      {
+        src: "/wp-media/nvidia-logo.jpg",
+        alt: "NVIDIA",
+      },
+      {
+        src: "/wp-media/atlassian-logo.jpg",
+        alt: "Atlassian",
+      },
+    ],
+  },
+
+  {
+    id: 2010,
+    slug: "data-structures-algorithms",
+    title: "Data Structures & Algorithms",
+    category: "Programming & Placements",
+    duration: "6 Months",
+    level: "Beginner to Advanced",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=85",
+
+    overview:
+      "Master Data Structures and Algorithms using Java, Python and C++ with a strong focus on problem solving, coding interviews, competitive programming and placements.",
+
+    intro: [
+      "Build strong programming fundamentals and problem-solving skills.",
+      "Master Data Structures and Algorithms using Java, Python and C++.",
+      "Practice coding interview questions, online assessment problems and competitive programming patterns.",
+    ],
+
+    highlights: [
+      {
+        title: "Java",
+        text: "Learn and practice DSA using Java.",
+      },
+      {
+        title: "Python",
+        text: "Solve algorithmic problems efficiently using Python.",
+      },
+      {
+        title: "C++",
+        text: "Master STL and competitive programming with C++.",
+      },
+      {
+        title: "Placement Preparation",
+        text: "Prepare for coding rounds and technical interviews.",
+      },
+    ],
+
+    photos: [
+      {
+        src: "/wp-media/untitled-design-1.webp",
+        alt: "Hands-on learning",
+      },
+      {
+        src: "/wp-media/practical-experience.webp",
+        alt: "Practical experience",
+      },
+      {
+        src: "/wp-media/career-support.webp",
+        alt: "Career support",
+      },
+    ],
+
+    modules: [
+      {
+        title: "Module 1: Programming Fundamentals",
+        points: [
+          "Programming fundamentals",
+          "Java fundamentals",
+          "Python fundamentals",
+          "C++ fundamentals",
+          "Time and space complexity",
+        ],
+      },
+      {
+        title: "Module 2: Arrays & Strings",
+        points: [
+          "Arrays",
+          "Strings",
+          "Two pointers",
+          "Sliding window",
+          "Prefix sums",
+          "Hashing",
+        ],
+      },
+      {
+        title: "Module 3: Linked Lists, Stacks & Queues",
+        points: [
+          "Singly and doubly linked lists",
+          "Stacks",
+          "Queues",
+          "Deque",
+          "Monotonic stack",
+        ],
+      },
+      {
+        title: "Module 4: Trees & Heaps",
+        points: [
+          "Binary trees",
+          "Tree traversals",
+          "Binary search trees",
+          "Heaps",
+          "Priority queues",
+        ],
+      },
+      {
+        title: "Module 5: Graphs",
+        points: [
+          "Graph representation",
+          "BFS",
+          "DFS",
+          "Shortest path algorithms",
+          "Minimum spanning trees",
+          "Topological sorting",
+        ],
+      },
+      {
+        title: "Module 6: Searching, Sorting & Greedy",
+        points: [
+          "Binary search",
+          "Sorting algorithms",
+          "Greedy algorithms",
+          "Optimization techniques",
+        ],
+      },
+      {
+        title: "Module 7: Dynamic Programming",
+        points: [
+          "Dynamic programming fundamentals",
+          "Memoization",
+          "Tabulation",
+          "Classic DP problems",
+        ],
+      },
+      {
+        title: "Module 8: Backtracking & Advanced Problems",
+        points: [
+          "Backtracking",
+          "Bit manipulation",
+          "Advanced tree problems",
+          "Advanced graph problems",
+        ],
+      },
+      {
+        title: "Module 9: Placement & Interview Preparation",
+        points: [
+          "Company coding problems",
+          "Online assessment preparation",
+          "Technical interview preparation",
+          "Mock interviews",
+          "Competitive programming practice",
+        ],
+      },
+    ],
+
+    logos: [
+      {
+        src: "/wp-media/flipkart-logo.jpg",
+        alt: "Flipkart",
+      },
+      {
+        src: "/wp-media/uber-logo.jpg",
+        alt: "Uber",
+      },
+      {
+        src: "/wp-media/nvidia-logo.jpg",
+        alt: "NVIDIA",
+      },
+      {
+        src: "/wp-media/atlassian-logo.jpg",
+        alt: "Atlassian",
+      },
+    ],
+  },
+
+  // =========================================================
+  // PROGRAMMING LANGUAGE COURSES
+  // =========================================================
+
+  {
+    id: 2011,
+    slug: "java-programming",
+    title: "Java Programming",
+    category: "Programming",
+    duration: "4 Months",
+    level: "Beginner to Advanced",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=85",
+
+    overview:
+      "Learn Java programming from fundamentals to object-oriented programming, collections, exception handling, multithreading and practical application development.",
+
+    intro: [
+      "Learn Java syntax, programming fundamentals and object-oriented programming.",
+      "Master collections, exception handling, file handling, generics and multithreading.",
+      "Build practical Java applications and prepare for Java technical interviews.",
+    ],
+
+    highlights: [
+      {
+        title: "Core Java",
+        text: "Build strong Java programming fundamentals.",
+      },
+      {
+        title: "OOP",
+        text: "Master object-oriented programming concepts.",
+      },
+      {
+        title: "Collections",
+        text: "Work confidently with Java Collections Framework.",
+      },
+      {
+        title: "Projects",
+        text: "Build practical Java applications.",
+      },
+    ],
+
+    photos: [
+      {
+        src: "/wp-media/untitled-design-1.webp",
+        alt: "Hands-on learning",
+      },
+      {
+        src: "/wp-media/practical-experience.webp",
+        alt: "Practical experience",
+      },
+      {
+        src: "/wp-media/career-support.webp",
+        alt: "Career support",
+      },
+    ],
+
+    modules: [
+      {
+        title: "Module 1: Java Fundamentals",
+        points: [
+          "Java syntax",
+          "Variables and data types",
+          "Operators",
+          "Loops and conditional statements",
+          "Arrays",
+        ],
+      },
+      {
+        title: "Module 2: Object-Oriented Programming",
+        points: [
+          "Classes and objects",
+          "Inheritance",
+          "Polymorphism",
+          "Encapsulation",
+          "Abstraction",
+          "Interfaces",
+        ],
+      },
+      {
+        title: "Module 3: Exception & File Handling",
+        points: [
+          "Exception handling",
+          "Custom exceptions",
+          "File handling",
+          "Serialization",
+        ],
+      },
+      {
+        title: "Module 4: Collections Framework",
+        points: [
+          "ArrayList",
+          "LinkedList",
+          "HashSet",
+          "HashMap",
+          "Iterators",
+          "Generics",
+        ],
+      },
+      {
+        title: "Module 5: Advanced Java",
+        points: [
+          "Multithreading",
+          "Lambda expressions",
+          "Streams API",
+          "Functional programming",
+        ],
+      },
+      {
+        title: "Module 6: Java Projects & Interviews",
+        points: [
+          "Practical Java projects",
+          "Debugging",
+          "Testing",
+          "Java interview preparation",
+          "Coding assessments",
+        ],
+      },
+    ],
+
+    logos: [
+      {
+        src: "/wp-media/flipkart-logo.jpg",
+        alt: "Flipkart",
+      },
+      {
+        src: "/wp-media/uber-logo.jpg",
+        alt: "Uber",
+      },
+      {
+        src: "/wp-media/atlassian-logo.jpg",
+        alt: "Atlassian",
+      },
+    ],
+  },
+
+  {
+    id: 2012,
+    slug: "python-programming",
+    title: "Python Programming",
+    category: "Programming",
+    duration: "4 Months",
+    level: "Beginner to Advanced",
+    image: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1600&q=85",
+
+    overview:
+      "Learn Python programming from fundamentals through object-oriented programming, data handling, automation and practical application development.",
+
+    intro: [
+      "Master Python syntax, data structures, functions and programming fundamentals.",
+      "Learn object-oriented programming, file handling, modules, exceptions and automation.",
+      "Build practical Python projects and strengthen problem-solving skills.",
+    ],
+
+    highlights: [
+      {
+        title: "Python Fundamentals",
+        text: "Learn Python from the ground up.",
+      },
+      {
+        title: "Problem Solving",
+        text: "Develop strong programming and logical thinking skills.",
+      },
+      {
+        title: "Automation",
+        text: "Use Python for scripting and automation.",
+      },
+      {
+        title: "Projects",
+        text: "Build practical Python applications.",
+      },
+    ],
+
+    photos: [
+      {
+        src: "/wp-media/untitled-design-1.webp",
+        alt: "Hands-on learning",
+      },
+      {
+        src: "/wp-media/practical-experience.webp",
+        alt: "Practical experience",
+      },
+      {
+        src: "/wp-media/career-support.webp",
+        alt: "Career support",
+      },
+    ],
+
+    modules: [
+      {
+        title: "Module 1: Python Fundamentals",
+        points: [
+          "Python syntax",
+          "Variables and data types",
+          "Operators",
+          "Conditional statements",
+          "Loops",
+          "Functions",
+        ],
+      },
+      {
+        title: "Module 2: Python Data Structures",
+        points: [
+          "Lists",
+          "Tuples",
+          "Sets",
+          "Dictionaries",
+          "Strings",
+          "Comprehensions",
+        ],
+      },
+      {
+        title: "Module 3: Functions, Modules & Exceptions",
+        points: [
+          "Functions",
+          "Lambda functions",
+          "Modules and packages",
+          "Exception handling",
+        ],
+      },
+      {
+        title: "Module 4: Object-Oriented Python",
+        points: [
+          "Classes and objects",
+          "Inheritance",
+          "Polymorphism",
+          "Encapsulation",
+          "Abstraction",
+        ],
+      },
+      {
+        title: "Module 5: Files, APIs & Automation",
+        points: [
+          "File handling",
+          "JSON and CSV",
+          "Working with APIs",
+          "Python automation",
+        ],
+      },
+      {
+        title: "Module 6: Python Projects & Interviews",
+        points: [
+          "Practical Python projects",
+          "Debugging",
+          "Testing",
+          "Coding interview preparation",
+        ],
+      },
+    ],
+
+    logos: [
+      {
+        src: "/wp-media/flipkart-logo.jpg",
+        alt: "Flipkart",
+      },
+      {
+        src: "/wp-media/uber-logo.jpg",
+        alt: "Uber",
+      },
+      {
+        src: "/wp-media/atlassian-logo.jpg",
+        alt: "Atlassian",
+      },
+    ],
+  },
+
+  {
+    id: 2013,
+    slug: "cpp-programming",
+    title: "C++ Programming",
+    category: "Programming",
+    duration: "4 Months",
+    level: "Beginner to Advanced",
+    image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1600&q=85",
+
+    overview:
+      "Master C++ programming from fundamentals through object-oriented programming, STL, memory concepts and advanced problem solving.",
+
+    intro: [
+      "Learn C++ programming fundamentals, functions, arrays, pointers and references.",
+      "Master object-oriented programming and the Standard Template Library.",
+      "Use C++ for software development, competitive programming and coding interviews.",
+    ],
+
+    highlights: [
+      {
+        title: "Modern C++",
+        text: "Learn core and modern C++ programming concepts.",
+      },
+      {
+        title: "STL",
+        text: "Master vectors, maps, sets, stacks, queues and algorithms.",
+      },
+      {
+        title: "DSA",
+        text: "Use C++ to solve algorithmic problems efficiently.",
+      },
+      {
+        title: "Interview Preparation",
+        text: "Prepare for coding rounds and C++ technical interviews.",
+      },
+    ],
+
+    photos: [
+      {
+        src: "/wp-media/untitled-design-1.webp",
+        alt: "Hands-on learning",
+      },
+      {
+        src: "/wp-media/practical-experience.webp",
+        alt: "Practical experience",
+      },
+      {
+        src: "/wp-media/career-support.webp",
+        alt: "Career support",
+      },
+    ],
+
+    modules: [
+      {
+        title: "Module 1: C++ Fundamentals",
+        points: [
+          "C++ syntax",
+          "Data types",
+          "Operators",
+          "Loops",
+          "Functions",
+          "Arrays",
+        ],
+      },
+      {
+        title: "Module 2: Pointers & Memory",
+        points: [
+          "Pointers",
+          "References",
+          "Dynamic memory",
+          "Stack and heap",
+          "Memory management",
+        ],
+      },
+      {
+        title: "Module 3: Object-Oriented Programming",
+        points: [
+          "Classes and objects",
+          "Constructors and destructors",
+          "Inheritance",
+          "Polymorphism",
+          "Encapsulation",
+          "Abstraction",
+        ],
+      },
+      {
+        title: "Module 4: STL",
+        points: [
+          "Vectors",
+          "Lists",
+          "Stacks",
+          "Queues",
+          "Maps",
+          "Sets",
+          "Iterators",
+          "STL algorithms",
+        ],
+      },
+      {
+        title: "Module 5: Advanced C++",
+        points: [
+          "Templates",
+          "Lambda expressions",
+          "Exception handling",
+          "Modern C++ features",
+        ],
+      },
+      {
+        title: "Module 6: Projects & Interviews",
+        points: [
+          "Practical C++ projects",
+          "Competitive programming",
+          "C++ interview preparation",
+          "Coding assessments",
+        ],
+      },
+    ],
+
+    logos: [
+      {
+        src: "/wp-media/flipkart-logo.jpg",
+        alt: "Flipkart",
+      },
+      {
+        src: "/wp-media/uber-logo.jpg",
+        alt: "Uber",
+      },
+      {
+        src: "/wp-media/atlassian-logo.jpg",
+        alt: "Atlassian",
+      },
+    ],
   }
 ];
 
 export default wpCourses;
+  

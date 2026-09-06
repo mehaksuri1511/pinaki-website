@@ -8,6 +8,8 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
+import SectionWatermark from "../common/SectionWatermark";
+
 const features = [
   {
     icon: GraduationCap,
@@ -60,13 +62,32 @@ const WhyChoose = () => {
         dark:bg-slate-950
       "
     >
-      {/* Background glow */}
+      {/* ================= WATERMARK ================= */}
+
+      <SectionWatermark
+        icons={[
+          "GraduationCap",
+          "Laptop2",
+          "BriefcaseBusiness",
+          "Users",
+          "ShieldCheck",
+          "Sparkles",
+          "Rocket",
+          "Award",
+          "Target",
+        ]}
+        intensity="strong"
+      />
+
+      {/* ================= BACKGROUND GLOW ================= */}
+
       <div className="pointer-events-none absolute -left-40 top-24 h-96 w-96 rounded-full bg-emerald-300/15 blur-[130px] dark:bg-emerald-500/10" />
 
       <div className="pointer-events-none absolute -right-40 bottom-10 h-96 w-96 rounded-full bg-teal-300/15 blur-[130px] dark:bg-teal-500/10" />
 
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
         {/* ================= HEADER ================= */}
+
         <div className="mx-auto max-w-3xl text-center">
           <div
             className="
@@ -132,6 +153,7 @@ const WhyChoose = () => {
         </div>
 
         {/* ================= FEATURE GRID ================= */}
+
         <div
           className="
             mt-12
@@ -190,6 +212,7 @@ const WhyChoose = () => {
                 `}
               >
                 {/* Glow */}
+
                 <div
                   className="
                     pointer-events-none
@@ -210,6 +233,7 @@ const WhyChoose = () => {
                 />
 
                 {/* Decorative number */}
+
                 <span
                   className="
                     absolute
@@ -230,6 +254,7 @@ const WhyChoose = () => {
 
                 <div className="relative">
                   {/* Icon */}
+
                   <div
                     className="
                       flex
@@ -263,6 +288,7 @@ const WhyChoose = () => {
                   </div>
 
                   {/* Content */}
+
                   <div className="mt-5 max-w-xl">
                     <h3
                       className="
@@ -292,6 +318,7 @@ const WhyChoose = () => {
                   </div>
 
                   {/* Bottom action */}
+
                   <div
                     className="
                       mt-5
@@ -315,14 +342,14 @@ const WhyChoose = () => {
                     {index === 0
                       ? "Learn"
                       : index === 1
-                      ? "Build"
-                      : index === 2
-                      ? "Grow"
-                      : index === 3
-                      ? "Mentor"
-                      : index === 4
-                      ? "Partner"
-                      : "Future"}
+                        ? "Build"
+                        : index === 2
+                          ? "Grow"
+                          : index === 3
+                            ? "Mentor"
+                            : index === 4
+                              ? "Partner"
+                              : "Future"}
 
                     <ArrowUpRight
                       size={14}
@@ -337,6 +364,7 @@ const WhyChoose = () => {
                 </div>
 
                 {/* Bottom gradient line */}
+
                 <div
                   className="
                     absolute

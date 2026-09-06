@@ -1,11 +1,15 @@
 import { motion } from "framer-motion";
+
 import { features } from "../../data/features";
+
+import SectionWatermark from "../common/SectionWatermark";
 
 const FeatureStrip = () => {
   return (
     <section
       className="
         relative
+        overflow-hidden
         px-6
         py-12
         bg-white
@@ -14,27 +18,52 @@ const FeatureStrip = () => {
         duration-300
       "
     >
-      <div className="mx-auto max-w-7xl">
+      {/* ================= WATERMARKS ================= */}
+      <SectionWatermark
+        icons={[
+          "Sparkles",
+          "Code2",
+          "ShieldCheck",
+          "Rocket",
+          "Lightbulb",
+          "Cpu",
+          "Award",
+          "GraduationCap",
+          "Target",
+        ]}
+        intensity="strong"
+      />
+
+      {/* ================= CONTENT ================= */}
+      <div className="relative z-10 mx-auto max-w-7xl">
         {/* ================= FEATURE CARD ================= */}
         <div
           className="
             overflow-hidden
             rounded-[32px]
             border
-            border-slate-100
-            bg-white
+            border-emerald-100/80
+            bg-emerald-50/40
             shadow-xl
-            dark:border-slate-800
-            dark:bg-slate-900
+            dark:border-emerald-900/50
+            dark:bg-emerald-950/20
             dark:shadow-black/40
-            transition-colors
+            transition-all
             duration-300
           "
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4">
+          {/* ================= DYNAMIC GRID ================= */}
+          <div
+            className="
+              grid
+              grid-cols-1
+              sm:grid-cols-2
+              lg:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]
+            "
+          >
             {features.map((item, index) => (
               <motion.div
-                key={item.id}
+                key={item.id || item.title || index}
                 initial={{
                   opacity: 0,
                   y: 45,
@@ -56,19 +85,24 @@ const FeatureStrip = () => {
                   group
                   relative
                   flex
+                  min-h-[220px]
                   flex-col
                   items-center
                   justify-center
+                  border-b
+                  border-emerald-100/70
+                  bg-emerald-50/30
                   px-8
                   py-10
                   text-center
                   transition-all
                   duration-300
-                  hover:bg-gradient-to-br
-                  hover:from-emerald-50
-                  hover:to-blue-50
-                  dark:hover:from-emerald-950/40
-                  dark:hover:to-blue-950/30
+                  hover:bg-emerald-100/70
+                  hover:shadow-[inset_0_0_35px_rgba(16,185,129,0.08)]
+                  dark:border-emerald-900/40
+                  dark:bg-emerald-950/20
+                  dark:hover:bg-emerald-900/35
+                  dark:hover:shadow-[inset_0_0_35px_rgba(16,185,129,0.08)]
                 "
               >
                 {/* ================= DIVIDER ================= */}
@@ -82,8 +116,8 @@ const FeatureStrip = () => {
                       h-24
                       w-px
                       -translate-y-1/2
-                      bg-slate-200
-                      dark:bg-slate-700
+                      bg-emerald-200/70
+                      dark:bg-emerald-800/50
                       transition-colors
                       duration-300
                       lg:block
@@ -101,13 +135,21 @@ const FeatureStrip = () => {
                     items-center
                     justify-center
                     rounded-2xl
-                    bg-slate-50
-                    dark:bg-slate-800
+                    border
+                    border-emerald-100
+                    bg-emerald-50
+                    shadow-sm
                     transition-all
                     duration-300
                     group-hover:scale-110
+                    group-hover:border-emerald-200
                     group-hover:bg-white
-                    dark:group-hover:bg-slate-700
+                    group-hover:shadow-[0_8px_25px_rgba(16,185,129,0.12)]
+                    dark:border-emerald-900/50
+                    dark:bg-emerald-950/40
+                    dark:group-hover:border-emerald-700
+                    dark:group-hover:bg-emerald-900/50
+                    dark:group-hover:shadow-[0_8px_25px_rgba(16,185,129,0.15)]
                   "
                 >
                   <img
@@ -133,6 +175,8 @@ const FeatureStrip = () => {
                     dark:text-white
                     transition-colors
                     duration-300
+                    group-hover:text-emerald-700
+                    dark:group-hover:text-emerald-400
                   "
                 >
                   {item.title}
@@ -146,6 +190,8 @@ const FeatureStrip = () => {
                     dark:text-slate-400
                     transition-colors
                     duration-300
+                    group-hover:text-slate-700
+                    dark:group-hover:text-slate-300
                   "
                 >
                   {item.subtitle}

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   CalendarDays,
@@ -9,6 +10,7 @@ import { Link } from "react-router-dom";
 import featured1 from "../../assets/images/featured-blog.png";
 import featured2 from "../../assets/images/blog3.jpg";
 import featured3 from "../../assets/images/blog4.jpg";
+import SectionWatermark from "../common/SectionWatermark";
 
 const featuredBlogs = [
   {
@@ -26,6 +28,17 @@ const featuredBlogs = [
 const FeaturedBlog = () => {
   const [mainBlog, ...sideBlogs] = featuredBlogs;
 
+  const revealUp = {
+    hidden: {
+      opacity: 0,
+      y: 65,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  };
+
   return (
     <section
       id="featured-blog"
@@ -34,12 +47,14 @@ const FeaturedBlog = () => {
         overflow-hidden
         bg-white
         py-16
+        transition-colors
+        duration-500
         sm:py-20
         lg:py-24
         dark:bg-slate-950
       "
     >
-      {/* Ambient lights */}
+      {/* ================= AMBIENT LIGHTS ================= */}
       <div
         className="
           pointer-events-none
@@ -70,10 +85,44 @@ const FeaturedBlog = () => {
         "
       />
 
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-        {/* Header */}
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+      {/* ================= WATERMARK ================= */}
+      <SectionWatermark
+        icons={[
+          "Sparkles",
+          "BookOpen",
+          "Code2",
+          "Cpu",
+          "Lightbulb",
+          "Rocket",
+          "GraduationCap",
+          "Target",
+          "Award",
+        ]}
+        intensity="strong"
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
+        {/* ================= HEADER ================= */}
+        <motion.div
+          variants={revealUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{
+            duration: 1.05,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="
+            flex
+            flex-col
+            gap-5
+            lg:flex-row
+            lg:items-end
+            lg:justify-between
+          "
+        >
           <div className="max-w-3xl">
+            {/* Eyebrow */}
             <div
               className="
                 inline-flex
@@ -188,11 +237,21 @@ const FeaturedBlog = () => {
               "
             />
           </Link>
-        </div>
+        </motion.div>
 
-        {/* Editorial layout */}
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
-          {/* Main featured article */}
+        {/* ================= EDITORIAL LAYOUT ================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 75 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.08 }}
+          transition={{
+            duration: 1.2,
+            delay: 0.12,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mt-12 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]"
+        >
+          {/* ================= MAIN FEATURED ARTICLE ================= */}
           <article
             className="
               group
@@ -209,7 +268,16 @@ const FeaturedBlog = () => {
               dark:shadow-black/20
             "
           >
-            <div className="relative h-[360px] overflow-hidden sm:h-[430px] lg:h-full lg:min-h-[560px]">
+            <div
+              className="
+                relative
+                h-[360px]
+                overflow-hidden
+                sm:h-[430px]
+                lg:h-full
+                lg:min-h-[560px]
+              "
+            >
               <img
                 src={mainBlog.image}
                 alt={mainBlog.title}
@@ -235,6 +303,7 @@ const FeaturedBlog = () => {
                 "
               />
 
+              {/* Featured label */}
               <div
                 className="
                   absolute
@@ -259,7 +328,16 @@ const FeaturedBlog = () => {
                 Featured Story
               </div>
 
-              <div className="absolute inset-x-5 bottom-5 sm:inset-x-7 sm:bottom-7">
+              {/* Content */}
+              <div
+                className="
+                  absolute
+                  inset-x-5
+                  bottom-5
+                  sm:inset-x-7
+                  sm:bottom-7
+                "
+              >
                 <span
                   className="
                     inline-flex
@@ -306,7 +384,18 @@ const FeaturedBlog = () => {
                   {mainBlog.description}
                 </p>
 
-                <div className="mt-5 flex flex-wrap items-center gap-5 text-xs font-medium text-slate-300">
+                <div
+                  className="
+                    mt-5
+                    flex
+                    flex-wrap
+                    items-center
+                    gap-5
+                    text-xs
+                    font-medium
+                    text-slate-300
+                  "
+                >
                   <span className="inline-flex items-center gap-2">
                     <CalendarDays size={15} />
                     {mainBlog.date}
@@ -346,11 +435,19 @@ const FeaturedBlog = () => {
             </div>
           </article>
 
-          {/* Supporting articles */}
+          {/* ================= SUPPORTING ARTICLES ================= */}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
-            {sideBlogs.map((blog) => (
-              <article
+            {sideBlogs.map((blog, index) => (
+              <motion.article
                 key={blog.slug}
+                initial={{ opacity: 0, y: 70 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.12 }}
+                transition={{
+                  duration: 1.1,
+                  delay: 0.18 + index * 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="
                   group
                   overflow-hidden
@@ -488,10 +585,10 @@ const FeaturedBlog = () => {
                     </Link>
                   </div>
                 </div>
-              </article>
+              </motion.article>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

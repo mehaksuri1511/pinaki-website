@@ -1,7 +1,7 @@
 const generativeAI = {
   title: "Generative AI",
   category: "Artificial Intelligence",
-  duration: "12 Weeks",
+  duration: "6 Months",
   level: "Beginner to Advanced",
 
   overview:

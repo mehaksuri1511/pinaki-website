@@ -5,6 +5,8 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
+import SectionWatermark from "../common/SectionWatermark";
+
 const values = [
   "Innovation",
   "Integrity",
@@ -26,6 +28,23 @@ const MissionVision = () => {
         dark:bg-slate-950
       "
     >
+      {/* ================= WATERMARK ================= */}
+
+      <SectionWatermark
+        icons={[
+          "Target",
+          "Eye",
+          "HeartHandshake",
+          "Lightbulb",
+          "GraduationCap",
+          "Award",
+          "Rocket",
+          "Sparkles",
+          "Users",
+        ]}
+        intensity="strong"
+      />
+
       {/* ================= BACKGROUND GLOWS ================= */}
 
       <div
@@ -58,7 +77,9 @@ const MissionVision = () => {
         "
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
+      {/* ================= CONTENT ================= */}
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
         {/* ================= HEADING ================= */}
 
         <div className="mx-auto max-w-3xl text-center">
@@ -138,14 +159,16 @@ const MissionVision = () => {
         {/* ================= CARDS ================= */}
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {/* ================= MISSION ================= */}
+          {/* ================================================= */}
+          {/* ================= MISSION ======================= */}
+          {/* ================================================= */}
 
           <div
             className="
               group
               relative
               overflow-hidden
-              rounded-[28px]
+              rounded-[32px]
               border
               border-slate-200
               bg-white
@@ -154,32 +177,73 @@ const MissionVision = () => {
               shadow-slate-900/5
               transition-all
               duration-500
-              hover:-translate-y-2
+              hover:-translate-y-3
               hover:border-emerald-300
               hover:shadow-2xl
+              hover:shadow-emerald-500/10
               sm:p-8
               dark:border-slate-800
               dark:bg-slate-900
               dark:shadow-black/20
               dark:hover:border-emerald-500/40
+              dark:hover:shadow-emerald-500/10
             "
           >
-            {/* Card glow */}
+            {/* Top accent */}
+
+            <div
+              className="
+                absolute
+                left-0
+                right-0
+                top-0
+                h-1
+                bg-gradient-to-r
+                from-emerald-400
+                via-green-500
+                to-teal-400
+              "
+            />
+
+            {/* Decorative number */}
 
             <div
               className="
                 pointer-events-none
                 absolute
-                -right-16
-                -top-16
-                h-40
-                w-40
+                -right-4
+                -top-8
+                text-[130px]
+                font-black
+                leading-none
+                text-emerald-500/[0.045]
+                transition-all
+                duration-500
+                group-hover:text-emerald-500/[0.09]
+                group-hover:scale-110
+                dark:text-emerald-400/[0.05]
+              "
+            >
+              01
+            </div>
+
+            {/* Glow */}
+
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -right-20
+                -top-20
+                h-48
+                w-48
                 rounded-full
                 bg-emerald-400/10
                 blur-3xl
                 transition-all
                 duration-500
                 group-hover:bg-emerald-400/20
+                group-hover:scale-125
               "
             />
 
@@ -189,24 +253,32 @@ const MissionVision = () => {
               <div
                 className="
                   flex
-                  h-14
-                  w-14
+                  h-16
+                  w-16
                   items-center
                   justify-center
                   rounded-2xl
+                  border
+                  border-emerald-100
                   bg-emerald-50
                   text-emerald-600
+                  shadow-sm
                   transition-all
                   duration-500
+                  group-hover:rotate-6
+                  group-hover:scale-110
                   group-hover:bg-emerald-600
                   group-hover:text-white
+                  group-hover:shadow-lg
+                  group-hover:shadow-emerald-500/25
+                  dark:border-emerald-900/50
                   dark:bg-emerald-400/10
                   dark:text-emerald-400
                   dark:group-hover:bg-emerald-500
                   dark:group-hover:text-white
                 "
               >
-                <Target size={28} />
+                <Target size={30} strokeWidth={1.8} />
               </div>
 
               <p
@@ -223,17 +295,31 @@ const MissionVision = () => {
                 Our Purpose
               </p>
 
-              <h3
-                className="
-                  mt-2
-                  text-2xl
-                  font-black
-                  text-slate-950
-                  dark:text-white
-                "
-              >
-                Mission
-              </h3>
+              <div className="mt-2 flex items-center justify-between">
+                <h3
+                  className="
+                    text-2xl
+                    font-black
+                    text-slate-950
+                    dark:text-white
+                  "
+                >
+                  Mission
+                </h3>
+
+                <span
+                  className="
+                    text-xs
+                    font-bold
+                    text-slate-400
+                    transition-colors
+                    duration-300
+                    group-hover:text-emerald-500
+                  "
+                >
+                  01
+                </span>
+              </div>
 
               <p
                 className="
@@ -250,29 +336,51 @@ const MissionVision = () => {
                 success.
               </p>
 
-              <div
-                className="
-                  mt-7
-                  h-1
-                  w-12
-                  rounded-full
-                  bg-emerald-500
-                  transition-all
-                  duration-500
-                  group-hover:w-20
-                "
-              />
+              {/* Bottom interaction */}
+
+              <div className="mt-7 flex items-center gap-3">
+                <div
+                  className="
+                    h-1
+                    w-10
+                    rounded-full
+                    bg-emerald-500
+                    transition-all
+                    duration-500
+                    group-hover:w-20
+                  "
+                />
+
+                <span
+                  className="
+                    text-xs
+                    font-semibold
+                    uppercase
+                    tracking-wider
+                    text-slate-400
+                    opacity-0
+                    transition-all
+                    duration-500
+                    group-hover:translate-x-1
+                    group-hover:opacity-100
+                  "
+                >
+                  Empower
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* ================= VISION ================= */}
+          {/* ================================================= */}
+          {/* ================= VISION ======================== */}
+          {/* ================================================= */}
 
           <div
             className="
               group
               relative
               overflow-hidden
-              rounded-[28px]
+              rounded-[32px]
               border
               border-emerald-500/20
               bg-gradient-to-br
@@ -285,8 +393,9 @@ const MissionVision = () => {
               shadow-emerald-900/10
               transition-all
               duration-500
-              hover:-translate-y-2
+              hover:-translate-y-3
               hover:shadow-2xl
+              hover:shadow-emerald-500/25
               sm:p-8
               dark:from-emerald-700
               dark:via-green-700
@@ -294,7 +403,7 @@ const MissionVision = () => {
               dark:shadow-emerald-950/30
             "
           >
-            {/* Decorative glow */}
+            {/* Decorative rings */}
 
             <div
               className="
@@ -305,8 +414,8 @@ const MissionVision = () => {
                 h-48
                 w-48
                 rounded-full
-                bg-white/15
-                blur-3xl
+                border
+                border-white/10
                 transition-transform
                 duration-700
                 group-hover:scale-125
@@ -317,8 +426,47 @@ const MissionVision = () => {
               className="
                 pointer-events-none
                 absolute
+                -right-8
+                top-0
+                h-32
+                w-32
+                rounded-full
+                border
+                border-white/10
+                transition-transform
+                duration-700
+                group-hover:scale-125
+              "
+            />
+
+            {/* Decorative number */}
+
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -bottom-8
+                -right-2
+                text-[130px]
+                font-black
+                leading-none
+                text-white/[0.08]
+                transition-transform
+                duration-700
+                group-hover:scale-110
+              "
+            >
+              02
+            </div>
+
+            {/* Glows */}
+
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -left-20
                 -bottom-20
-                -left-16
                 h-48
                 w-48
                 rounded-full
@@ -333,8 +481,8 @@ const MissionVision = () => {
               <div
                 className="
                   flex
-                  h-14
-                  w-14
+                  h-16
+                  w-16
                   items-center
                   justify-center
                   rounded-2xl
@@ -342,10 +490,16 @@ const MissionVision = () => {
                   border-white/20
                   bg-white/15
                   text-white
+                  shadow-lg
                   backdrop-blur-md
+                  transition-all
+                  duration-500
+                  group-hover:-rotate-6
+                  group-hover:scale-110
+                  group-hover:bg-white/25
                 "
               >
-                <Eye size={28} />
+                <Eye size={30} strokeWidth={1.8} />
               </div>
 
               <p
@@ -361,9 +515,15 @@ const MissionVision = () => {
                 Where We&apos;re Going
               </p>
 
-              <h3 className="mt-2 text-2xl font-black">
-                Vision
-              </h3>
+              <div className="mt-2 flex items-center justify-between">
+                <h3 className="text-2xl font-black">
+                  Vision
+                </h3>
+
+                <span className="text-xs font-bold text-white/50">
+                  02
+                </span>
+              </div>
 
               <p className="mt-4 text-base leading-7 text-white/85">
                 To become one of India&apos;s most trusted technology
@@ -371,21 +531,56 @@ const MissionVision = () => {
                 through innovation, learning and excellence.
               </p>
 
-              <div className="mt-7 flex items-center gap-2 text-sm font-bold text-white">
-                <span>Building the future</span>
-                <ArrowUpRight size={17} />
+              {/* Interactive footer */}
+
+              <div
+                className="
+                  mt-7
+                  flex
+                  items-center
+                  justify-between
+                  border-t
+                  border-white/15
+                  pt-5
+                "
+              >
+                <span className="text-sm font-bold text-white">
+                  Building the future
+                </span>
+
+                <div
+                  className="
+                    flex
+                    h-9
+                    w-9
+                    items-center
+                    justify-center
+                    rounded-full
+                    border
+                    border-white/20
+                    bg-white/10
+                    transition-all
+                    duration-500
+                    group-hover:translate-x-1
+                    group-hover:bg-white/20
+                  "
+                >
+                  <ArrowUpRight size={17} />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* ================= VALUES ================= */}
+          {/* ================================================= */}
+          {/* ================= VALUES ======================== */}
+          {/* ================================================= */}
 
           <div
             className="
               group
               relative
               overflow-hidden
-              rounded-[28px]
+              rounded-[32px]
               border
               border-slate-200
               bg-white
@@ -394,32 +589,72 @@ const MissionVision = () => {
               shadow-slate-900/5
               transition-all
               duration-500
-              hover:-translate-y-2
-              hover:border-emerald-300
+              hover:-translate-y-3
+              hover:border-teal-300
               hover:shadow-2xl
+              hover:shadow-teal-500/10
               sm:p-8
               dark:border-slate-800
               dark:bg-slate-900
               dark:shadow-black/20
-              dark:hover:border-emerald-500/40
+              dark:hover:border-teal-500/40
             "
           >
-            {/* Card glow */}
+            {/* Top accent */}
+
+            <div
+              className="
+                absolute
+                left-0
+                right-0
+                top-0
+                h-1
+                bg-gradient-to-r
+                from-teal-400
+                via-emerald-500
+                to-green-400
+              "
+            />
+
+            {/* Decorative number */}
 
             <div
               className="
                 pointer-events-none
                 absolute
-                -bottom-16
-                -right-16
-                h-40
-                w-40
+                -bottom-8
+                -right-2
+                text-[130px]
+                font-black
+                leading-none
+                text-teal-500/[0.045]
+                transition-all
+                duration-500
+                group-hover:text-teal-500/[0.09]
+                group-hover:scale-110
+                dark:text-teal-400/[0.05]
+              "
+            >
+              03
+            </div>
+
+            {/* Glow */}
+
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -bottom-20
+                -right-20
+                h-48
+                w-48
                 rounded-full
                 bg-teal-400/10
                 blur-3xl
                 transition-all
                 duration-500
                 group-hover:bg-teal-400/20
+                group-hover:scale-125
               "
             />
 
@@ -429,24 +664,32 @@ const MissionVision = () => {
               <div
                 className="
                   flex
-                  h-14
-                  w-14
+                  h-16
+                  w-16
                   items-center
                   justify-center
                   rounded-2xl
-                  bg-emerald-50
-                  text-emerald-600
+                  border
+                  border-teal-100
+                  bg-teal-50
+                  text-teal-600
+                  shadow-sm
                   transition-all
                   duration-500
-                  group-hover:bg-emerald-600
+                  group-hover:-rotate-6
+                  group-hover:scale-110
+                  group-hover:bg-teal-600
                   group-hover:text-white
-                  dark:bg-emerald-400/10
-                  dark:text-emerald-400
-                  dark:group-hover:bg-emerald-500
+                  group-hover:shadow-lg
+                  group-hover:shadow-teal-500/25
+                  dark:border-teal-900/50
+                  dark:bg-teal-400/10
+                  dark:text-teal-400
+                  dark:group-hover:bg-teal-500
                   dark:group-hover:text-white
                 "
               >
-                <HeartHandshake size={28} />
+                <HeartHandshake size={30} strokeWidth={1.8} />
               </div>
 
               <p
@@ -456,44 +699,73 @@ const MissionVision = () => {
                   font-bold
                   uppercase
                   tracking-[0.16em]
-                  text-emerald-600
-                  dark:text-emerald-400
+                  text-teal-600
+                  dark:text-teal-400
                 "
               >
                 What We Believe
               </p>
 
-              <h3
-                className="
-                  mt-2
-                  text-2xl
-                  font-black
-                  text-slate-950
-                  dark:text-white
-                "
-              >
-                Core Values
-              </h3>
+              <div className="mt-2 flex items-center justify-between">
+                <h3
+                  className="
+                    text-2xl
+                    font-black
+                    text-slate-950
+                    dark:text-white
+                  "
+                >
+                  Core Values
+                </h3>
 
-              <div className="mt-5 space-y-3">
-                {values.map((value) => (
+                <span
+                  className="
+                    text-xs
+                    font-bold
+                    text-slate-400
+                    transition-colors
+                    duration-300
+                    group-hover:text-teal-500
+                  "
+                >
+                  03
+                </span>
+              </div>
+
+              {/* Values */}
+
+              <div className="mt-6 space-y-3">
+                {values.map((value, index) => (
                   <div
                     key={value}
                     className="
+                      group/value
                       flex
                       items-center
                       gap-3
+                      rounded-xl
+                      border
+                      border-transparent
+                      px-2
+                      py-1.5
                       text-sm
                       font-medium
                       text-slate-600
+                      transition-all
+                      duration-300
+                      hover:border-emerald-100
+                      hover:bg-emerald-50/70
+                      hover:translate-x-1
                       dark:text-slate-400
+                      dark:hover:border-emerald-900/40
+                      dark:hover:bg-emerald-950/30
                     "
                   >
                     <span
                       className="
                         flex
-                        h-6
-                        w-6
+                        h-7
+                        w-7
                         shrink-0
                         items-center
                         justify-center
@@ -502,14 +774,20 @@ const MissionVision = () => {
                         text-xs
                         font-bold
                         text-emerald-600
+                        transition-all
+                        duration-300
+                        group-hover/value:bg-emerald-500
+                        group-hover/value:text-white
                         dark:bg-emerald-400/10
                         dark:text-emerald-400
+                        dark:group-hover/value:bg-emerald-500
+                        dark:group-hover/value:text-white
                       "
                     >
-                      ✓
+                      {index + 1}
                     </span>
 
-                    {value}
+                    <span>{value}</span>
                   </div>
                 ))}
               </div>

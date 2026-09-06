@@ -6,6 +6,8 @@ import {
   Trophy,
 } from "lucide-react";
 
+import SectionWatermark from "../common/SectionWatermark";
+
 const timeline = [
   {
     year: "2006 - 2010",
@@ -64,12 +66,32 @@ const Timeline = () => {
         dark:bg-slate-950
       "
     >
-      {/* Ambient glow */}
+      {/* ================= WATERMARK ================= */}
+
+      <SectionWatermark
+        icons={[
+          "GraduationCap",
+          "Building2",
+          "Code2",
+          "BriefcaseBusiness",
+          "Trophy",
+          "Rocket",
+          "Milestone",
+          "Award",
+          "Target",
+        ]}
+        intensity="strong"
+      />
+
+      {/* ================= AMBIENT GLOWS ================= */}
+
       <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-emerald-300/20 blur-[130px] dark:bg-emerald-500/10" />
+
       <div className="pointer-events-none absolute -right-40 bottom-20 h-96 w-96 rounded-full bg-teal-300/20 blur-[130px] dark:bg-teal-500/10" />
 
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
         {/* ================= HEADER ================= */}
+
         <div className="mx-auto max-w-3xl text-center">
           <div
             className="
@@ -133,8 +155,10 @@ const Timeline = () => {
         </div>
 
         {/* ================= TREE TIMELINE ================= */}
+
         <div className="relative mt-14 sm:mt-16">
           {/* Tree trunk */}
+
           <div
             className="
               absolute
@@ -163,6 +187,7 @@ const Timeline = () => {
                   className="group relative pl-14 sm:pl-20"
                 >
                   {/* Branch from tree trunk to card */}
+
                   <div
                     className="
                       absolute
@@ -181,6 +206,7 @@ const Timeline = () => {
                   />
 
                   {/* Tree node */}
+
                   <div
                     className="
                       absolute
@@ -209,6 +235,7 @@ const Timeline = () => {
                   </div>
 
                   {/* Milestone Card */}
+
                   <div
                     className="
                       relative
@@ -234,6 +261,7 @@ const Timeline = () => {
                     "
                   >
                     {/* Card glow */}
+
                     <div
                       className="
                         pointer-events-none
@@ -252,6 +280,7 @@ const Timeline = () => {
                     />
 
                     {/* Top content */}
+
                     <div className="relative flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                       <div>
                         <span
@@ -261,8 +290,7 @@ const Timeline = () => {
                             border border-emerald-200
                             bg-emerald-50
                             px-3 py-1
-                            text-xs font-bold
-                            tracking-wider
+                            text-xs font-bold tracking-wider
                             text-emerald-700
                             dark:border-emerald-400/20
                             dark:bg-emerald-400/10
@@ -275,8 +303,7 @@ const Timeline = () => {
                         <h3
                           className="
                             mt-3
-                            text-xl font-extrabold
-                            leading-tight
+                            text-xl font-extrabold leading-tight
                             text-slate-900
                             sm:text-2xl
                             dark:text-white
@@ -287,6 +314,7 @@ const Timeline = () => {
                       </div>
 
                       {/* Step number */}
+
                       <span
                         className="
                           hidden
@@ -316,6 +344,7 @@ const Timeline = () => {
                     </p>
 
                     {/* Bottom accent */}
+
                     <div
                       className="
                         relative
@@ -337,6 +366,7 @@ const Timeline = () => {
           </div>
 
           {/* Tree ending */}
+
           <div
             className="
               absolute
@@ -352,6 +382,7 @@ const Timeline = () => {
         </div>
 
         {/* Bottom statement */}
+
         <div
           className="
             mx-auto mt-12

@@ -2,7 +2,7 @@ const fullStack = {
   slug: "full-stack-development",
   title: "Full Stack Development",
   category: "Web Development",
-  duration: "16 Weeks",
+  duration: "6 Months",
   level: "Beginner to Advanced",
 
   overview:

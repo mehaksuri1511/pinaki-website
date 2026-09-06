@@ -6,6 +6,8 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
+import SectionWatermark from "../common/SectionWatermark";
+
 const stats = [
   {
     icon: GraduationCap,
@@ -45,6 +47,23 @@ const Achievements = () => {
         dark:bg-slate-950
       "
     >
+      {/* ================= WATERMARK ================= */}
+
+      <SectionWatermark
+        icons={[
+          "GraduationCap",
+          "Trophy",
+          "Building2",
+          "BriefcaseBusiness",
+          "Award",
+          "Users",
+          "Rocket",
+          "Target",
+          "Sparkles",
+        ]}
+        intensity="strong"
+      />
+
       {/* ================= BACKGROUND GLOWS ================= */}
 
       <div
@@ -77,7 +96,7 @@ const Achievements = () => {
         "
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
         {/* ================= HEADING ================= */}
 
         <div className="mx-auto max-w-3xl text-center">

@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 
 import storyImage from "../../assets/images/gallery9.png";
+import SectionWatermark from "../common/SectionWatermark";
 
 const highlights = [
   "Industry-Oriented Curriculum",
@@ -26,6 +27,23 @@ const OurStory = () => {
         dark:bg-slate-950
       "
     >
+      {/* ================= WATERMARK ================= */}
+
+      <SectionWatermark
+        icons={[
+          "BookOpen",
+          "GraduationCap",
+          "BriefcaseBusiness",
+          "Code2",
+          "Rocket",
+          "Lightbulb",
+          "Users",
+          "Target",
+          "Sparkles",
+        ]}
+        intensity="strong"
+      />
+
       {/* ================= BACKGROUND GLOWS ================= */}
 
       <div
@@ -58,7 +76,7 @@ const OurStory = () => {
         "
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           {/* ================= LEFT CONTENT ================= */}
 

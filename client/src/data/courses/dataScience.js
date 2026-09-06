@@ -2,7 +2,7 @@ const dataScience = {
   slug: "data-science",
   title: "Data Science",
   category: "Data Analytics",
-  duration: "14 Weeks",
+  duration: "6 Months",
   level: "Intermediate",
 
   overview:

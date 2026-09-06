@@ -1,12 +1,17 @@
 import { motion } from "framer-motion";
 
 import TestimonialCard from "../cards/TestimonialCard";
+
 import { testimonials } from "../../data/testimonials";
+
+import SectionWatermark from "../common/SectionWatermark";
 
 const Testimonials = () => {
   return (
     <section
       className="
+        relative
+        overflow-hidden
         bg-gradient-to-b
         from-emerald-50
         via-white
@@ -20,9 +25,25 @@ const Testimonials = () => {
         duration-300
       "
     >
-      <div className="mx-auto max-w-7xl px-6">
-        {/* ================= HEADING ================= */}
+      {/* ================= WATERMARKS ================= */}
+      <SectionWatermark
+        icons={[
+          "Quote",
+          "Star",
+          "Users",
+          "HeartHandshake",
+          "Award",
+          "MessageCircle",
+          "Sparkles",
+          "Trophy",
+          "UserRound",
+        ]}
+        intensity="strong"
+      />
 
+      {/* ================= CONTENT ================= */}
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        {/* ================= HEADING ================= */}
         <motion.div
           initial={{
             opacity: 0,
@@ -73,7 +94,6 @@ const Testimonials = () => {
         </motion.div>
 
         {/* ================= HORIZONTAL SLIDER ================= */}
-
         <motion.div
           initial={{
             opacity: 0,
