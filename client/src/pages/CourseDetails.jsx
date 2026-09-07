@@ -695,7 +695,7 @@ const CourseDetails = () => {
               </h2>
             </div>
 
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
               {course.highlights.map((item, index) => (
                 <motion.div
                   key={item.title}
