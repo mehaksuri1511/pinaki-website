@@ -124,7 +124,7 @@ const OurStory = () => {
                 dark:text-white
               "
             >
-              More than a Training Institute.
+              Digital Solutions, 
               <br />
               <span
                 className="
@@ -139,7 +139,7 @@ const OurStory = () => {
                   dark:to-teal-400
                 "
               >
-                A Career Partner.
+                Delivered with Precision.
               </span>
             </h2>
 

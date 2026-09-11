@@ -870,3 +870,20 @@ body {
 /* ========================= */
 /* GLOBAL DARK THEME */
 /* ========================= */
+@layer base {
+  body {
+    font-size: 17px;
+  }
+
+  p,
+  li,
+  td,
+  th,
+  label,
+  input,
+  textarea,
+  select,
+  button {
+    font-size: 20px; /* 17px */
+  }
+}

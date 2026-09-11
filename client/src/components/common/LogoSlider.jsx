@@ -8,23 +8,84 @@ import apj from "../../assets/logo/apj-logo.png";
 import royalandfield from "../../assets/logo/royalandfield-logo.png";
 
 const logos = [
-  miet,
-  dbsl,
-  gniot,
-  mcps,
-  mmtf,
-  en,
-  apj,
-  royalandfield,
+  {
+    src: miet,
+    name: "MIET",
+  },
+  {
+    src: dbsl,
+    name: "DBSL",
+  },
+  {
+    src: gniot,
+    name: "GNIOT",
+  },
+  {
+    src: mcps,
+    name: "MCPS",
+  },
+  {
+    src: mmtf,
+    name: "MMTF",
+  },
+  {
+    src: en,
+    name: "EN",
+  },
+  {
+    src: apj,
+    name: "APJ",
+  },
+  {
+    src: royalandfield,
+    name: "Royal Enfield",
+  },
+
+  // ============================================================
+  // NEW PARTNER LOGOS
+  // ============================================================
+
+  {
+    src: "https://images.seeklogo.com/logo-png/38/1/galgotias-university-logo-png_seeklogo-389692.png",
+    name: "Galgotias University",
+  },
+
+  {
+    src: "https://www.iimtindia.net/images/logo.png",
+    name: "IIMT Group of Colleges",
+  },
+
+  {
+    src: "https://www.abes.ac.in/assets/Logo.webp",
+    name: "ABES Engineering College",
+  },
+
+  {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Delhi%20University%27s%20official%20logo.png",
+    name: "University of Delhi",
+  },
+
+  {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/VIPS%20Logo.png",
+    name: "VIPS",
+  },
+
+  {
+    src: "https://iilm.edu/greater-noida/wp-content/uploads/sites/3/2026/01/logo.png",
+    name: "IILM University Greater Noida",
+  },
+
+  {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/IMS%20ENGG%20LOGO%20123.jpg",
+    name: "IMS Engineering College",
+  },
 ];
 
 const LogoSlider = () => {
   return (
     <section className="mt-28">
-
       {/* ================= HEADING ================= */}
       <div className="text-center">
-
         <h3
           className="
             text-4xl
@@ -46,12 +107,10 @@ const LogoSlider = () => {
         >
           Proud collaborations with businesses and educational institutions.
         </p>
-
       </div>
 
       {/* ================= LOGO SLIDER ================= */}
       <div className="relative mt-14 overflow-hidden">
-
         {/* LEFT GRADIENT */}
         <div
           className="
@@ -88,10 +147,9 @@ const LogoSlider = () => {
 
         {/* SLIDER */}
         <div className="logo-slider">
-
           {[...logos, ...logos].map((logo, index) => (
             <div
-              key={index}
+              key={`${logo.name}-${index}`}
               className="
                 mx-6
                 flex
@@ -105,14 +163,11 @@ const LogoSlider = () => {
                 border-slate-200
                 bg-white
                 shadow-lg
-
                 dark:border-slate-700
                 dark:bg-slate-900
                 dark:shadow-black/30
-
                 transition-all
                 duration-300
-
                 hover:-translate-y-2
                 hover:scale-105
                 hover:border-emerald-500
@@ -120,8 +175,10 @@ const LogoSlider = () => {
               "
             >
               <img
-                src={logo}
-                alt="Trusted partner"
+                src={logo.src}
+                alt={`${logo.name} logo`}
+                loading="lazy"
+                referrerPolicy="no-referrer"
                 className="
                   h-20
                   w-20
@@ -130,11 +187,8 @@ const LogoSlider = () => {
               />
             </div>
           ))}
-
         </div>
-
       </div>
-
     </section>
   );
 };

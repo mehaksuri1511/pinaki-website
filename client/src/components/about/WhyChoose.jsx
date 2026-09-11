@@ -91,12 +91,19 @@ const WhyChoose = () => {
         <div className="mx-auto max-w-3xl text-center">
           <div
             className="
-              inline-flex items-center gap-2
+              inline-flex
+              items-center
+              gap-2
               rounded-full
-              border border-emerald-200
+              border
+              border-emerald-200
               bg-emerald-50
-              px-4 py-2
-              text-xs font-bold uppercase tracking-[0.18em]
+              px-4
+              py-2
+              text-xs
+              font-bold
+              uppercase
+              tracking-[0.18em]
               text-emerald-700
               dark:border-emerald-400/20
               dark:bg-emerald-400/10
@@ -110,7 +117,9 @@ const WhyChoose = () => {
           <h2
             className="
               mt-5
-              text-4xl font-black tracking-tight
+              text-4xl
+              font-black
+              tracking-tight
               text-slate-950
               sm:text-5xl
               lg:text-6xl
@@ -138,11 +147,14 @@ const WhyChoose = () => {
 
           <p
             className="
-              mx-auto mt-5
+              mx-auto
+              mt-5
               max-w-2xl
-              text-base leading-7
+              text-base
+              leading-7
               text-slate-600
-              sm:text-lg sm:leading-8
+              sm:text-lg
+              sm:leading-8
               dark:text-slate-400
             "
           >
@@ -158,39 +170,25 @@ const WhyChoose = () => {
           className="
             mt-12
             grid
+            grid-cols-1
             gap-5
-            md:grid-cols-2
-            lg:grid-cols-4
+            sm:grid-cols-2
+            lg:grid-cols-2
+            items-stretch
           "
         >
           {features.map((item, index) => {
             const Icon = item.icon;
 
-            /*
-              Layout:
-              01 → 2 columns
-              02 → 2 columns
-              03 → 1 column
-              04 → 1 column
-              05 → 1 column
-              06 → 2 columns
-
-              This creates a more editorial / asymmetric layout
-              without creating one oversized card.
-            */
-
-            const spanClass =
-              index === 0 || index === 1 || index === 5
-                ? "lg:col-span-2"
-                : "lg:col-span-1";
-
             return (
               <div
                 key={item.title}
-                className={`
-                  ${spanClass}
+                className="
                   group
                   relative
+                  flex
+                  min-h-[280px]
+                  flex-col
                   overflow-hidden
                   rounded-[26px]
                   border
@@ -209,9 +207,9 @@ const WhyChoose = () => {
                   dark:hover:border-emerald-500/30
                   dark:hover:bg-slate-900
                   dark:hover:shadow-[0_20px_50px_rgba(16,185,129,0.08)]
-                `}
+                "
               >
-                {/* Glow */}
+                {/* ================= CARD GLOW ================= */}
 
                 <div
                   className="
@@ -232,7 +230,7 @@ const WhyChoose = () => {
                   "
                 />
 
-                {/* Decorative number */}
+                {/* ================= DECORATIVE NUMBER ================= */}
 
                 <span
                   className="
@@ -252,14 +250,15 @@ const WhyChoose = () => {
                   {String(index + 1).padStart(2, "0")}
                 </span>
 
-                <div className="relative">
-                  {/* Icon */}
+                <div className="relative flex h-full flex-col">
+                  {/* ================= ICON ================= */}
 
                   <div
                     className="
                       flex
                       h-13
                       w-13
+                      shrink-0
                       items-center
                       justify-center
                       rounded-2xl
@@ -287,9 +286,9 @@ const WhyChoose = () => {
                     />
                   </div>
 
-                  {/* Content */}
+                  {/* ================= CONTENT ================= */}
 
-                  <div className="mt-5 max-w-xl">
+                  <div className="mt-5 flex flex-1 flex-col">
                     <h3
                       className="
                         text-xl
@@ -315,55 +314,56 @@ const WhyChoose = () => {
                     >
                       {item.description}
                     </p>
-                  </div>
 
-                  {/* Bottom action */}
+                    {/* ================= BOTTOM ACTION ================= */}
 
-                  <div
-                    className="
-                      mt-5
-                      flex
-                      items-center
-                      gap-2
-                      text-xs
-                      font-bold
-                      uppercase
-                      tracking-wider
-                      text-emerald-600
-                      opacity-70
-                      transition-all
-                      duration-300
-                      group-hover:opacity-100
-                      dark:text-emerald-400
-                    "
-                  >
-                    <span className="h-px w-6 bg-emerald-500" />
-
-                    {index === 0
-                      ? "Learn"
-                      : index === 1
-                        ? "Build"
-                        : index === 2
-                          ? "Grow"
-                          : index === 3
-                            ? "Mentor"
-                            : index === 4
-                              ? "Partner"
-                              : "Future"}
-
-                    <ArrowUpRight
-                      size={14}
+                    <div
                       className="
-                        transition-transform
+                        mt-auto
+                        flex
+                        items-center
+                        gap-2
+                        pt-5
+                        text-xs
+                        font-bold
+                        uppercase
+                        tracking-wider
+                        text-emerald-600
+                        opacity-70
+                        transition-all
                         duration-300
-                        group-hover:-translate-y-0.5
-                        group-hover:translate-x-0.5
+                        group-hover:opacity-100
+                        dark:text-emerald-400
                       "
-                    />
+                    >
+                      <span className="h-px w-6 bg-emerald-500" />
+
+                      {index === 0
+                        ? "Learn"
+                        : index === 1
+                          ? "Build"
+                          : index === 2
+                            ? "Grow"
+                            : index === 3
+                              ? "Mentor"
+                              : index === 4
+                                ? "Partner"
+                                : "Future"}
+
+                      <ArrowUpRight
+                        size={14}
+                        className="
+                          transition-transform
+                          duration-300
+                          group-hover:-translate-y-0.5
+                          group-hover:translate-x-0.5
+                        "
+                      />
+                    </div>
                   </div>
                 </div>
 
-                {/* Bottom gradient line */}
+                {/* ================= BOTTOM GRADIENT LINE ================= */}
 
                 <div
                   className="

@@ -520,7 +520,7 @@ const FounderSection = () => {
                       {/* LinkedIn */}
 
                       <a
-                        href="#"
+                        href="https://www.linkedin.com/in/dhruv-govil-36025246/"
                         className="
                           group/link
                           inline-flex
@@ -538,14 +538,14 @@ const FounderSection = () => {
                           transition-all
                           duration-300
                           hover:-translate-y-0.5
-                          hover:border-emerald-500
-                          hover:bg-emerald-600
+                          hover:border-blue-500
+                          hover:bg-blue-600
                           hover:text-white
                           dark:border-slate-700
                           dark:bg-slate-900
                           dark:text-slate-300
-                          dark:hover:border-emerald-500
-                          dark:hover:bg-emerald-600
+                          dark:hover:border-blue-500
+                          dark:hover:blue-600
                           dark:hover:text-white
                         "
                       >
