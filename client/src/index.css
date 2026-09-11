@@ -288,6 +288,12 @@
     transform: translateX(-50%);
   }
 }
+@layer base {
+  p {
+    text-align: justify !important;
+  }
+}
+
 
 /* ================================================= */
 /* HIDE SCROLLBAR */
