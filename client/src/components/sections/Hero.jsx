@@ -1,4 +1,4 @@
-import { ArrowRight, PlayCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import CourseQuizBanner from "./CourseQuizBanner";
@@ -29,7 +29,7 @@ const Hero = () => {
         dark:text-white
       "
     >
-      {/* ================= WATERMARKS ================= */}
+      {/* Watermarks */}
       <SectionWatermark
         icons={[
           "Sparkles",
@@ -45,7 +45,7 @@ const Hero = () => {
         intensity="strong"
       />
 
-      {/* ================= BACKGROUND BLUR ================= */}
+      {/* Background Blur */}
       <div
         className="
           pointer-events-none
@@ -76,7 +76,7 @@ const Hero = () => {
         "
       />
 
-      {/* ================= CONTENT ================= */}
+      {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div
           className="
@@ -90,22 +90,16 @@ const Hero = () => {
             lg:gap-12
           "
         >
-          {/* ================= LEFT SIDE ================= */}
+          {/* Left Side */}
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 70,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
+            initial={{ opacity: 0, y: 70 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 1.1,
               ease: [0.22, 1, 0.36, 1],
             }}
           >
-            {/* Small Text */}
+            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
@@ -124,16 +118,13 @@ const Hero = () => {
                 px-5
                 py-2
                 shadow-md
-                transition-colors
-                duration-300
                 dark:border-emerald-800
                 dark:bg-slate-800/80
-                dark:shadow-black/20
               "
             >
               <span
                 className="
-                  text-sm
+                  text-base
                   font-semibold
                   uppercase
                   tracking-[0.28em]
@@ -161,8 +152,6 @@ const Hero = () => {
                 leading-[0.95]
                 tracking-tight
                 text-slate-900
-                transition-colors
-                duration-300
                 dark:text-white
                 md:text-7xl
               "
@@ -185,7 +174,7 @@ const Hero = () => {
               </span>
             </motion.h1>
 
-            {/* Paragraph */}
+            {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 35 }}
               animate={{ opacity: 1, y: 0 }}
@@ -197,11 +186,9 @@ const Hero = () => {
               className="
                 mt-8
                 max-w-xl
-                text-lg
-                leading-9
+                text-xl
+                leading-10
                 text-slate-600
-                transition-colors
-                duration-300
                 dark:text-slate-300
               "
             >
@@ -211,7 +198,7 @@ const Hero = () => {
               software development and placement assistance.
             </motion.p>
 
-            {/* ================= BUTTONS ================= */}
+            {/* Button */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -220,9 +207,8 @@ const Hero = () => {
                 delay: 0.55,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="mt-10 flex flex-wrap gap-5"
+              className="mt-10"
             >
-              {/* Explore Programs */}
               <button
                 type="button"
                 onClick={handleExplorePrograms}
@@ -235,6 +221,7 @@ const Hero = () => {
                   to-green-500
                   px-8
                   py-4
+                  text-lg
                   font-semibold
                   text-white
                   shadow-xl
@@ -250,53 +237,13 @@ const Hero = () => {
                   <ArrowRight size={18} />
                 </span>
               </button>
-
-              {/* Founder */}
-              <button
-                type="button"
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  rounded-full
-                  border
-                  border-slate-300
-                  bg-white
-                  px-8
-                  py-4
-                  font-semibold
-                  text-slate-700
-                  shadow-sm
-                  transition-all
-                  duration-300
-                  hover:-translate-y-1
-                  hover:border-emerald-500
-                  hover:text-emerald-600
-                  dark:border-slate-700
-                  dark:bg-slate-800
-                  dark:text-slate-100
-                  dark:shadow-black/20
-                  dark:hover:border-emerald-500
-                  dark:hover:bg-slate-700
-                  dark:hover:text-emerald-400
-                "
-              >
-                <PlayCircle size={20} />
-                Meet Our Founder
-              </button>
             </motion.div>
           </motion.div>
 
-          {/* ================= RIGHT SIDE ================= */}
+          {/* Right Side */}
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 90,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
+            initial={{ opacity: 0, y: 90 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 1.2,
               delay: 0.2,
@@ -312,7 +259,6 @@ const Hero = () => {
               lg:justify-end
             "
           >
-            {/* Background Glow */}
             <div
               className="
                 pointer-events-none
@@ -326,7 +272,6 @@ const Hero = () => {
               "
             />
 
-            {/* Course Quiz Banner */}
             <div className="relative z-10 w-full max-w-[560px]">
               <CourseQuizBanner />
             </div>

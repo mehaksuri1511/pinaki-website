@@ -70,7 +70,7 @@ const Testimonials = () => {
               font-bold
               tracking-tight
               text-slate-900
-              sm:text-5xl
+              base:text-5xl
               dark:text-white
             "
           >

@@ -175,8 +175,8 @@ const Footer = () => {
               dark:via-slate-900
               dark:to-cyan-950/50
               dark:shadow-[0_15px_50px_rgba(16,185,129,0.08)]
-              sm:px-8
-              sm:py-7
+              base:px-8
+              base:py-7
               lg:px-10
             "
           >
@@ -243,7 +243,7 @@ const Footer = () => {
                     bg-emerald-100/60
                     px-3
                     py-1
-                    text-[11px]
+                    text-[13px]
                     font-semibold
                     text-emerald-700
                     dark:border-emerald-500/20
@@ -263,7 +263,7 @@ const Footer = () => {
                     leading-tight
                     tracking-tight
                     text-slate-900
-                    sm:text-[34px]
+                    base:text-[34px]
                     dark:text-white
                   "
                 >
@@ -290,7 +290,7 @@ const Footer = () => {
                   className="
                     mt-2
                     max-w-2xl
-                    text-sm
+                    text-base
                     leading-6
                     text-slate-600
                     dark:text-slate-400
@@ -320,7 +320,7 @@ const Footer = () => {
                   to-teal-500
                   px-6
                   py-3
-                  text-sm
+                  text-base
                   font-bold
                   text-white
                   shadow-[0_8px_25px_rgba(16,185,129,0.22)]
@@ -371,7 +371,7 @@ const Footer = () => {
         {/* MAIN FOOTER */}
         {/* ========================================================= */}
 
-        <section className="py-10 sm:py-12 lg:py-14">
+        <section className="py-10 base:py-12 lg:py-14">
           <div
             className="
               grid
@@ -466,7 +466,7 @@ const Footer = () => {
                   <p
                     className="
                       mt-1.5
-                      text-[11px]
+                      text-[13px]
                       font-medium
                       text-emerald-600
                       dark:text-emerald-400
@@ -481,7 +481,7 @@ const Footer = () => {
                 className="
                   mt-5
                   max-w-md
-                  text-sm
+                  text-base
                   leading-6
                   text-slate-600
                   dark:text-slate-400
@@ -546,7 +546,7 @@ const Footer = () => {
               <h4
                 className="
                   mb-5
-                  text-xs
+                  text-sm
                   font-bold
                   uppercase
                   tracking-[0.16em]
@@ -568,7 +568,7 @@ const Footer = () => {
                         flex
                         items-center
                         gap-1
-                        text-sm
+                        text-base
                         text-slate-600
                         transition-all
                         duration-200
@@ -605,7 +605,7 @@ const Footer = () => {
               <h4
                 className="
                   mb-5
-                  text-xs
+                  text-sm
                   font-bold
                   uppercase
                   tracking-[0.16em]
@@ -626,7 +626,7 @@ const Footer = () => {
                         cursor-default
                         items-center
                         gap-2
-                        text-sm
+                        text-base
                         text-slate-600
                         transition-all
                         duration-200
@@ -669,7 +669,7 @@ const Footer = () => {
               <h4
                 className="
                   mb-5
-                  text-xs
+                  text-sm
                   font-bold
                   uppercase
                   tracking-[0.16em]
@@ -712,7 +712,7 @@ const Footer = () => {
                   <p
                     className="
                       pt-0.5
-                      text-sm
+                      text-base
                       leading-6
                       text-slate-600
                       dark:text-slate-400
@@ -753,7 +753,7 @@ const Footer = () => {
 
                   <p
                     className="
-                      text-sm
+                      text-base
                       text-slate-600
                       dark:text-slate-400
                     "
@@ -793,7 +793,7 @@ const Footer = () => {
                   <p
                     className="
                       break-all
-                      text-sm
+                      text-base
                       text-slate-600
                       dark:text-slate-400
                     "
@@ -829,7 +829,7 @@ const Footer = () => {
         >
           <p
             className="
-              text-xs
+              text-sm
               text-slate-500
               dark:text-slate-500
             "
@@ -839,7 +839,7 @@ const Footer = () => {
 
           <p
             className="
-              text-xs
+              text-sm
               text-slate-500
               dark:text-slate-500
             "
