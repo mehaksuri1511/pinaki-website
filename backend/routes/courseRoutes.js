@@ -1,11 +1,8 @@
-const express = require("express");
+import express from "express";
+import { getCourses } from "../controllers/courseController.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({
-    message: "Courses API Working"
-  });
-});
+router.get("/", getCourses);
 
-module.exports = router;
+export default router;
