@@ -1,16 +1,13 @@
 import AppRoutes from "./routes/AppRoutes";
 import FloatingButtons from "./components/common/FloatingButtons";
-import GlobalEnrollmentPopup from "./components/common/GlobalEnrollmentPopup";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <AppRoutes />
-
       <FloatingButtons />
-
-      <GlobalEnrollmentPopup />
-    </>
+    </AuthProvider>
   );
 }
 

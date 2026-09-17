@@ -8,9 +8,11 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-import { courseList } from "../../data/courseData";
+import { getCourses } from "../../API/courseService.js";
+import { enrollInCourse } from "../../API/enrollmentService.js";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 const FIRST_MIN_DELAY = 5000;
 const FIRST_MAX_DELAY = 10000;
@@ -22,14 +24,22 @@ const getRandomDelay = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
 const GlobalEnrollmentPopup = () => {
+  const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
+
   const [isOpen, setIsOpen] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  const [courses, setCourses] = useState([]);
+  const [coursesLoading, setCoursesLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    course: "",
+    courseId: "",
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
 
@@ -38,8 +48,67 @@ const GlobalEnrollmentPopup = () => {
   const isEducationPage =
     window.location.pathname === "/education";
 
+  /*
+   * -------------------------------------------------------
+   * Load courses from backend
+   * -------------------------------------------------------
+   */
   useEffect(() => {
-    if (sessionStorage.getItem("pinaki_enrollment_submitted") === "true") {
+    const loadCourses = async () => {
+      try {
+        setCoursesLoading(true);
+
+        const response = await getCourses();
+
+        if (response.success) {
+          /*
+           * Backend may return either:
+           * response.data
+           * or response.data.courses
+           */
+          const courseData =
+            response.data?.courses || response.data || [];
+
+          setCourses(Array.isArray(courseData) ? courseData : []);
+        } else {
+          setCourses([]);
+        }
+      } catch (error) {
+        console.error("Failed to load courses:", error);
+        setCourses([]);
+      } finally {
+        setCoursesLoading(false);
+      }
+    };
+
+    loadCourses();
+  }, []);
+
+  /*
+   * -------------------------------------------------------
+   * Keep form user information synced with logged-in user
+   * -------------------------------------------------------
+   */
+  useEffect(() => {
+    if (!user) return;
+
+    setFormData((previous) => ({
+      ...previous,
+      name: previous.name || user.name || "",
+      email: previous.email || user.email || "",
+    }));
+  }, [user]);
+
+  /*
+   * -------------------------------------------------------
+   * Popup scheduling
+   * -------------------------------------------------------
+   */
+  useEffect(() => {
+    if (
+      sessionStorage.getItem("pinaki_enrollment_submitted") ===
+      "true"
+    ) {
       setHasSubmitted(true);
       return;
     }
@@ -51,12 +120,17 @@ const GlobalEnrollmentPopup = () => {
     const now = Date.now();
 
     /*
-     * If the user recently closed the popup, don't immediately
-     * show it again.
+     * If the user recently closed the popup,
+     * don't immediately show it again.
      */
     if (popupClosedAt && now - popupClosedAt < 60000) {
       schedulePopup(60000 - (now - popupClosedAt));
-      return () => clearTimeout(timerRef.current);
+
+      return () => {
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+        }
+      };
     }
 
     /*
@@ -69,7 +143,7 @@ const GlobalEnrollmentPopup = () => {
       );
     } else {
       /*
-       * If the visitor lands directly on another page,
+       * Other pages:
        * wait for the global 2–3 minute cycle.
        */
       schedulePopup(
@@ -99,9 +173,9 @@ const GlobalEnrollmentPopup = () => {
   };
 
   /*
-   * After closing the popup:
-   * - remove it immediately
-   * - wait before allowing another popup
+   * -------------------------------------------------------
+   * Close popup
+   * -------------------------------------------------------
    */
   const handleClose = () => {
     setIsOpen(false);
@@ -117,7 +191,9 @@ const GlobalEnrollmentPopup = () => {
   };
 
   /*
-   * Close when clicking the dark backdrop.
+   * -------------------------------------------------------
+   * Backdrop click
+   * -------------------------------------------------------
    */
   const handleBackdropClick = (event) => {
     if (event.target === event.currentTarget) {
@@ -126,7 +202,9 @@ const GlobalEnrollmentPopup = () => {
   };
 
   /*
-   * Escape key closes popup.
+   * -------------------------------------------------------
+   * Escape key
+   * -------------------------------------------------------
    */
   useEffect(() => {
     if (!isOpen) return;
@@ -145,7 +223,9 @@ const GlobalEnrollmentPopup = () => {
   }, [isOpen]);
 
   /*
-   * Prevent background scrolling while popup is open.
+   * -------------------------------------------------------
+   * Prevent background scrolling
+   * -------------------------------------------------------
    */
   useEffect(() => {
     if (!isOpen) return;
@@ -159,6 +239,11 @@ const GlobalEnrollmentPopup = () => {
     };
   }, [isOpen]);
 
+  /*
+   * -------------------------------------------------------
+   * Input change
+   * -------------------------------------------------------
+   */
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -170,14 +255,47 @@ const GlobalEnrollmentPopup = () => {
     setSubmitStatus("");
   };
 
+  /*
+   * -------------------------------------------------------
+   * Enrollment submit
+   * -------------------------------------------------------
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!isAuthenticated || !user) {
+      /*
+       * Save the selected course so we can continue the
+       * enrollment flow after authentication.
+       */
+      sessionStorage.setItem(
+        "pinaki_pending_enrollment",
+        JSON.stringify({
+          courseId: formData.courseId,
+          phone: formData.phone,
+          name: formData.name,
+          email: formData.email,
+        })
+      );
+
+      setIsOpen(false);
+
+      navigate("/login", {
+        state: {
+          from: {
+            pathname: window.location.pathname,
+          },
+        },
+      });
+
+      return;
+    }
 
     if (
       !formData.name.trim() ||
       !formData.email.trim() ||
       !formData.phone.trim() ||
-      !formData.course
+      !formData.courseId
     ) {
       setSubmitStatus("Please fill in all the fields.");
       return;
@@ -187,15 +305,34 @@ const GlobalEnrollmentPopup = () => {
       setIsSubmitting(true);
       setSubmitStatus("");
 
-      const API_BASE_URL =
-        import.meta.env.VITE_API_BASE_URL ||
-        "http://localhost:5000";
-
-      await axios.post(
-        `${API_BASE_URL}/api/enrollment`,
-        formData
+      /*
+       * New enrollment API:
+       *
+       * POST /api/enrollments
+       *
+       * Body:
+       * {
+       *   course_id: courseId
+       * }
+       *
+       * User ID comes from the authenticated session.
+       */
+      const response = await enrollInCourse(
+        Number(formData.courseId)
       );
 
+      if (!response.success) {
+        setSubmitStatus(
+          response.message ||
+            "Unable to enroll in this course."
+        );
+
+        return;
+      }
+
+      /*
+       * Enrollment successfully created.
+       */
       setSubmitStatus("success");
 
       sessionStorage.setItem(
@@ -203,25 +340,38 @@ const GlobalEnrollmentPopup = () => {
         "true"
       );
 
+      sessionStorage.removeItem(
+        "pinaki_pending_enrollment"
+      );
+
       setHasSubmitted(true);
 
       /*
-       * Automatically remove success popup after a short delay.
+       * Automatically close success popup.
        */
       setTimeout(() => {
         setIsOpen(false);
       }, 2500);
     } catch (error) {
-      console.error("Enrollment submission failed:", error);
+      console.error(
+        "Enrollment submission failed:",
+        error
+      );
 
       setSubmitStatus(
-        "Something went wrong. Please try again."
+        error.response?.data?.message ||
+          "Something went wrong. Please try again."
       );
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  /*
+   * -------------------------------------------------------
+   * Don't render after successful submission
+   * -------------------------------------------------------
+   */
   if (hasSubmitted && !isOpen) {
     return null;
   }
@@ -269,7 +419,9 @@ const GlobalEnrollmentPopup = () => {
               duration: 0.85,
               ease: [0.22, 1, 0.36, 1],
             }}
-            onMouseDown={(event) => event.stopPropagation()}
+            onMouseDown={(event) =>
+              event.stopPropagation()
+            }
             className="
               relative
               w-full
@@ -439,66 +591,37 @@ const GlobalEnrollmentPopup = () => {
                   "
                 >
                   Get industry-focused training, practical
-                  experience and career guidance from Pinaki IT
-                  experts.
+                  experience and career guidance from Pinaki
+                  IT experts.
                 </p>
               </div>
 
               {/* Benefits */}
               <div className="mt-6 flex flex-wrap gap-3">
-                <div
-                  className="
-                    inline-flex
-                    items-center
-                    gap-2
-                    text-xs
-                    font-semibold
-                    text-slate-600
-                    dark:text-slate-300
-                  "
-                >
-                  <CheckCircle2
-                    size={16}
-                    className="text-emerald-500"
-                  />
-                  Live Projects
-                </div>
-
-                <div
-                  className="
-                    inline-flex
-                    items-center
-                    gap-2
-                    text-xs
-                    font-semibold
-                    text-slate-600
-                    dark:text-slate-300
-                  "
-                >
-                  <CheckCircle2
-                    size={16}
-                    className="text-emerald-500"
-                  />
-                  Expert Mentorship
-                </div>
-
-                <div
-                  className="
-                    inline-flex
-                    items-center
-                    gap-2
-                    text-xs
-                    font-semibold
-                    text-slate-600
-                    dark:text-slate-300
-                  "
-                >
-                  <CheckCircle2
-                    size={16}
-                    className="text-emerald-500"
-                  />
-                  Career Support
-                </div>
+                {[
+                  "Live Projects",
+                  "Expert Mentorship",
+                  "Career Support",
+                ].map((benefit) => (
+                  <div
+                    key={benefit}
+                    className="
+                      inline-flex
+                      items-center
+                      gap-2
+                      text-xs
+                      font-semibold
+                      text-slate-600
+                      dark:text-slate-300
+                    "
+                  >
+                    <CheckCircle2
+                      size={16}
+                      className="text-emerald-500"
+                    />
+                    {benefit}
+                  </div>
+                ))}
               </div>
 
               {/* Form */}
@@ -549,7 +672,7 @@ const GlobalEnrollmentPopup = () => {
                       dark:text-white
                     "
                   >
-                    Enrollment Request Received!
+                    Enrollment Successful!
                   </h3>
 
                   <p
@@ -562,8 +685,9 @@ const GlobalEnrollmentPopup = () => {
                       dark:text-slate-400
                     "
                   >
-                    Our team will contact you shortly regarding
-                    your selected course.
+                    You have successfully enrolled in the
+                    selected course. You can continue learning
+                    from your Learning Portal.
                   </p>
                 </motion.div>
               ) : (
@@ -595,6 +719,7 @@ const GlobalEnrollmentPopup = () => {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="Enter your name"
+                        disabled={Boolean(user)}
                         className="
                           w-full
                           rounded-2xl
@@ -613,6 +738,8 @@ const GlobalEnrollmentPopup = () => {
                           focus:bg-white
                           focus:ring-4
                           focus:ring-emerald-500/10
+                          disabled:cursor-not-allowed
+                          disabled:opacity-70
                           dark:border-slate-700
                           dark:bg-slate-800/70
                           dark:text-white
@@ -646,6 +773,7 @@ const GlobalEnrollmentPopup = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="you@example.com"
+                        disabled={Boolean(user)}
                         className="
                           w-full
                           rounded-2xl
@@ -664,6 +792,8 @@ const GlobalEnrollmentPopup = () => {
                           focus:bg-white
                           focus:ring-4
                           focus:ring-emerald-500/10
+                          disabled:cursor-not-allowed
+                          disabled:opacity-70
                           dark:border-slate-700
                           dark:bg-slate-800/70
                           dark:text-white
@@ -758,9 +888,10 @@ const GlobalEnrollmentPopup = () => {
                         />
 
                         <select
-                          name="course"
-                          value={formData.course}
+                          name="courseId"
+                          value={formData.courseId}
                           onChange={handleChange}
+                          disabled={coursesLoading}
                           className="
                             w-full
                             appearance-none
@@ -779,6 +910,8 @@ const GlobalEnrollmentPopup = () => {
                             focus:bg-white
                             focus:ring-4
                             focus:ring-emerald-500/10
+                            disabled:cursor-not-allowed
+                            disabled:opacity-70
                             dark:border-slate-700
                             dark:bg-slate-800/70
                             dark:text-white
@@ -787,13 +920,15 @@ const GlobalEnrollmentPopup = () => {
                           "
                         >
                           <option value="">
-                            Choose a course
+                            {coursesLoading
+                              ? "Loading courses..."
+                              : "Choose a course"}
                           </option>
 
-                          {courseList.map((course) => (
+                          {courses.map((course) => (
                             <option
-                              key={course.slug}
-                              value={course.title}
+                              key={course.id}
+                              value={course.id}
                             >
                               {course.title}
                             </option>
@@ -802,6 +937,29 @@ const GlobalEnrollmentPopup = () => {
                       </div>
                     </div>
                   </div>
+
+                  {/* Login message */}
+                  {!isAuthenticated && (
+                    <p
+                      className="
+                        rounded-xl
+                        border
+                        border-amber-200
+                        bg-amber-50
+                        px-4
+                        py-3
+                        text-sm
+                        font-medium
+                        text-amber-700
+                        dark:border-amber-500/20
+                        dark:bg-amber-950/20
+                        dark:text-amber-400
+                      "
+                    >
+                      Please log in or create an account to
+                      complete your enrollment.
+                    </p>
+                  )}
 
                   {/* Error */}
                   {submitStatus &&
@@ -829,7 +987,7 @@ const GlobalEnrollmentPopup = () => {
                   {/* Submit */}
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || coursesLoading}
                     className="
                       group
                       flex
@@ -871,7 +1029,20 @@ const GlobalEnrollmentPopup = () => {
                             border-t-white
                           "
                         />
-                        Submitting...
+
+                        Enrolling...
+                      </>
+                    ) : !isAuthenticated ? (
+                      <>
+                        Continue to Login
+                        <ArrowRight
+                          size={18}
+                          className="
+                            transition-transform
+                            duration-300
+                            group-hover:translate-x-1
+                          "
+                        />
                       </>
                     ) : (
                       <>

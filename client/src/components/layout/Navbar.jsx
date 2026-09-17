@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import {
   Menu,
@@ -15,7 +15,12 @@ import {
 import logo from "../../assets/images/pinaki-logo.jpeg.png";
 import MegaMenu from "./MegaMenu";
 
+import { useAuth } from "../../context/AuthContext.jsx";
+
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
   const [open, setOpen] = useState(false);
   const [getStartedOpen, setGetStartedOpen] = useState(false);
 
@@ -50,6 +55,32 @@ const Navbar = () => {
     { name: "Contact", path: "/contact" },
   ];
 
+  /* =====================================================
+     PORTAL NAVIGATION
+  ===================================================== */
+
+  const handlePortalNavigation = (portalPath) => {
+    // Close navbar/dropdowns first
+    setOpen(false);
+    setGetStartedOpen(false);
+
+    // Already logged in → directly open portal
+    if (isAuthenticated) {
+      navigate(portalPath);
+      return;
+    }
+
+    // Not logged in → send to login
+    // and remember which portal the user wanted.
+    navigate("/login", {
+      state: {
+        from: {
+          pathname: portalPath,
+        },
+      },
+    });
+  };
+
   return (
     <>
       {/* ===================================================== */}
@@ -63,19 +94,14 @@ const Navbar = () => {
           top-0
           z-50
           w-full
-
           border-b
           border-slate-200/80
-
           bg-white/90
           text-slate-900
-
           shadow-sm
           backdrop-blur-xl
-
           transition-all
           duration-300
-
           dark:border-slate-800/80
           dark:bg-slate-950/90
           dark:text-white
@@ -168,7 +194,6 @@ const Navbar = () => {
                   transition-colors
                   duration-200
                   hover:text-emerald-600
-
                   dark:text-slate-200
                   dark:hover:text-emerald-400
                 "
@@ -196,10 +221,8 @@ const Navbar = () => {
                   -translate-x-1/2
                   pt-5
                   opacity-0
-
                   transition-all
                   duration-200
-
                   group-hover:visible
                   group-hover:opacity-100
                 "
@@ -216,37 +239,37 @@ const Navbar = () => {
                 to={item.path}
                 className={({ isActive }) =>
                   `
-                  relative
-                  py-2
-                  text-sm
-                  font-semibold
-                  transition-colors
-                  duration-200
+                    relative
+                    py-2
+                    text-sm
+                    font-semibold
+                    transition-colors
+                    duration-200
 
-                  ${
-                    isActive
-                      ? "text-emerald-600 dark:text-emerald-400"
-                      : "text-slate-700 hover:text-emerald-600 dark:text-slate-200 dark:hover:text-emerald-400"
-                  }
+                    ${
+                      isActive
+                        ? "text-emerald-600 dark:text-emerald-400"
+                        : "text-slate-700 hover:text-emerald-600 dark:text-slate-200 dark:hover:text-emerald-400"
+                    }
 
-                  after:absolute
-                  after:bottom-0
-                  after:left-0
-                  after:h-[2px]
-                  after:rounded-full
-                  after:bg-gradient-to-r
-                  after:from-emerald-500
-                  after:to-cyan-500
-                  after:transition-all
-                  after:duration-300
+                    after:absolute
+                    after:bottom-0
+                    after:left-0
+                    after:h-[2px]
+                    after:rounded-full
+                    after:bg-gradient-to-r
+                    after:from-emerald-500
+                    after:to-cyan-500
+                    after:transition-all
+                    after:duration-300
 
-                  hover:after:w-full
+                    hover:after:w-full
 
-                  ${
-                    isActive
-                      ? "after:w-full"
-                      : "after:w-0"
-                  }
+                    ${
+                      isActive
+                        ? "after:w-full"
+                        : "after:w-0"
+                    }
                   `
                 }
               >
@@ -274,20 +297,15 @@ const Navbar = () => {
                 items-center
                 justify-center
                 rounded-full
-
                 border
                 border-slate-700
                 bg-slate-900
                 text-yellow-300
-
                 shadow-sm
-
                 transition-all
                 duration-300
-
                 hover:-translate-y-0.5
                 hover:border-emerald-500
-
                 dark:border-slate-700
                 dark:bg-slate-900
               "
@@ -315,25 +333,19 @@ const Navbar = () => {
                   items-center
                   gap-2
                   rounded-xl
-
                   bg-gradient-to-r
                   from-emerald-500
                   via-teal-500
                   to-cyan-500
-
                   px-5
                   py-3
-
                   text-sm
                   font-bold
                   text-white
-
                   shadow-lg
                   shadow-emerald-500/20
-
                   transition-all
                   duration-300
-
                   hover:-translate-y-0.5
                   hover:shadow-xl
                   hover:shadow-emerald-500/30
@@ -366,38 +378,37 @@ const Navbar = () => {
                     z-[100]
                     mt-3
                     w-64
-
                     overflow-hidden
                     rounded-2xl
-
                     border
                     border-slate-200
-
                     bg-white
-
                     shadow-2xl
-
                     dark:border-slate-700
                     dark:bg-slate-900
                   "
                 >
                   {/* ================= PROJECT PORTAL ================= */}
 
-                  <a
-                    href="YOUR_PROJECT_PORTAL_URL"
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handlePortalNavigation(
+                        "/projects"
+                      )
+                    }
                     className="
                       group
                       flex
+                      w-full
                       items-center
                       gap-4
                       px-5
                       py-4
-
+                      text-left
                       transition-all
                       duration-200
-
                       hover:bg-emerald-50
-
                       dark:hover:bg-emerald-500/10
                     "
                   >
@@ -410,10 +421,8 @@ const Navbar = () => {
                         items-center
                         justify-center
                         rounded-xl
-
                         bg-emerald-100
                         text-emerald-600
-
                         dark:bg-emerald-500/10
                         dark:text-emerald-400
                       "
@@ -449,15 +458,13 @@ const Navbar = () => {
                       size={17}
                       className="
                         text-slate-400
-
                         transition-transform
                         duration-200
-
                         group-hover:translate-x-1
                         group-hover:text-emerald-500
                       "
                     />
-                  </a>
+                  </button>
 
                   {/* ================= DIVIDER ================= */}
 
@@ -472,21 +479,25 @@ const Navbar = () => {
 
                   {/* ================= LEARNING PORTAL ================= */}
 
-                  <a
-                    href="YOUR_LEARNING_PORTAL_URL"
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handlePortalNavigation(
+                        "/learning"
+                      )
+                    }
                     className="
                       group
                       flex
+                      w-full
                       items-center
                       gap-4
                       px-5
                       py-4
-
+                      text-left
                       transition-all
                       duration-200
-
                       hover:bg-cyan-50
-
                       dark:hover:bg-cyan-500/10
                     "
                   >
@@ -499,10 +510,8 @@ const Navbar = () => {
                         items-center
                         justify-center
                         rounded-xl
-
                         bg-cyan-100
                         text-cyan-600
-
                         dark:bg-cyan-500/10
                         dark:text-cyan-400
                       "
@@ -538,15 +547,13 @@ const Navbar = () => {
                       size={17}
                       className="
                         text-slate-400
-
                         transition-transform
                         duration-200
-
                         group-hover:translate-x-1
                         group-hover:text-cyan-500
                       "
                     />
-                  </a>
+                  </button>
                 </div>
               )}
             </div>
@@ -571,15 +578,12 @@ const Navbar = () => {
                 items-center
                 justify-center
                 rounded-full
-
                 border
                 border-slate-200
                 bg-slate-50
                 text-slate-700
-
                 transition-all
                 duration-300
-
                 dark:border-slate-700
                 dark:bg-slate-900
                 dark:text-yellow-300
@@ -605,17 +609,13 @@ const Navbar = () => {
                 items-center
                 justify-center
                 rounded-full
-
                 border
                 border-slate-200
                 bg-slate-50
                 text-slate-700
-
                 transition-all
                 duration-200
-
                 hover:bg-slate-100
-
                 dark:border-slate-700
                 dark:bg-slate-900
                 dark:text-white
@@ -640,16 +640,12 @@ const Navbar = () => {
             className="
               border-t
               border-slate-200
-
               bg-white
               px-6
               py-6
-
               shadow-xl
-
               dark:border-slate-800
               dark:bg-slate-950
-
               lg:hidden
             "
           >
@@ -664,21 +660,19 @@ const Navbar = () => {
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
                     `
-                    rounded-xl
-                    px-4
-                    py-3
+                      rounded-xl
+                      px-4
+                      py-3
+                      text-sm
+                      font-semibold
+                      transition-all
+                      duration-200
 
-                    text-sm
-                    font-semibold
-
-                    transition-all
-                    duration-200
-
-                    ${
-                      isActive
-                        ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
-                        : "text-slate-700 hover:bg-slate-50 hover:text-emerald-600 dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-emerald-400"
-                    }
+                      ${
+                        isActive
+                          ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
+                          : "text-slate-700 hover:bg-slate-50 hover:text-emerald-600 dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-emerald-400"
+                      }
                     `
                   }
                 >
@@ -691,31 +685,27 @@ const Navbar = () => {
               {/* ================================================= */}
 
               <div className="mt-4">
-
                 <button
                   type="button"
                   onClick={() =>
-                    setGetStartedOpen(!getStartedOpen)
+                    setGetStartedOpen(
+                      !getStartedOpen
+                    )
                   }
                   className="
                     flex
                     w-full
                     items-center
                     justify-between
-
                     rounded-xl
-
                     bg-gradient-to-r
                     from-emerald-500
                     via-teal-500
                     to-cyan-500
-
                     px-5
                     py-3
-
                     font-bold
                     text-white
-
                     shadow-lg
                   "
                 >
@@ -726,7 +716,6 @@ const Navbar = () => {
                     className={`
                       transition-transform
                       duration-300
-
                       ${
                         getStartedOpen
                           ? "rotate-180"
@@ -744,30 +733,32 @@ const Navbar = () => {
                       mt-2
                       overflow-hidden
                       rounded-2xl
-
                       border
                       border-slate-200
-
                       bg-white
                       shadow-lg
-
                       dark:border-slate-700
                       dark:bg-slate-900
                     "
                   >
                     {/* PROJECT PORTAL */}
 
-                    <a
-                      href="YOUR_PROJECT_PORTAL_URL"
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handlePortalNavigation(
+                          "/projects"
+                        )
+                      }
                       className="
                         flex
+                        w-full
                         items-center
                         gap-4
                         px-5
                         py-4
-
+                        text-left
                         hover:bg-emerald-50
-
                         dark:hover:bg-emerald-500/10
                       "
                     >
@@ -780,10 +771,8 @@ const Navbar = () => {
                           items-center
                           justify-center
                           rounded-xl
-
                           bg-emerald-100
                           text-emerald-600
-
                           dark:bg-emerald-500/10
                           dark:text-emerald-400
                         "
@@ -819,7 +808,7 @@ const Navbar = () => {
                         size={17}
                         className="text-slate-400"
                       />
-                    </a>
+                    </button>
 
                     {/* DIVIDER */}
 
@@ -834,17 +823,22 @@ const Navbar = () => {
 
                     {/* LEARNING PORTAL */}
 
-                    <a
-                      href="YOUR_LEARNING_PORTAL_URL"
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handlePortalNavigation(
+                          "/learning"
+                        )
+                      }
                       className="
                         flex
+                        w-full
                         items-center
                         gap-4
                         px-5
                         py-4
-
+                        text-left
                         hover:bg-cyan-50
-
                         dark:hover:bg-cyan-500/10
                       "
                     >
@@ -857,10 +851,8 @@ const Navbar = () => {
                           items-center
                           justify-center
                           rounded-xl
-
                           bg-cyan-100
                           text-cyan-600
-
                           dark:bg-cyan-500/10
                           dark:text-cyan-400
                         "
@@ -896,7 +888,7 @@ const Navbar = () => {
                         size={17}
                         className="text-slate-400"
                       />
-                    </a>
+                    </button>
                   </div>
                 )}
               </div>

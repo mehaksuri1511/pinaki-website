@@ -6,6 +6,8 @@ import {
   verifyEmailToken,
 } from "../services/authService.js";
 
+import { sendVerificationEmail } from "../services/mailService.js";
+
 export const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -33,6 +35,15 @@ export const register = async (req, res, next) => {
 
     const normalizedEmail = email.trim().toLowerCase();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(normalizedEmail)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid email address",
+      });
+    }
+
     const user = await registerUser({
       name: name.trim(),
       email: normalizedEmail,
@@ -42,13 +53,16 @@ export const register = async (req, res, next) => {
     const verificationToken =
       await createEmailVerificationToken(user.id);
 
-    console.log(
-      `Email verification token for ${user.email}: ${verificationToken}`
-    );
+    await sendVerificationEmail({
+      name: user.name,
+      email: user.email,
+      verificationToken,
+    });
 
     res.status(201).json({
       success: true,
-      message: "Registration successful. Please login.",
+      message:
+        "Registration successful. Please check your email to verify your account.",
       data: {
         user,
       },

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import {
   CheckCircle2,
   Mail,
@@ -9,7 +8,9 @@ import {
   Sparkles,
   User,
 } from "lucide-react";
+
 import SectionWatermark from "../common/SectionWatermark";
+import { submitContactForm } from "../../API/contactService.js";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -21,16 +22,19 @@ const ContactForm = () => {
   });
 
   const [loading, setLoading] = useState(false);
+
   const [status, setStatus] = useState({
     type: "",
     message: "",
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
 
     if (status.message) {
       setStatus({
@@ -45,20 +49,36 @@ const ContactForm = () => {
 
     try {
       setLoading(true);
+
       setStatus({
         type: "",
         message: "",
       });
 
-      const res = await axios.post(
-        "http://localhost:5000/api/contact",
-        formData
-      );
+      const response = await submitContactForm({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
+      });
+
+      if (!response.success) {
+        setStatus({
+          type: "error",
+          message:
+            response.message ||
+            "Failed to send your message. Please try again.",
+        });
+
+        return;
+      }
 
       setStatus({
         type: "success",
         message:
-          res.data.message || "Your message has been sent successfully.",
+          response.message ||
+          "Your message has been sent successfully.",
       });
 
       setFormData({
@@ -69,11 +89,13 @@ const ContactForm = () => {
         message: "",
       });
     } catch (error) {
-      console.error(error);
+      console.error("Contact form submission failed:", error);
 
       setStatus({
         type: "error",
-        message: "Failed to send your message. Please try again.",
+        message:
+          error.response?.data?.message ||
+          "Failed to send your message. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -138,9 +160,11 @@ const ContactForm = () => {
 
       {/* Glows */}
       <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-emerald-300/15 blur-[120px] dark:bg-emerald-500/10" />
+
       <div className="pointer-events-none absolute -right-40 bottom-10 h-80 w-80 rounded-full bg-teal-300/15 blur-[120px] dark:bg-teal-500/10" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-8">
+
         {/* Heading */}
         <div className="mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300">
@@ -203,6 +227,8 @@ const ContactForm = () => {
 
             {/* Inputs */}
             <div className="grid gap-5 md:grid-cols-2">
+
+              {/* Full Name */}
               <div>
                 <label className="mb-2.5 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                   Full Name
@@ -226,6 +252,7 @@ const ContactForm = () => {
                 </div>
               </div>
 
+              {/* Email */}
               <div>
                 <label className="mb-2.5 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                   Email Address
@@ -249,6 +276,7 @@ const ContactForm = () => {
                 </div>
               </div>
 
+              {/* Phone */}
               <div>
                 <label className="mb-2.5 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                   Phone Number
@@ -272,6 +300,7 @@ const ContactForm = () => {
                 </div>
               </div>
 
+              {/* Subject */}
               <div>
                 <label className="mb-2.5 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                   Subject
@@ -360,7 +389,7 @@ const ContactForm = () => {
                   disabled:opacity-60
                   dark:bg-emerald-500
                   dark:hover:bg-emerald-400
-                  dark:dark:text-slate-950
+                  dark:text-slate-950
                 "
               >
                 <Send

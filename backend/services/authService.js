@@ -71,6 +71,14 @@ export const loginUser = async ({ email, password }) => {
     throw error;
   }
 
+  if (!user.email_verified) {
+    const error = new Error(
+      "Please verify your email before logging in"
+    );
+    error.statusCode = 403;
+    throw error;
+  }
+
   const passwordMatch = await bcrypt.compare(
     password,
     user.password_hash

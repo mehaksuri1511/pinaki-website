@@ -723,7 +723,7 @@ const GoogleReviews = () => {
                       dark:text-white
                     "
                   >
-                    4.7
+                    5
                   </div>
 
                   <div className="mt-1 flex justify-end gap-1">
@@ -967,33 +967,7 @@ const GoogleReviews = () => {
                   CTA
               ================================================= */}
 
-              <button
-                type="button"
-                className="
-                  mt-7
-                  w-full
-                  rounded-full
-                  bg-gradient-to-r
-                  from-emerald-600
-                  via-green-500
-                  to-teal-500
-                  px-6
-                  py-4
-                  font-semibold
-                  text-white
-                  shadow-lg
-                  transition-all
-                  duration-300
-                  hover:-translate-y-1
-                  hover:shadow-emerald-500/30
-                  dark:from-emerald-500
-                  dark:via-green-500
-                  dark:to-teal-500
-                  dark:shadow-emerald-950/40
-                "
-              >
-                Read More Google Reviews
-              </button>
+              
             </div>
           </motion.div>
         </div>

@@ -1,7 +1,14 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 import ScrollToTop from "../components/common/ScrollToTop";
 import MainLayout from "../components/layout/MainLayout";
+import GlobalEnrollmentPopup from "../components/common/GlobalEnrollmentPopup";
+
+// Public pages
 import Landing from "../pages/Landing";
 import DevelopmentHome from "../pages/DevelopmentHome";
 import Home from "../pages/Home";
@@ -17,26 +24,70 @@ import TestPapersPage from "../pages/TestPapersPage";
 import CourseQuiz from "../pages/CourseQuiz";
 import Services from "../pages/Services";
 
+// Authentication
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import VerifyEmail from "../pages/VerifyEmail";
+
+// Student portals
+import LearningPortal from "../pages/LearningPortal";
+import ProjectPortal from "../pages/ProjectPortal";
+
+// Protected route
+import ProtectedRoute from "./ProtectedRoute";
+
 function AppRoutes() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Routes>
 
-        {/* Landing Page */}
+      <Routes>
+        {/* =====================================================
+            LANDING
+            Standalone page
+        ===================================================== */}
         <Route
           path="/"
           element={<Landing />}
         />
 
-        {/* Development Portal */}
+        {/* =====================================================
+            DEVELOPMENT
+            Standalone page
+        ===================================================== */}
         <Route
           path="/development"
           element={<DevelopmentHome />}
         />
 
-        {/* Education Website */}
+        {/* =====================================================
+            MAIN WEBSITE LAYOUT
+            Navbar + Page + Footer
+        ===================================================== */}
         <Route element={<MainLayout />}>
+
+          {/* ===================================================
+              AUTHENTICATION
+          =================================================== */}
+
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+
+          <Route
+            path="/register"
+            element={<Register />}
+          />
+
+          <Route
+            path="/verify-email"
+            element={<VerifyEmail />}
+          />
+
+          {/* ===================================================
+              EDUCATION WEBSITE
+          =================================================== */}
 
           <Route
             path="/education"
@@ -88,14 +139,54 @@ function AppRoutes() {
             element={<TestPapersPage />}
           />
 
-          <Route path="/quiz" element={<CourseQuiz />} />
+          <Route
+            path="/quiz"
+            element={<CourseQuiz />}
+          />
 
-          <Route path="/services" element={<Services />} />
+          <Route
+            path="/services"
+            element={<Services />}
+          />
+
+          {/* ===================================================
+              PROTECTED STUDENT PORTALS
+
+              MainLayout
+                  ↓
+              ProtectedRoute
+                  ↓
+              Learning / Projects
+          =================================================== */}
+
+          <Route element={<ProtectedRoute />}>
+
+            <Route
+              path="/learning"
+              element={<LearningPortal />}
+            />
+
+            <Route
+              path="/projects"
+              element={<ProjectPortal />}
+            />
+
+          </Route>
 
         </Route>
-
       </Routes>
+
+      {/* =====================================================
+          GLOBAL ENROLLMENT POPUP
+
+          IMPORTANT:
+          This is INSIDE BrowserRouter so that
+          useNavigate() works inside GlobalEnrollmentPopup.
+      ===================================================== */}
+      <GlobalEnrollmentPopup />
+
     </BrowserRouter>
   );
 }
+
 export default AppRoutes;
