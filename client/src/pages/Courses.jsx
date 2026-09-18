@@ -6,25 +6,27 @@ import EnrollmentModal from "../components/courses/EnrollmentModal";
 
 const Courses = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
-  const handleEnroll = (courseName) => {
-    setSelectedCourse(courseName);
+  const handleEnroll = (course) => {
+    setSelectedCourse(course);
     setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setSelectedCourse(null);
   };
 
   return (
     <>
-      {/* ================= COURSES HERO ================= */}
       <CoursesHero />
 
-      {/* ================= ALL COURSES ================= */}
       <CoursesGrid onEnroll={handleEnroll} />
 
-      {/* ================= ENROLLMENT MODAL ================= */}
       <EnrollmentModal
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={handleClose}
         selectedCourse={selectedCourse}
       />
     </>

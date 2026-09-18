@@ -5,10 +5,10 @@ import authMiddleware from "../middleware/authMiddleware.js";
 import {
   getProjects,
   getProject,
-  getProgress,
-  updateProgress,
-  submit,
-  getSubmissions,
+  create,
+  update,
+  remove,
+  getMyProjectsController,
 } from "../controllers/projectController.js";
 
 const router = express.Router();
@@ -19,7 +19,10 @@ const router = express.Router();
 |--------------------------------------------------------------------------
 */
 
+// GET /api/projects
+// Public route for getting all active projects
 router.get("/", getProjects);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,36 +30,50 @@ router.get("/", getProjects);
 |--------------------------------------------------------------------------
 */
 
+// IMPORTANT:
+// /my MUST come before /:id
+//
+// GET /api/projects/my
+// Returns only projects belonging to the logged-in user.
 router.get(
-  "/:id/progress",
+  "/my",
   authMiddleware,
-  getProgress
+  getMyProjectsController
 );
 
-router.patch(
-  "/:id/progress",
-  authMiddleware,
-  updateProgress
+
+// GET /api/projects/:id
+// Get a single project by ID.
+router.get(
+  "/:id",
+  getProject
 );
 
+
+// POST /api/projects
+// Create a project for the logged-in user.
 router.post(
-  "/:id/submissions",
+  "/",
   authMiddleware,
-  submit
+  create
 );
 
-router.get(
-  "/:id/submissions",
+
+// PATCH /api/projects/:id
+// Update user's own project.
+router.patch(
+  "/:id",
   authMiddleware,
-  getSubmissions
+  update
 );
 
-/*
-|--------------------------------------------------------------------------
-| Public single-project route
-|--------------------------------------------------------------------------
-*/
 
-router.get("/:id", getProject);
+// DELETE /api/projects/:id
+// Delete user's own project.
+router.delete(
+  "/:id",
+  authMiddleware,
+  remove
+);
 
 export default router;

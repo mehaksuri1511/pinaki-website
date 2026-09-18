@@ -67,7 +67,6 @@ export const getLearningDashboard = async (userId) => {
     `,
     [userId]
   );
-  
 
   return {
     enrollments: enrollments.map((enrollment) => ({
@@ -93,130 +92,6 @@ export const getLearningDashboard = async (userId) => {
       },
     })),
 
-    
-
     explore_courses: exploreCourses,
-  };
-};
-
-export const getProjectDashboard = async (userId) => {
-  const [projects] = await pool.query(
-    `
-      SELECT
-        p.id AS project_id,
-        p.title AS project_title,
-        p.slug AS project_slug,
-        p.description AS project_description,
-        p.difficulty AS project_difficulty,
-        p.instructions AS project_instructions,
-
-        c.id AS course_id,
-        c.title AS course_title,
-        c.slug AS course_slug,
-
-        pp.status AS progress_status,
-        COALESCE(pp.progress_percent, 0) AS progress_percent,
-        pp.started_at,
-        pp.completed_at,
-        pp.updated_at AS progress_updated_at
-
-      FROM projects p
-
-      INNER JOIN courses c
-        ON c.id = p.course_id
-
-      INNER JOIN enrollments e
-        ON e.course_id = c.id
-        AND e.user_id = ?
-        AND e.status IN ('active', 'completed')
-
-      LEFT JOIN project_progress pp
-        ON pp.project_id = p.id
-        AND pp.user_id = ?
-
-      WHERE p.is_active = TRUE
-        AND c.is_active = TRUE
-
-      ORDER BY p.created_at DESC
-    `,
-    [userId, userId]
-  );
-
-  // Get submissions belonging to this student
-  const projectIds = projects.map(
-    (project) => project.project_id
-  );
-
-  let submissions = [];
-
-  if (projectIds.length > 0) {
-    const placeholders = projectIds
-      .map(() => "?")
-      .join(",");
-
-    const [rows] = await pool.query(
-      `
-        SELECT
-          id,
-          project_id,
-          submission_url,
-          notes,
-          status,
-          reviewer_feedback,
-          submitted_at,
-          reviewed_at
-
-        FROM project_submissions
-
-        WHERE user_id = ?
-          AND project_id IN (${placeholders})
-
-        ORDER BY submitted_at DESC
-      `,
-      [userId, ...projectIds]
-    );
-
-    submissions = rows;
-  }
-
-  return {
-    projects: projects.map((project) => ({
-      id: project.project_id,
-
-      title: project.project_title,
-      slug: project.project_slug,
-      description: project.project_description,
-      difficulty: project.project_difficulty,
-      instructions: project.project_instructions,
-
-      course: {
-        id: project.course_id,
-        title: project.course_title,
-        slug: project.course_slug,
-      },
-
-      progress: {
-        status: project.progress_status || "not_started",
-        progress_percent: Number(project.progress_percent),
-        started_at: project.started_at,
-        completed_at: project.completed_at,
-        updated_at: project.progress_updated_at,
-      },
-
-      submissions: submissions
-        .filter(
-          (submission) =>
-            submission.project_id === project.project_id
-        )
-        .map((submission) => ({
-          id: submission.id,
-          submission_url: submission.submission_url,
-          notes: submission.notes,
-          status: submission.status,
-          reviewer_feedback: submission.reviewer_feedback,
-          submitted_at: submission.submitted_at,
-          reviewed_at: submission.reviewed_at,
-        })),
-    })),
   };
 };

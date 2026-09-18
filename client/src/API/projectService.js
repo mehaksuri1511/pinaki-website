@@ -2,9 +2,28 @@ import api from "./api.js";
 
 /**
  * Get all active projects
+ *
+ * Optional filters:
+ * - type
+ * - search
  */
-export const getProjects = async () => {
-  const response = await api.get("/projects");
+export const getProjects = async ({
+  type = null,
+  search = null,
+} = {}) => {
+  const params = {};
+
+  if (type) {
+    params.type = type;
+  }
+
+  if (search) {
+    params.search = search;
+  }
+
+  const response = await api.get("/projects", {
+    params,
+  });
 
   return response.data;
 };
@@ -21,29 +40,68 @@ export const getProjectById = async (projectId) => {
 };
 
 /**
- * Get the logged-in student's progress for a project
+ * Get projects created by the logged-in user
  */
-export const getProjectProgress = async (projectId) => {
-  const response = await api.get(
-    `/projects/${projectId}/progress`
-  );
+export const getMyProjects = async () => {
+  const response = await api.get("/projects/my");
 
   return response.data;
 };
 
 /**
- * Update the logged-in student's project progress
+ * Create a new project
  */
-export const updateProjectProgress = async ({
+export const createProject = async ({
+  title,
+  slug,
+  description,
+  projectType,
+  techStack,
+  githubUrl,
+  liveUrl,
+  imageUrl,
+}) => {
+  const response = await api.post("/projects", {
+    title,
+    slug,
+    description,
+    project_type: projectType,
+    tech_stack: techStack,
+    github_url: githubUrl,
+    live_url: liveUrl,
+    image_url: imageUrl,
+  });
+
+  return response.data;
+};
+
+/**
+ * Update an existing project
+ */
+export const updateProject = async ({
   projectId,
-  status,
-  progressPercent,
+  title,
+  slug,
+  description,
+  projectType,
+  techStack,
+  githubUrl,
+  liveUrl,
+  imageUrl,
+  isActive,
 }) => {
   const response = await api.patch(
-    `/projects/${projectId}/progress`,
+    `/projects/${projectId}`,
     {
-      status,
-      progress_percent: progressPercent,
+      title,
+      slug,
+      description,
+      project_type: projectType,
+      tech_stack: techStack,
+      github_url: githubUrl,
+      live_url: liveUrl,
+      image_url: imageUrl,
+      is_active: isActive,
     }
   );
 
@@ -51,31 +109,11 @@ export const updateProjectProgress = async ({
 };
 
 /**
- * Submit a project
+ * Delete a project
  */
-export const submitProject = async ({
-  projectId,
-  submissionUrl,
-  notes,
-}) => {
-  const response = await api.post(
-    `/projects/${projectId}/submissions`,
-    {
-      submission_url: submissionUrl || null,
-      notes: notes || null,
-    }
-  );
-
-  return response.data;
-};
-
-/**
- * Get submissions of the logged-in student
- * for a specific project
- */
-export const getProjectSubmissions = async (projectId) => {
-  const response = await api.get(
-    `/projects/${projectId}/submissions`
+export const deleteProject = async (projectId) => {
+  const response = await api.delete(
+    `/projects/${projectId}`
   );
 
   return response.data;

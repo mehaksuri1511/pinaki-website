@@ -6,34 +6,68 @@ import pool from "../config/db.js";
 |--------------------------------------------------------------------------
 */
 
-export const getAllProjects = async () => {
-  const [rows] = await pool.query(
-    `
-      SELECT
-        p.id,
-        p.course_id,
-        p.title,
-        p.slug,
-        p.description,
-        p.difficulty,
-        p.instructions,
-        p.is_active,
-        p.created_at,
-        p.updated_at,
+export const getAllProjects = async ({
+  projectType = null,
+  search = null,
+} = {}) => {
+  let query = `
+    SELECT
+      p.id,
+      p.user_id,
+      p.title,
+      p.slug,
+      p.description,
+      p.project_type,
+      p.tech_stack,
+      p.github_url,
+      p.live_url,
+      p.image_url,
+      p.is_active,
+      p.created_at,
+      p.updated_at,
 
-        c.title AS course_title,
-        c.slug AS course_slug
+      u.name AS creator_name,
+      u.email AS creator_email
 
-      FROM projects p
+    FROM projects p
 
-      INNER JOIN courses c
-        ON c.id = p.course_id
+    INNER JOIN users u
+      ON u.id = p.user_id
 
-      WHERE p.is_active = TRUE
+    WHERE p.is_active = TRUE
+      AND u.is_active = TRUE
+  `;
 
-      ORDER BY p.created_at DESC
-    `
-  );
+  const params = [];
+
+  if (projectType) {
+    query += ` AND p.project_type = ?`;
+    params.push(projectType);
+  }
+
+  if (search) {
+    query += `
+      AND (
+        p.title LIKE ?
+        OR p.description LIKE ?
+        OR p.tech_stack LIKE ?
+      )
+    `;
+
+    const searchValue = `%${search}%`;
+
+    params.push(
+      searchValue,
+      searchValue,
+      searchValue
+    );
+  }
+
+  query += `
+    ORDER BY p.created_at DESC
+  `;
+
+  const [rows] = await pool.query(query, params);
 
   return rows;
 };
@@ -49,26 +83,30 @@ export const getProjectById = async (projectId) => {
     `
       SELECT
         p.id,
-        p.course_id,
+        p.user_id,
         p.title,
         p.slug,
         p.description,
-        p.difficulty,
-        p.instructions,
+        p.project_type,
+        p.tech_stack,
+        p.github_url,
+        p.live_url,
+        p.image_url,
         p.is_active,
         p.created_at,
         p.updated_at,
 
-        c.title AS course_title,
-        c.slug AS course_slug
+        u.name AS creator_name,
+        u.email AS creator_email
 
       FROM projects p
 
-      INNER JOIN courses c
-        ON c.id = p.course_id
+      INNER JOIN users u
+        ON u.id = p.user_id
 
       WHERE p.id = ?
         AND p.is_active = TRUE
+        AND u.is_active = TRUE
 
       LIMIT 1
     `,
@@ -86,390 +124,123 @@ export const getProjectById = async (projectId) => {
 
 /*
 |--------------------------------------------------------------------------
-| Get project progress for logged-in user
+| Create project
 |--------------------------------------------------------------------------
 */
 
-export const getProjectProgress = async (
+export const createProject = async ({
   userId,
-  projectId
-) => {
-  // First check that project exists
-  const [projects] = await pool.query(
+  title,
+  slug,
+  description,
+  projectType,
+  techStack,
+  githubUrl,
+  liveUrl,
+  imageUrl,
+}) => {
+  // Check user
+  const [users] = await pool.query(
     `
       SELECT
         id,
-        course_id,
-        title,
-        slug
-      FROM projects
+        name,
+        email,
+        role
+      FROM users
       WHERE id = ?
         AND is_active = TRUE
       LIMIT 1
     `,
-    [projectId]
+    [userId]
   );
 
-  if (projects.length === 0) {
-    const error = new Error("Project not found");
+  if (users.length === 0) {
+    const error = new Error("User not found");
     error.statusCode = 404;
     throw error;
   }
 
-  const [rows] = await pool.query(
+  // Check slug
+  const [existingSlug] = await pool.query(
     `
-      SELECT
-        pp.id,
-        pp.user_id,
-        pp.project_id,
-        pp.status,
-        pp.progress_percent,
-        pp.started_at,
-        pp.completed_at,
-        pp.updated_at
-
-      FROM project_progress pp
-
-      WHERE pp.user_id = ?
-        AND pp.project_id = ?
-
-      LIMIT 1
-    `,
-    [userId, projectId]
-  );
-
-  // No progress record means the user hasn't started it
-  if (rows.length === 0) {
-    return {
-      user_id: userId,
-      project_id: projectId,
-      status: "not_started",
-      progress_percent: 0,
-      started_at: null,
-      completed_at: null,
-    };
-  }
-
-  return rows[0];
-};
-
-/*
-|--------------------------------------------------------------------------
-| Update project progress
-|--------------------------------------------------------------------------
-*/
-
-export const updateProjectProgress = async ({
-  userId,
-  projectId,
-  status,
-  progressPercent,
-}) => {
-  // Check project
-  const [projects] = await pool.query(
-    `
-      SELECT
-        id
+      SELECT id
       FROM projects
-      WHERE id = ?
-        AND is_active = TRUE
+      WHERE slug = ?
       LIMIT 1
     `,
-    [projectId]
+    [slug]
   );
 
-  if (projects.length === 0) {
-    const error = new Error("Project not found");
-    error.statusCode = 404;
-    throw error;
-  }
-
-  // Validate progress
-  if (
-    !Number.isFinite(progressPercent) ||
-    progressPercent < 0 ||
-    progressPercent > 100
-  ) {
+  if (existingSlug.length > 0) {
     const error = new Error(
-      "progress_percent must be between 0 and 100"
+      "A project with this slug already exists"
     );
-
-    error.statusCode = 400;
+    error.statusCode = 409;
     throw error;
   }
 
-  const validStatuses = [
-    "not_started",
-    "in_progress",
-    "submitted",
-    "completed",
-  ];
-
-  if (!validStatuses.includes(status)) {
-    const error = new Error("Invalid project status");
-    error.statusCode = 400;
-    throw error;
-  }
-
-  let startedAt = null;
-  let completedAt = null;
-
-  // If the project has started
-  if (
-    status === "in_progress" ||
-    status === "submitted" ||
-    status === "completed"
-  ) {
-    startedAt = new Date();
-  }
-
-  // If completed
-  if (status === "completed") {
-    completedAt = new Date();
-  }
-
-  /*
-   * Don't overwrite the original started_at
-   * when updating an existing progress record.
-   */
-
-  const [existing] = await pool.query(
-    `
-      SELECT
-        id,
-        started_at
-      FROM project_progress
-      WHERE user_id = ?
-        AND project_id = ?
-      LIMIT 1
-    `,
-    [userId, projectId]
-  );
-
-  if (existing.length > 0) {
-    startedAt = existing[0].started_at;
-
-    await pool.query(
-      `
-        UPDATE project_progress
-        SET
-          status = ?,
-          progress_percent = ?,
-          completed_at = ?,
-          updated_at = CURRENT_TIMESTAMP
-
-        WHERE user_id = ?
-          AND project_id = ?
-      `,
-      [
-        status,
-        progressPercent,
-        completedAt,
-        userId,
-        projectId,
-      ]
-    );
-  } else {
-    await pool.query(
-      `
-        INSERT INTO project_progress
-          (
-            user_id,
-            project_id,
-            status,
-            progress_percent,
-            started_at,
-            completed_at
-          )
-        VALUES
-          (?, ?, ?, ?, ?, ?)
-      `,
-      [
-        userId,
-        projectId,
-        status,
-        progressPercent,
-        startedAt,
-        completedAt,
-      ]
-    );
-  }
-
-  return getProjectProgress(userId, projectId);
-};
-
-/*
-|--------------------------------------------------------------------------
-| Submit project
-|--------------------------------------------------------------------------
-*/
-
-export const submitProject = async ({
-  userId,
-  projectId,
-  submissionUrl,
-  notes,
-}) => {
-  // Check project
-  const [projects] = await pool.query(
-    `
-      SELECT
-        id,
-        title
-      FROM projects
-      WHERE id = ?
-        AND is_active = TRUE
-      LIMIT 1
-    `,
-    [projectId]
-  );
-
-  if (projects.length === 0) {
-    const error = new Error("Project not found");
-    error.statusCode = 404;
-    throw error;
-  }
-
-  // Create submission
   const [result] = await pool.query(
     `
-      INSERT INTO project_submissions
-        (
-          user_id,
-          project_id,
-          submission_url,
-          notes,
-          status
-        )
+      INSERT INTO projects
+      (
+        user_id,
+        title,
+        slug,
+        description,
+        project_type,
+        tech_stack,
+        github_url,
+        live_url,
+        image_url
+      )
       VALUES
-        (?, ?, ?, ?, 'submitted')
+      (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `,
     [
       userId,
-      projectId,
-      submissionUrl || null,
-      notes || null,
+      title,
+      slug,
+      description || null,
+      projectType,
+      techStack || null,
+      githubUrl || null,
+      liveUrl || null,
+      imageUrl || null,
     ]
   );
 
-  // Mark project as submitted
-  const [existingProgress] = await pool.query(
-    `
-      SELECT
-        id,
-        started_at
-      FROM project_progress
-      WHERE user_id = ?
-        AND project_id = ?
-      LIMIT 1
-    `,
-    [userId, projectId]
-  );
-
-  if (existingProgress.length > 0) {
-    await pool.query(
-      `
-        UPDATE project_progress
-        SET
-          status = 'submitted',
-          progress_percent = GREATEST(progress_percent, 100),
-          updated_at = CURRENT_TIMESTAMP
-
-        WHERE user_id = ?
-          AND project_id = ?
-      `,
-      [userId, projectId]
-    );
-  } else {
-    await pool.query(
-      `
-        INSERT INTO project_progress
-          (
-            user_id,
-            project_id,
-            status,
-            progress_percent,
-            started_at
-          )
-        VALUES
-          (?, ?, 'submitted', 100, NOW())
-      `,
-      [userId, projectId]
-    );
-  }
-
-  return getSubmissionById(
-    userId,
-    result.insertId
-  );
+  return getProjectById(result.insertId);
 };
 
 /*
 |--------------------------------------------------------------------------
-| Get one submission
+| Update project
 |--------------------------------------------------------------------------
 */
 
-export const getSubmissionById = async (
+export const updateProject = async ({
+  projectId,
   userId,
-  submissionId
-) => {
-  const [rows] = await pool.query(
-    `
-      SELECT
-        ps.id,
-        ps.user_id,
-        ps.project_id,
-        ps.submission_url,
-        ps.notes,
-        ps.status,
-        ps.reviewer_feedback,
-        ps.submitted_at,
-        ps.reviewed_at,
-
-        p.title AS project_title,
-        p.slug AS project_slug
-
-      FROM project_submissions ps
-
-      INNER JOIN projects p
-        ON p.id = ps.project_id
-
-      WHERE ps.id = ?
-        AND ps.user_id = ?
-
-      LIMIT 1
-    `,
-    [submissionId, userId]
-  );
-
-  if (rows.length === 0) {
-    const error = new Error("Submission not found");
-    error.statusCode = 404;
-    throw error;
-  }
-
-  return rows[0];
-};
-
-/*
-|--------------------------------------------------------------------------
-| Get user's submissions for a project
-|--------------------------------------------------------------------------
-*/
-
-export const getProjectSubmissions = async (
-  userId,
-  projectId
-) => {
-  // Check project
+  role,
+  title,
+  slug,
+  description,
+  projectType,
+  techStack,
+  githubUrl,
+  liveUrl,
+  imageUrl,
+  isActive,
+}) => {
   const [projects] = await pool.query(
     `
       SELECT
-        id
+        id,
+        user_id,
+        slug
       FROM projects
       WHERE id = ?
-        AND is_active = TRUE
       LIMIT 1
     `,
     [projectId]
@@ -481,27 +252,205 @@ export const getProjectSubmissions = async (
     throw error;
   }
 
+  const project = projects[0];
+
+  // Only project owner or admin can update
+  if (
+    role !== "admin" &&
+    Number(project.user_id) !== Number(userId)
+  ) {
+    const error = new Error(
+      "You are not authorized to update this project"
+    );
+    error.statusCode = 403;
+    throw error;
+  }
+
+  // Check slug if it is being changed
+  if (slug && slug !== project.slug) {
+    const [existingSlug] = await pool.query(
+      `
+        SELECT id
+        FROM projects
+        WHERE slug = ?
+          AND id != ?
+        LIMIT 1
+      `,
+      [slug, projectId]
+    );
+
+    if (existingSlug.length > 0) {
+      const error = new Error(
+        "A project with this slug already exists"
+      );
+      error.statusCode = 409;
+      throw error;
+    }
+  }
+
+  const fields = [];
+  const values = [];
+
+  if (title !== undefined) {
+    fields.push("title = ?");
+    values.push(title);
+  }
+
+  if (slug !== undefined) {
+    fields.push("slug = ?");
+    values.push(slug);
+  }
+
+  if (description !== undefined) {
+    fields.push("description = ?");
+    values.push(description);
+  }
+
+  if (projectType !== undefined) {
+    fields.push("project_type = ?");
+    values.push(projectType);
+  }
+
+  if (techStack !== undefined) {
+    fields.push("tech_stack = ?");
+    values.push(techStack);
+  }
+
+  if (githubUrl !== undefined) {
+    fields.push("github_url = ?");
+    values.push(githubUrl);
+  }
+
+  if (liveUrl !== undefined) {
+    fields.push("live_url = ?");
+    values.push(liveUrl);
+  }
+
+  if (imageUrl !== undefined) {
+    fields.push("image_url = ?");
+    values.push(imageUrl);
+  }
+
+  if (isActive !== undefined) {
+    fields.push("is_active = ?");
+    values.push(isActive ? 1 : 0);
+  }
+
+  if (fields.length === 0) {
+    return getProjectById(projectId);
+  }
+
+  values.push(projectId);
+
+  await pool.query(
+    `
+      UPDATE projects
+      SET
+        ${fields.join(", ")},
+        updated_at = CURRENT_TIMESTAMP
+      WHERE id = ?
+    `,
+    values
+  );
+
+  return getProjectById(projectId);
+};
+
+/*
+|--------------------------------------------------------------------------
+| Delete project
+|--------------------------------------------------------------------------
+|
+| We use a soft delete.
+| The project remains in the database but becomes inactive.
+|--------------------------------------------------------------------------
+*/
+
+export const deleteProject = async ({
+  projectId,
+  userId,
+  role,
+}) => {
+  const [projects] = await pool.query(
+    `
+      SELECT
+        id,
+        user_id
+      FROM projects
+      WHERE id = ?
+      LIMIT 1
+    `,
+    [projectId]
+  );
+
+  if (projects.length === 0) {
+    const error = new Error("Project not found");
+    error.statusCode = 404;
+    throw error;
+  }
+
+  const project = projects[0];
+
+  // Only owner or admin can delete
+  if (
+    role !== "admin" &&
+    Number(project.user_id) !== Number(userId)
+  ) {
+    const error = new Error(
+      "You are not authorized to delete this project"
+    );
+    error.statusCode = 403;
+    throw error;
+  }
+
+  await pool.query(
+    `
+      UPDATE projects
+      SET
+        is_active = FALSE,
+        updated_at = CURRENT_TIMESTAMP
+      WHERE id = ?
+    `,
+    [projectId]
+  );
+
+  return {
+    id: projectId,
+    message: "Project deleted successfully",
+  };
+};
+
+/*
+|--------------------------------------------------------------------------
+| Get projects created by a specific user
+|--------------------------------------------------------------------------
+*/
+
+export const getMyProjects = async (userId) => {
   const [rows] = await pool.query(
     `
       SELECT
-        ps.id,
-        ps.user_id,
-        ps.project_id,
-        ps.submission_url,
-        ps.notes,
-        ps.status,
-        ps.reviewer_feedback,
-        ps.submitted_at,
-        ps.reviewed_at
+        p.id,
+        p.user_id,
+        p.title,
+        p.slug,
+        p.description,
+        p.project_type,
+        p.tech_stack,
+        p.github_url,
+        p.live_url,
+        p.image_url,
+        p.is_active,
+        p.created_at,
+        p.updated_at
 
-      FROM project_submissions ps
+      FROM projects p
 
-      WHERE ps.user_id = ?
-        AND ps.project_id = ?
+      WHERE p.user_id = ?
 
-      ORDER BY ps.submitted_at DESC
+      ORDER BY p.created_at DESC
     `,
-    [userId, projectId]
+    [userId]
   );
 
   return rows;

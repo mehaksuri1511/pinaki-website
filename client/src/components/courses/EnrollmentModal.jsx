@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 import {
   ArrowRight,
@@ -13,30 +12,49 @@ import {
   X,
 } from "lucide-react";
 
+import { useNavigate } from "react-router-dom";
+
+import { enrollInCourse } from "../../API/enrollmentService.js";
+import { useAuth } from "../../context/AuthContext.jsx";
+
 const EnrollmentModal = ({
   isOpen,
   onClose,
   selectedCourse,
 }) => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    course: "",
   });
 
-  useEffect(() => {
-    if (selectedCourse) {
-      setFormData((prev) => ({
-        ...prev,
-        course: selectedCourse,
-      }));
-    }
-  }, [selectedCourse]);
+  /*
+   * ========================================
+   * POPULATE USER DETAILS
+   * ========================================
+   */
 
-  // Prevent background scrolling while modal is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    setFormData((prev) => ({
+      ...prev,
+      name: user?.name || prev.name || "",
+      email: user?.email || prev.email || "",
+    }));
+  }, [isOpen, user]);
+
+  /*
+   * ========================================
+   * PREVENT BACKGROUND SCROLL
+   * ========================================
+   */
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -47,7 +65,12 @@ const EnrollmentModal = ({
     };
   }, [isOpen]);
 
-  // Close modal with Escape key
+  /*
+   * ========================================
+   * ESCAPE KEY
+   * ========================================
+   */
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -64,8 +87,14 @@ const EnrollmentModal = ({
     };
   }, [isOpen, onClose]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  /*
+   * ========================================
+   * FORM CHANGE
+   * ========================================
+   */
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
     setFormData((prev) => ({
       ...prev,
@@ -73,46 +102,103 @@ const EnrollmentModal = ({
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  /*
+   * ========================================
+   * SUBMIT
+   * ========================================
+   */
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!selectedCourse?.id) {
+      alert("Please select a course first.");
+      return;
+    }
+
+    /*
+     * If user is not logged in,
+     * preserve enrollment intent and
+     * redirect to login.
+     */
+
+    if (!user) {
+      sessionStorage.setItem(
+        "pinaki_pending_enrollment",
+        JSON.stringify({
+          courseId: Number(selectedCourse.id),
+          courseTitle: selectedCourse.title,
+          phone: formData.phone,
+        })
+      );
+
+      onClose();
+
+      navigate("/login", {
+        state: {
+          from: {
+            pathname: "/courses",
+          },
+          enrollmentCourseId: Number(selectedCourse.id),
+        },
+      });
+
+      return;
+    }
 
     try {
       setLoading(true);
 
-      const API_BASE_URL =
-        import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+      /*
+       * Backend gets the authenticated user
+       * from the Bearer session token.
+       *
+       * Only course_id is required here.
+       */
 
-      const response = await axios.post(
-        `${API_BASE_URL}/api/enrollment`,
-        formData
+      const response = await enrollInCourse(
+        Number(selectedCourse.id)
       );
 
+      if (!response?.success) {
+        throw new Error(
+          response?.message ||
+            "Unable to enroll in this course."
+        );
+      }
+
       alert(
-        response.data.message ||
-          "Enrollment submitted successfully!"
+        response?.message ||
+          "Enrollment successful! You can now access the course from your Learning Portal."
       );
 
       setFormData({
-        name: "",
-        email: "",
+        name: user?.name || "",
+        email: user?.email || "",
         phone: "",
-        course: "",
       });
 
       onClose();
-    } catch (error) {
-      console.error("Enrollment submission error:", error);
 
-      alert(
+      navigate("/learning");
+    } catch (error) {
+      console.error("Enrollment error:", error);
+
+      const message =
         error?.response?.data?.message ||
-          "Failed to submit enrollment. Please try again later."
-      );
+        error?.message ||
+        "Failed to enroll in this course. Please try again.";
+
+      alert(message);
     } finally {
       setLoading(false);
     }
   };
 
   if (!isOpen) return null;
+
+  const courseTitle =
+    selectedCourse?.title || "Selected Course";
 
   return (
     <div
@@ -129,15 +215,15 @@ const EnrollmentModal = ({
         backdrop-blur-md
         sm:p-6
       "
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) {
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) {
           onClose();
         }
       }}
     >
-      {/* ======================================================= */}
-      {/* MODAL */}
-      {/* ======================================================= */}
+      {/* ========================================
+          MODAL
+      ======================================== */}
 
       <div
         className="
@@ -151,15 +237,16 @@ const EnrollmentModal = ({
           border-slate-200
           bg-white
           shadow-[0_30px_100px_rgba(15,23,42,0.25)]
-          dark:border-white/[0.08]
+
+          dark:border-slate-800
           dark:bg-slate-900
           dark:shadow-[0_30px_100px_rgba(0,0,0,0.55)]
         "
-        onMouseDown={(e) => e.stopPropagation()}
+        onMouseDown={(event) => event.stopPropagation()}
       >
-        {/* ===================================================== */}
-        {/* DECORATIVE GLOW */}
-        {/* ===================================================== */}
+        {/* ========================================
+            DECORATIVE GLOWS
+        ======================================== */}
 
         <div
           className="
@@ -172,6 +259,7 @@ const EnrollmentModal = ({
             rounded-full
             bg-emerald-400/20
             blur-[100px]
+
             dark:bg-emerald-500/10
           "
         />
@@ -187,13 +275,14 @@ const EnrollmentModal = ({
             rounded-full
             bg-cyan-400/10
             blur-[100px]
+
             dark:bg-cyan-500/[0.07]
           "
         />
 
-        {/* ===================================================== */}
-        {/* HEADER */}
-        {/* ===================================================== */}
+        {/* ========================================
+            HEADER
+        ======================================== */}
 
         <div
           className="
@@ -207,16 +296,19 @@ const EnrollmentModal = ({
             px-6
             pb-6
             pt-7
-            dark:border-white/[0.07]
+
+            dark:border-slate-800
             dark:from-emerald-950/40
             dark:via-slate-900
             dark:to-cyan-950/30
+
             sm:px-8
             sm:pb-7
             sm:pt-8
           "
         >
-          {/* Close button */}
+          {/* Close Button */}
+
           <button
             type="button"
             onClick={onClose}
@@ -236,14 +328,16 @@ const EnrollmentModal = ({
               bg-white/80
               text-slate-500
               transition-all
-              hover:border-slate-300
+              duration-200
               hover:bg-white
               hover:text-slate-900
-              dark:border-white/[0.08]
-              dark:bg-white/[0.05]
+
+              dark:border-slate-700
+              dark:bg-slate-800/80
               dark:text-slate-400
-              dark:hover:bg-white/[0.1]
+              dark:hover:bg-slate-700
               dark:hover:text-white
+
               sm:right-7
               sm:top-7
             "
@@ -253,6 +347,7 @@ const EnrollmentModal = ({
 
           <div className="flex items-start gap-4 pr-10">
             {/* Icon */}
+
             <div
               className="
                 flex
@@ -274,6 +369,7 @@ const EnrollmentModal = ({
             </div>
 
             {/* Heading */}
+
             <div>
               <p
                 className="
@@ -282,6 +378,7 @@ const EnrollmentModal = ({
                   uppercase
                   tracking-[0.18em]
                   text-emerald-600
+
                   dark:text-emerald-400
                 "
               >
@@ -295,8 +392,10 @@ const EnrollmentModal = ({
                   font-black
                   tracking-tight
                   text-slate-900
-                  sm:text-3xl
+
                   dark:text-white
+
+                  sm:text-3xl
                 "
               >
                 Enroll Now
@@ -309,16 +408,20 @@ const EnrollmentModal = ({
                   text-sm
                   leading-6
                   text-slate-600
+
                   dark:text-slate-400
                 "
               >
-                Fill in your details and our team will get in touch
-                with you.
+                Fill in your details and start learning
+                with Pinaki IT.
               </p>
             </div>
           </div>
 
-          {/* Selected Course */}
+          {/* ========================================
+              SELECTED COURSE
+          ======================================== */}
+
           {selectedCourse && (
             <div
               className="
@@ -328,18 +431,24 @@ const EnrollmentModal = ({
                 gap-3
                 rounded-2xl
                 border
-                border-emerald-200/70
+                border-emerald-200
                 bg-white/70
                 px-4
                 py-3
                 backdrop-blur-sm
-                dark:border-emerald-500/15
-                dark:bg-white/[0.04]
+
+                dark:border-emerald-500/20
+                dark:bg-slate-800/60
               "
             >
               <BookOpen
                 size={18}
-                className="shrink-0 text-emerald-500"
+                className="
+                  shrink-0
+                  text-emerald-600
+
+                  dark:text-emerald-400
+                "
               />
 
               <div className="min-w-0">
@@ -350,6 +459,7 @@ const EnrollmentModal = ({
                     uppercase
                     tracking-wider
                     text-slate-500
+
                     dark:text-slate-500
                   "
                 >
@@ -362,32 +472,49 @@ const EnrollmentModal = ({
                     text-sm
                     font-bold
                     text-slate-900
+
                     dark:text-white
                   "
                 >
-                  {selectedCourse}
+                  {courseTitle}
                 </p>
               </div>
 
               <CheckCircle2
                 size={17}
-                className="ml-auto shrink-0 text-emerald-500"
+                className="
+                  ml-auto
+                  shrink-0
+                  text-emerald-500
+                "
               />
             </div>
           )}
         </div>
 
-        {/* ===================================================== */}
-        {/* FORM */}
-        {/* ===================================================== */}
+        {/* ========================================
+            FORM
+        ======================================== */}
 
         <form
           onSubmit={handleSubmit}
-          className="relative px-6 py-7 sm:px-8 sm:py-8"
+          className="
+            relative
+            bg-white
+            px-6
+            py-7
+
+            dark:bg-slate-900
+
+            sm:px-8
+            sm:py-8
+          "
         >
           <div className="grid gap-5 sm:grid-cols-2">
+            {/* ====================================
+                NAME
+            ==================================== */}
 
-            {/* Full Name */}
             <div className="sm:col-span-2">
               <label
                 htmlFor="enrollment-name"
@@ -397,6 +524,7 @@ const EnrollmentModal = ({
                   text-sm
                   font-bold
                   text-slate-800
+
                   dark:text-slate-200
                 "
               >
@@ -413,6 +541,8 @@ const EnrollmentModal = ({
                     top-1/2
                     -translate-y-1/2
                     text-slate-400
+
+                    dark:text-slate-500
                   "
                 />
 
@@ -443,18 +573,22 @@ const EnrollmentModal = ({
                     focus:bg-white
                     focus:ring-4
                     focus:ring-emerald-500/10
-                    dark:border-white/[0.08]
-                    dark:bg-white/[0.04]
+
+                    dark:border-slate-700
+                    dark:bg-slate-800
                     dark:text-white
                     dark:placeholder:text-slate-500
                     dark:focus:border-emerald-500
-                    dark:focus:bg-white/[0.06]
+                    dark:focus:bg-slate-800
                   "
                 />
               </div>
             </div>
 
-            {/* Email */}
+            {/* ====================================
+                EMAIL
+            ==================================== */}
+
             <div>
               <label
                 htmlFor="enrollment-email"
@@ -464,6 +598,7 @@ const EnrollmentModal = ({
                   text-sm
                   font-bold
                   text-slate-800
+
                   dark:text-slate-200
                 "
               >
@@ -480,6 +615,8 @@ const EnrollmentModal = ({
                     top-1/2
                     -translate-y-1/2
                     text-slate-400
+
+                    dark:text-slate-500
                   "
                 />
 
@@ -492,6 +629,7 @@ const EnrollmentModal = ({
                   onChange={handleChange}
                   required
                   autoComplete="email"
+                  disabled={Boolean(user?.email)}
                   className="
                     w-full
                     rounded-2xl
@@ -510,18 +648,24 @@ const EnrollmentModal = ({
                     focus:bg-white
                     focus:ring-4
                     focus:ring-emerald-500/10
-                    dark:border-white/[0.08]
-                    dark:bg-white/[0.04]
+                    disabled:cursor-not-allowed
+                    disabled:opacity-70
+
+                    dark:border-slate-700
+                    dark:bg-slate-800
                     dark:text-white
                     dark:placeholder:text-slate-500
                     dark:focus:border-emerald-500
-                    dark:focus:bg-white/[0.06]
+                    dark:focus:bg-slate-800
                   "
                 />
               </div>
             </div>
 
-            {/* Phone */}
+            {/* ====================================
+                PHONE
+            ==================================== */}
+
             <div>
               <label
                 htmlFor="enrollment-phone"
@@ -531,6 +675,7 @@ const EnrollmentModal = ({
                   text-sm
                   font-bold
                   text-slate-800
+
                   dark:text-slate-200
                 "
               >
@@ -547,6 +692,8 @@ const EnrollmentModal = ({
                     top-1/2
                     -translate-y-1/2
                     text-slate-400
+
+                    dark:text-slate-500
                   "
                 />
 
@@ -579,30 +726,35 @@ const EnrollmentModal = ({
                     focus:bg-white
                     focus:ring-4
                     focus:ring-emerald-500/10
-                    dark:border-white/[0.08]
-                    dark:bg-white/[0.04]
+
+                    dark:border-slate-700
+                    dark:bg-slate-800
                     dark:text-white
                     dark:placeholder:text-slate-500
                     dark:focus:border-emerald-500
-                    dark:focus:bg-white/[0.06]
+                    dark:focus:bg-slate-800
                   "
                 />
               </div>
             </div>
           </div>
 
-          {/* Information */}
+          {/* ========================================
+              INFORMATION
+          ======================================== */}
+
           <div
             className="
               mt-6
               rounded-2xl
               border
-              border-slate-200/80
+              border-slate-200
               bg-slate-50
               px-4
               py-3
-              dark:border-white/[0.06]
-              dark:bg-white/[0.025]
+
+              dark:border-slate-800
+              dark:bg-slate-800/60
             "
           >
             <p
@@ -610,16 +762,20 @@ const EnrollmentModal = ({
                 text-xs
                 leading-5
                 text-slate-500
+
                 dark:text-slate-400
               "
             >
-              By submitting this form, you agree to be contacted by
-              the Pinaki IT team regarding your selected course and
-              enrollment.
+              {user
+                ? "Your enrollment will be linked to your Pinaki IT account."
+                : "You will need to log in or register before completing your enrollment."}
             </p>
           </div>
 
-          {/* Submit */}
+          {/* ========================================
+              SUBMIT
+          ======================================== */}
+
           <button
             type="submit"
             disabled={loading}
@@ -657,11 +813,24 @@ const EnrollmentModal = ({
                   className="animate-spin"
                 />
 
-                Submitting...
+                Enrolling...
+              </>
+            ) : user ? (
+              <>
+                Complete Enrollment
+
+                <ArrowRight
+                  size={18}
+                  className="
+                    transition-transform
+                    duration-300
+                    group-hover:translate-x-1
+                  "
+                />
               </>
             ) : (
               <>
-                Submit Enrollment
+                Continue to Login
 
                 <ArrowRight
                   size={18}
@@ -681,10 +850,11 @@ const EnrollmentModal = ({
               text-center
               text-xs
               text-slate-400
+
               dark:text-slate-500
             "
           >
-            Our team will contact you shortly after submission.
+            Our team will contact you shortly after enrollment.
           </p>
         </form>
       </div>

@@ -1,68 +1,102 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Clock3, BarChart3 } from "lucide-react";
+import {
+  ArrowUpRight,
+  Clock3,
+  BarChart3,
+  CheckCircle2,
+  Loader2,
+} from "lucide-react";
 
-const CourseCard = ({ course, onEnroll }) => {
+const CourseCard = ({
+  course,
+  onEnroll,
+  enrolling = false,
+  enrolled = false,
+}) => {
+  const imageUrl = course?.image_url || course?.image;
+
   return (
-    <div
+    <article
       className="
         group
-        relative
+        flex
+        h-full
+        flex-col
         overflow-hidden
         rounded-3xl
         border
         border-slate-200
         bg-white
-        shadow-lg
+        shadow-sm
         transition-all
-        duration-500
-        hover:-translate-y-2
-        hover:border-emerald-300
-        hover:shadow-[0_24px_60px_rgba(16,185,129,0.14)]
+        duration-300
+        hover:-translate-y-1
+        hover:shadow-xl
+
         dark:border-slate-800
         dark:bg-slate-900
-        dark:shadow-black/30
-        dark:hover:border-emerald-500/40
-        dark:hover:shadow-[0_24px_60px_rgba(16,185,129,0.10)]
+        dark:shadow-black/20
+        dark:hover:shadow-black/40
       "
     >
-      {/* ================= AMBIENT GLOW ================= */}
+      {/* ================================
+          COURSE IMAGE
+      ================================= */}
 
       <div
         className="
-          pointer-events-none
-          absolute
-          -right-20
-          -top-20
-          z-0
-          h-40
-          w-40
-          rounded-full
-          bg-emerald-400/10
-          blur-3xl
-          transition-all
-          duration-500
-          group-hover:bg-emerald-400/20
-          dark:bg-emerald-500/5
-          dark:group-hover:bg-emerald-500/10
+          relative
+          aspect-[16/10]
+          overflow-hidden
+          bg-slate-100
+
+          dark:bg-slate-800
         "
-      />
+      >
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={course?.title || "Course"}
+            className="
+              h-full
+              w-full
+              object-cover
+              transition-transform
+              duration-500
+              group-hover:scale-105
+            "
+          />
+        ) : (
+          <div
+            className="
+              flex
+              h-full
+              w-full
+              items-center
+              justify-center
+              bg-gradient-to-br
+              from-emerald-50
+              via-teal-50
+              to-cyan-50
 
-      {/* ================= IMAGE ================= */}
+              dark:from-emerald-950/40
+              dark:via-teal-950/30
+              dark:to-cyan-950/30
+            "
+          >
+            <span
+              className="
+                text-sm
+                font-semibold
+                text-slate-500
 
-      <div className="relative z-10 overflow-hidden">
-        <img
-          src={course.image}
-          alt={course.title}
-          className="
-            h-60
-            w-full
-            object-cover
-            transition-transform
-            duration-700
-            ease-out
-            group-hover:scale-105
-          "
-        />
+                dark:text-slate-400
+              "
+            >
+              Pinaki IT
+            </span>
+          </div>
+        )}
 
         {/* Image Overlay */}
 
@@ -72,279 +106,282 @@ const CourseCard = ({ course, onEnroll }) => {
             absolute
             inset-0
             bg-gradient-to-t
-            from-slate-950/50
-            via-transparent
+            from-black/55
+            via-black/10
             to-transparent
-            opacity-60
-            transition-opacity
-            duration-500
-            group-hover:opacity-90
           "
         />
 
-        {/* Category Badge */}
-
-        <div
-          className="
-            absolute
-            left-5
-            top-5
-            rounded-full
-            border
-            border-white/20
-            bg-black/30
-            px-3.5
-            py-1.5
-            text-xs
-            font-bold
-            uppercase
-            tracking-wider
-            text-white
-            shadow-lg
-            backdrop-blur-md
-          "
-        >
-          {course.category}
-        </div>
-
-        {/* Image Hover Arrow */}
-
-        <div
-          className="
-            absolute
-            bottom-5
-            right-5
-            flex
-            h-10
-            w-10
-            translate-y-3
-            items-center
-            justify-center
-            rounded-full
-            bg-white/90
-            text-slate-900
-            opacity-0
-            shadow-lg
-            backdrop-blur-md
-            transition-all
-            duration-500
-            group-hover:translate-y-0
-            group-hover:opacity-100
-            dark:bg-slate-900/90
-            dark:text-white
-          "
-        >
-          <ArrowUpRight size={19} />
-        </div>
-      </div>
-
-      {/* ================= CONTENT ================= */}
-
-      <div className="relative z-10 p-6">
         {/* Category */}
 
-        <span
-          className="
-            text-xs
-            font-bold
-            uppercase
-            tracking-[0.18em]
-            text-emerald-600
-            dark:text-emerald-400
-          "
-        >
-          {course.category}
-        </span>
+        {course?.category && (
+          <div
+            className="
+              absolute
+              left-4
+              top-4
+              rounded-full
+              border
+              border-white/20
+              bg-black/50
+              px-3
+              py-1.5
+              text-xs
+              font-bold
+              text-white
+              shadow-sm
+              backdrop-blur-md
+            "
+          >
+            {course.category}
+          </div>
+        )}
 
+        {/* Enrolled Badge */}
+
+        {enrolled && (
+          <div
+            className="
+              absolute
+              right-4
+              top-4
+              flex
+              items-center
+              gap-1.5
+              rounded-full
+              border
+              border-emerald-400/20
+              bg-emerald-500
+              px-3
+              py-1.5
+              text-xs
+              font-bold
+              text-white
+              shadow-lg
+              shadow-emerald-500/20
+            "
+          >
+            <CheckCircle2 size={14} />
+
+            Enrolled
+          </div>
+        )}
+      </div>
+
+      {/* ================================
+          CONTENT
+      ================================= */}
+
+      <div
+        className="
+          flex
+          flex-1
+          flex-col
+          bg-white
+          p-5
+
+          dark:bg-slate-900
+
+          sm:p-6
+        "
+      >
         {/* Title */}
 
         <h3
           className="
-            mt-3
-            text-2xl
-            font-bold
-            leading-tight
+            line-clamp-2
+            min-h-[3.5rem]
+            text-xl
+            font-black
+            tracking-tight
             text-slate-900
             transition-colors
-            duration-300
+            duration-200
+            group-hover:text-emerald-600
+
             dark:text-white
+            dark:group-hover:text-emerald-400
           "
         >
-          {course.title}
+          {course?.title}
         </h3>
 
         {/* Overview */}
 
-        <p
-          className="
-            mt-4
-            line-clamp-3
-            leading-7
-            text-slate-600
-            transition-colors
-            duration-300
-            dark:text-slate-400
-          "
-        >
-          {course.overview}
-        </p>
+        {course?.overview ? (
+          <p
+            className="
+              mt-3
+              line-clamp-3
+              min-h-[4.5rem]
+              text-sm
+              leading-6
+              text-slate-600
 
-        {/* ================= COURSE INFO ================= */}
+              dark:text-slate-400
+            "
+          >
+            {course.overview}
+          </p>
+        ) : (
+          <div className="mt-3 min-h-[4.5rem]" />
+        )}
+
+        {/* ================================
+            COURSE META
+        ================================= */}
 
         <div
           className="
             mt-5
             flex
+            min-h-[1.5rem]
             flex-wrap
             items-center
             gap-4
-            text-sm
+            text-xs
+            font-medium
             text-slate-500
+
             dark:text-slate-400
           "
         >
-          {/* Duration */}
+          {course?.duration && (
+            <div className="flex items-center gap-1.5">
+              <Clock3
+                size={15}
+                className="
+                  text-emerald-600
 
-          <div className="flex items-center gap-2">
-            <Clock3
-              size={16}
-              className="text-emerald-500"
-            />
+                  dark:text-emerald-400
+                "
+              />
 
-            <span>{course.duration}</span>
-          </div>
+              <span>{course.duration}</span>
+            </div>
+          )}
 
-          {/* Divider */}
+          {course?.level && (
+            <div className="flex items-center gap-1.5">
+              <BarChart3
+                size={15}
+                className="
+                  text-teal-600
 
-          <span
-            className="
-              hidden
-              h-4
-              w-px
-              bg-slate-200
-              sm:block
-              dark:bg-slate-700
-            "
-          />
+                  dark:text-teal-400
+                "
+              />
 
-          {/* Level */}
-
-          <div className="flex items-center gap-2">
-            <BarChart3
-              size={16}
-              className="text-emerald-500"
-            />
-
-            <span>{course.level}</span>
-          </div>
+              <span>{course.level}</span>
+            </div>
+          )}
         </div>
 
-        {/* ================= ACTIONS ================= */}
+        {/* ================================
+            ACTIONS
+        ================================= */}
 
-        <div className="mt-7 flex gap-3">
+        <div className="mt-auto flex items-center gap-3 pt-6">
           {/* Read More */}
 
           <Link
-            to={`/courses/${course.slug}`}
+            to={`/courses/${course.id}`}
             className="
-              group/read
               flex
               flex-1
               items-center
               justify-center
               gap-2
-              rounded-xl
-              bg-slate-900
+              rounded-2xl
+              border
+              border-slate-200
+              bg-slate-50
               px-4
-              py-3.5
-              text-center
-              font-semibold
-              text-white
+              py-3
+              text-sm
+              font-bold
+              text-slate-800
               transition-all
-              duration-300
-              hover:-translate-y-0.5
-              hover:bg-slate-800
-              dark:bg-white
-              dark:text-slate-900
-              dark:hover:bg-slate-200
+              duration-200
+
+              hover:border-emerald-400
+              hover:bg-emerald-50
+              hover:text-emerald-700
+
+              dark:border-slate-700
+              dark:bg-slate-800
+              dark:text-slate-200
+              dark:hover:border-emerald-500/50
+              dark:hover:bg-emerald-500/10
+              dark:hover:text-emerald-400
             "
           >
             Read More
 
-            <ArrowUpRight
-              size={17}
-              className="
-                transition-transform
-                duration-300
-                group-hover/read:translate-x-0.5
-                group-hover/read:-translate-y-0.5
-              "
-            />
+            <ArrowUpRight size={16} />
           </Link>
 
           {/* Enroll */}
 
           <button
             type="button"
-            onClick={() => onEnroll?.(course.title)}
+            disabled={enrolling || enrolled}
+            onClick={() => onEnroll?.(course)}
             className="
-              group/enroll
               flex
               flex-1
               items-center
               justify-center
               gap-2
-              rounded-xl
+              rounded-2xl
               bg-gradient-to-r
-              from-emerald-600
-              to-green-500
+              from-emerald-500
+              to-teal-500
               px-4
-              py-3.5
-              font-semibold
+              py-3
+              text-sm
+              font-bold
               text-white
-              shadow-md
+              shadow-lg
+              shadow-emerald-500/15
               transition-all
               duration-300
+
               hover:-translate-y-0.5
-              hover:from-emerald-700
-              hover:to-green-600
-              hover:shadow-[0_10px_30px_rgba(16,185,129,0.25)]
+              hover:shadow-xl
+              hover:shadow-emerald-500/20
+
+              disabled:cursor-not-allowed
+              disabled:opacity-60
+              disabled:hover:translate-y-0
             "
           >
-            Enroll Now
+            {enrolling ? (
+              <>
+                <Loader2
+                  size={16}
+                  className="animate-spin"
+                />
 
-            <ArrowUpRight
-              size={17}
-              className="
-                transition-transform
-                duration-300
-                group-hover/enroll:translate-x-0.5
-                group-hover/enroll:-translate-y-0.5
-              "
-            />
+                Enrolling...
+              </>
+            ) : enrolled ? (
+              <>
+                <CheckCircle2 size={16} />
+
+                Enrolled
+              </>
+            ) : (
+              <>
+                Enroll Now
+
+                <ArrowUpRight size={16} />
+              </>
+            )}
           </button>
         </div>
       </div>
-
-      {/* ================= BOTTOM ACCENT ================= */}
-
-      <div
-        className="
-          absolute
-          bottom-0
-          left-0
-          h-1
-          w-0
-          bg-gradient-to-r
-          from-emerald-500
-          via-green-400
-          to-teal-400
-          transition-all
-          duration-500
-          group-hover:w-full
-        "
-      />
-    </div>
+    </article>
   );
 };
 
