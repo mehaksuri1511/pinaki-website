@@ -723,7 +723,7 @@ const GoogleReviews = () => {
                       dark:text-white
                     "
                   >
-                    5
+                    4.9
                   </div>
 
                   <div className="mt-1 flex justify-end gap-1">
@@ -964,10 +964,60 @@ const GoogleReviews = () => {
               </div>
 
               {/* =================================================
-                  CTA
+                  CTA — RATE PINAKI IT HUB
               ================================================= */}
 
-              
+              <div
+                className="
+                  mt-8
+                  border-t
+                  border-slate-200
+                  pt-6
+                  text-center
+                  dark:border-slate-800
+                "
+              >
+                <p
+                  className="
+                    mb-3
+                    text-sm
+                    text-slate-500
+                    dark:text-slate-400
+                  "
+                >
+                  Had a great experience with Pinaki IT Hub?
+                </p>
+
+                <a
+                  href="https://share.google/UXtydhW86FxfvaTZK"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-emerald-600
+                    px-6
+                    py-3
+                    text-sm
+                    font-semibold
+                    text-white
+                    shadow-lg
+                    shadow-emerald-500/20
+                    transition-all
+                    duration-300
+                    hover:-translate-y-0.5
+                    hover:bg-emerald-700
+                    hover:shadow-emerald-500/30
+                    dark:bg-emerald-500
+                    dark:hover:bg-emerald-400
+                    dark:hover:text-slate-950
+                  "
+                >
+                  Rate Us on Google
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>

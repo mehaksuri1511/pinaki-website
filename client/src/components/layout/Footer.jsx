@@ -7,12 +7,7 @@ import {
   Sparkles,
 } from "lucide-react";
 
-import {
-  FaInstagram,
-  FaLinkedinIn,
-  FaFacebookF,
-  FaYoutube,
-} from "react-icons/fa";
+import { FaXTwitter, FaLinkedinIn, FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa6";
 
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/images/pinaki-logo.jpeg.png";
@@ -21,7 +16,7 @@ const Footer = () => {
   const navigate = useNavigate();
 
   const navigationLinks = [
-    { label: "Home", path: "/" },
+    { label: "Home", path: "/education" },
     { label: "About Us", path: "/about" },
     { label: "Courses", path: "/courses" },
     { label: "Blogs", path: "/blogs" },
@@ -40,31 +35,38 @@ const Footer = () => {
   const socialLinks = [
     {
       label: "LinkedIn",
-      href: "https://www.linkedin.com/",
+      href: "https://www.linkedin.com/company/pinaki-it-consultant-pvt-ltd/",
       icon: <FaLinkedinIn size={17} />,
       hover:
         "hover:bg-[#0A66C2] hover:border-[#0A66C2] hover:shadow-[0_0_22px_rgba(10,102,194,0.35)]",
     },
     {
       label: "Instagram",
-      href: "https://www.instagram.com/",
+      href: "https://www.instagram.com/pinaki_it_consultant?utm_source=qr&igsh=NHN3MDB3YjA2dHlq",
       icon: <FaInstagram size={18} />,
       hover:
         "hover:bg-pink-600 hover:border-pink-600 hover:shadow-[0_0_22px_rgba(219,39,119,0.35)]",
     },
     {
       label: "Facebook",
-      href: "https://www.facebook.com/",
+      href: "https://www.facebook.com/share/1JXh2WHJgf/",
       icon: <FaFacebookF size={17} />,
       hover:
         "hover:bg-[#1877F2] hover:border-[#1877F2] hover:shadow-[0_0_22px_rgba(24,119,242,0.35)]",
     },
     {
       label: "YouTube",
-      href: "https://www.youtube.com/",
+      href: "https://youtube.com/@pinaki_it_consultant?si=LPZCGpvdUotn6Atm",
       icon: <FaYoutube size={18} />,
       hover:
         "hover:bg-red-600 hover:border-red-600 hover:shadow-[0_0_22px_rgba(220,38,38,0.35)]",
+    },
+    {
+      label: "X (Twitter)",
+      href: "https://x.com/Pinakiithub",
+      icon: <FaXTwitter size={17} />,
+      hover:
+        "hover:bg-black hover:border-black hover:shadow-[0_0_22px_rgba(0,0,0,0.35)] dark:hover:bg-white dark:hover:border-white dark:hover:text-black",
     },
   ];
 
