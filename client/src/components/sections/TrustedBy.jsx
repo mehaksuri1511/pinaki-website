@@ -146,46 +146,56 @@ const TrustedBy = () => {
         </motion.div>
 
         {/* ================================================= */}
-        {/* STATS */}
-        {/* ================================================= */}
-        <div
-          className="
-            mt-14
-            grid
-            gap-8
-            md:grid-cols-2
-            xl:grid-cols-4
-          "
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{
-                opacity: 0,
-                y: 55,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-                amount: 0.15,
-              }}
-              transition={{
-                duration: 0.95,
-                delay: index * 0.12,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <StatsCard
-                icon={stat.icon}
-                value={stat.value}
-                label={stat.label}
-              />
-            </motion.div>
-          ))}
-        </div>
+{/* STATS */}
+{/* ================================================= */}
+
+<div
+  className="
+    mx-auto
+    mt-14
+    grid
+    max-w-6xl
+    gap-8
+    md:grid-cols-2
+    xl:grid-cols-4
+    place-items-center
+  "
+>
+  {stats.map((stat, index) => (
+    <motion.div
+      key={stat.label}
+      initial={{
+        opacity: 0,
+        y: 55,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
+      viewport={{
+        once: true,
+        amount: 0.15,
+      }}
+      transition={{
+        duration: 0.95,
+        delay: index * 0.12,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className="
+        flex
+        w-full
+        justify-center
+        text-center
+      "
+    >
+      <StatsCard
+        icon={stat.icon}
+        value={stat.value}
+        label={stat.label}
+      />
+    </motion.div>
+  ))}
+</div>
 
         {/* ================================================= */}
         {/* LOGO SLIDER */}
