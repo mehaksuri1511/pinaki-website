@@ -1,8 +1,11 @@
 import nodemailer from "nodemailer";
+
 import "dotenv/config";
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: process.env.MAIL_HOST,
+  port: Number(process.env.MAIL_PORT),
+  secure: process.env.MAIL_SECURE === "true",
 
   auth: {
     user: process.env.MAIL_USER,
@@ -22,7 +25,7 @@ export const sendVerificationEmail = async ({
   verificationToken,
 }) => {
   await transporter.sendMail({
-    from: `"Pinaki IT" <${process.env.MAIL_USER}>`,
+    from: `"Pinaki IT" <${process.env.MAIL_FROM || process.env.MAIL_USER}>`,
 
     to: email,
 
@@ -46,6 +49,7 @@ This verification token will expire in 24 hours.
 If you did not create this account, you can safely ignore this email.
 
 Regards,
+
 Pinaki IT Team
 `,
 
@@ -61,7 +65,6 @@ Pinaki IT Team
             font-family: Arial, sans-serif;
           "
         >
-
           <div
             style="
               max-width: 600px;
@@ -72,7 +75,6 @@ Pinaki IT Team
               box-sizing: border-box;
             "
           >
-
             <h1
               style="
                 margin: 0 0 20px;
@@ -129,7 +131,6 @@ Pinaki IT Team
                 text-align: center;
               "
             >
-
               <p
                 style="
                   margin: 0 0 10px;
@@ -155,7 +156,6 @@ Pinaki IT Team
               >
                 ${verificationToken}
               </div>
-
             </div>
 
             <p
@@ -198,9 +198,7 @@ Pinaki IT Team
               Regards,<br />
               <strong>Pinaki IT Team</strong>
             </p>
-
           </div>
-
         </body>
       </html>
     `,
