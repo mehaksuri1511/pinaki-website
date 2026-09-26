@@ -285,7 +285,7 @@ const CourseCard = ({
           {/* Read More */}
 
           <Link
-            to={`/courses/${course.id}`}
+            to={`/courses/${course.slug}`}
             className="
               flex
               flex-1
