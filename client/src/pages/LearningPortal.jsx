@@ -10,6 +10,10 @@ import {
   ChevronRight,
   CircleUserRound,
   Clock3,
+  Download,
+  ExternalLink,
+  FilePlus2,
+  FileText,
   GraduationCap,
   Home,
   Layers3,
@@ -28,6 +32,58 @@ import { getLearningDashboard } from "../API/dashboardService.js";
 import { getCourseById } from "../API/courseService.js";
 import { enrollInCourse } from "../API/enrollmentService.js";
 import { useAuth } from "../context/AuthContext.jsx";
+
+import PythonNotes from "../assets/Python_Basics_Free_Sample_Notes.pdf";
+import SQLNotes from "../assets/SQL_Basics_Free_Sample_Notes.pdf";
+
+
+/* =========================================================
+   LEARNING NOTES DATA
+   Add a new object here to show a new note card.
+   Remove a placeholder when you add a real note.
+========================================================= */
+
+const LEARNING_NOTES = [
+  {
+    id: "python-basics",
+    title: "Python Basics",
+    description:
+      "A beginner-friendly introduction to Python programming.",
+    category: "Programming",
+    file: PythonNotes,
+    fileName: "Python_Basics_Free_Sample_Notes.pdf",
+  },
+  {
+    id: "sql-basics",
+    title: "SQL Basics",
+    description:
+      "Study the fundamentals of SQL and database queries.",
+    category: "Database",
+    file: SQLNotes,
+    fileName: "SQL_Basics_Free_Sample_Notes.pdf",
+  },
+];
+
+const NOTE_PLACEHOLDERS = [
+  {
+    id: "soon-1",
+    title: "Coming Soon",
+    description:
+      "More programming notes will be available here.",
+  },
+  {
+    id: "soon-2",
+    title: "Coming Soon",
+    description:
+      "New database and computer science resources.",
+  },
+  {
+    id: "soon-3",
+    title: "Coming Soon",
+    description:
+      "Additional revision notes and study material.",
+  },
+];
 
 
 /* =========================================================
@@ -146,26 +202,38 @@ const LearningPortal = () => {
   ======================================================= */
 
   const scrollToSection = (section) => {
+    const wasViewingCourse = Boolean(selectedCourse);
+
     setActiveSection(section);
     setSelectedCourse(null);
     setMobileSidebarOpen(false);
 
-    const element =
-      document.getElementById(section);
+    const scroll = () => {
+      const element =
+        document.getElementById(section);
 
-    if (!element) return;
+      if (!element) return;
 
-    const navbarOffset = 104;
+      const navbarOffset = 104;
 
-    const top =
-      element.getBoundingClientRect().top +
-      window.scrollY -
-      navbarOffset;
+      const top =
+        element.getBoundingClientRect().top +
+        window.scrollY -
+        navbarOffset;
 
-    window.scrollTo({
-      top,
-      behavior: "smooth",
-    });
+      window.scrollTo({
+        top,
+        behavior: "smooth",
+      });
+    };
+
+    // If a course was open, the dashboard sections
+    // are not in the DOM yet. Wait for the re-render.
+    if (wasViewingCourse) {
+      setTimeout(scroll, 50);
+    } else {
+      scroll();
+    }
   };
 
 
@@ -606,18 +674,7 @@ const LearningPortal = () => {
               }
             />
 
-            <SidebarButton
-              icon={Search}
-              label="Explore Courses"
-              collapsed={sidebarCollapsed}
-              active={
-                activeSection === "explore" &&
-                !selectedCourse
-              }
-              onClick={() =>
-                scrollToSection("explore")
-              }
-            />
+            
 
             <SidebarButton
               icon={Layers3}
@@ -631,6 +688,34 @@ const LearningPortal = () => {
                 scrollToSection("progress")
               }
             />
+
+            <SidebarButton
+              icon={FileText}
+              label="Learning Notes"
+              collapsed={sidebarCollapsed}
+              active={
+                activeSection === "notes" &&
+                !selectedCourse
+              }
+              onClick={() =>
+                scrollToSection("notes")
+              }
+            />
+
+            <SidebarButton
+              icon={Search}
+              label="Explore Courses"
+              collapsed={sidebarCollapsed}
+              active={
+                activeSection === "explore" &&
+                !selectedCourse
+              }
+              onClick={() =>
+                scrollToSection("explore")
+              }
+            />
+
+            
           </nav>
 
 
@@ -1106,6 +1191,54 @@ const LearningPortal = () => {
 
                     </div>
 
+                  </section>
+
+
+                  {/* =================================================
+                      LEARNING NOTES
+                  ================================================= */}
+
+                  <section
+                    id="notes"
+                    className="mt-16 scroll-mt-28"
+                  >
+                    <SectionHeading
+                      eyebrow="YOUR STUDY MATERIAL"
+                      title="Notes for Learning"
+                      description="Download study notes and keep your learning resources in one place."
+                      icon={FileText}
+                    />
+
+                    <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+
+                      {LEARNING_NOTES.map((note) => (
+                        <LearningNoteCard
+                          key={note.id}
+                          title={note.title}
+                          description={
+                            note.description
+                          }
+                          category={note.category}
+                          file={note.file}
+                          fileName={note.fileName}
+                        />
+                      ))}
+
+                      {NOTE_PLACEHOLDERS.map(
+                        (placeholder) => (
+                          <NotePlaceholder
+                            key={placeholder.id}
+                            title={
+                              placeholder.title
+                            }
+                            description={
+                              placeholder.description
+                            }
+                          />
+                        )
+                      )}
+
+                    </div>
                   </section>
 
 
@@ -1622,6 +1755,102 @@ const EmptyState = ({
 
       </div>
     </div>
+  );
+};
+
+
+/* =========================================================
+   LEARNING NOTE CARD
+========================================================= */
+
+const LearningNoteCard = ({
+  title,
+  description,
+  category,
+  file,
+  fileName,
+}) => {
+  return (
+    <article className="group overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900 dark:hover:border-emerald-500/30">
+      <div className="h-1.5 bg-gradient-to-r from-emerald-500 to-teal-500" />
+
+      <div className="p-6">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 transition group-hover:scale-105 dark:bg-emerald-500/10 dark:text-emerald-400">
+            <FileText className="h-7 w-7" />
+          </div>
+
+          <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400">
+            {category}
+          </span>
+        </div>
+
+        <h3 className="mt-5 text-xl font-black tracking-tight">
+          {title}
+        </h3>
+
+        <p className="mt-2 min-h-[48px] text-sm leading-6 text-slate-500 dark:text-slate-400">
+          {description}
+        </p>
+
+        <div className="mt-5 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <FileText className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <span>PDF Study Notes</span>
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          <a
+            href={file}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold text-slate-700 transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-emerald-500/40 dark:hover:bg-emerald-500/10 dark:hover:text-emerald-400"
+          >
+            <ExternalLink className="h-4 w-4" />
+            Open
+          </a>
+
+          <a
+            href={file}
+            download={fileName}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-3 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-600/15 transition hover:-translate-y-0.5 hover:shadow-xl"
+          >
+            <Download className="h-4 w-4" />
+            Download
+          </a>
+        </div>
+      </div>
+    </article>
+  );
+};
+
+
+/* =========================================================
+   FUTURE NOTE PLACEHOLDER
+========================================================= */
+
+const NotePlaceholder = ({
+  title,
+  description,
+}) => {
+  return (
+    <article className="flex min-h-[260px] flex-col rounded-[26px] border border-dashed border-slate-300 bg-white/70 p-6 transition-colors dark:border-slate-700 dark:bg-slate-900/50">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500">
+        <FilePlus2 className="h-7 w-7" />
+      </div>
+
+      <h3 className="mt-5 text-lg font-black text-slate-700 dark:text-slate-200">
+        {title}
+      </h3>
+
+      <p className="mt-2 flex-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
+        {description}
+      </p>
+
+      <div className="mt-5 flex items-center gap-2 text-xs font-bold text-slate-400 dark:text-slate-500">
+        <Clock3 className="h-4 w-4" />
+        Coming soon
+      </div>
+    </article>
   );
 };
 
