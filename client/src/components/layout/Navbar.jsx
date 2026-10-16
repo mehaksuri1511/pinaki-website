@@ -46,14 +46,17 @@ const Navbar = () => {
 
   /* ================= NAV ITEMS ================= */
 
+  
   const navItems = [
     { name: "Home", path: "/education" },
     { name: "About", path: "/about" },
     { name: "Courses", path: "/courses" },
     { name: "Services", path: "/services" },
     { name: "Blogs", path: "/blogs" },
+    { name: "Achievers", path: "/achievers" },
     { name: "Contact", path: "/contact" },
   ];
+
 
   /* =====================================================
      PORTAL NAVIGATION

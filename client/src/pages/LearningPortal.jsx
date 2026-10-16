@@ -35,6 +35,8 @@ import { useAuth } from "../context/AuthContext.jsx";
 
 import PythonNotes from "../assets/Python_Basics_Free_Sample_Notes.pdf";
 import SQLNotes from "../assets/SQL_Basics_Free_Sample_Notes.pdf";
+import ExcelNotes from "../assets/Excel_Basics_Free_Sample_Notes.pdf";
+import CybersecurityNotes from "../assets/1 cybersecurity_notes.pdf";
 
 
 /* =========================================================
@@ -62,6 +64,24 @@ const LEARNING_NOTES = [
     file: SQLNotes,
     fileName: "SQL_Basics_Free_Sample_Notes.pdf",
   },
+  {
+    id: "excel-basics",
+    title: "Excel Basics",
+    description:
+      "Learn essential spreadsheet concepts, formulas, and Excel tools.",
+    category: "Productivity",
+    file: ExcelNotes,
+    fileName: "Excel_Basics_Free_Sample_Notes.pdf",
+  },
+  {
+    id: "cybersecurity-notes",
+    title: "Cybersecurity Notes",
+    description:
+      "Explore foundational cybersecurity concepts and security practices.",
+    category: "Cybersecurity",
+    file: CybersecurityNotes,
+    fileName: "1 cybersecurity_notes.pdf",
+  },
 ];
 
 const NOTE_PLACEHOLDERS = [
@@ -76,12 +96,6 @@ const NOTE_PLACEHOLDERS = [
     title: "Coming Soon",
     description:
       "New database and computer science resources.",
-  },
-  {
-    id: "soon-3",
-    title: "Coming Soon",
-    description:
-      "Additional revision notes and study material.",
   },
 ];
 

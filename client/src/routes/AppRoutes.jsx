@@ -36,6 +36,8 @@ import ProjectPortal from "../pages/ProjectPortal";
 // Protected route
 import ProtectedRoute from "./ProtectedRoute";
 
+import StudentAchievers from "../pages/StudentAchievers";
+
 function AppRoutes() {
   return (
     <BrowserRouter>
@@ -147,6 +149,11 @@ function AppRoutes() {
           <Route
             path="/services"
             element={<Services />}
+          />
+
+          <Route
+            path="/achievers"
+            element={<StudentAchievers />}
           />
 
           {/* ===================================================
